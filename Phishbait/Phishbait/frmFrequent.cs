@@ -25,6 +25,9 @@ namespace Phishbait
         {
             List<FrequentItem> Items = Repository
                                         .Find<FrequentItem>(s => s.ItemType == Type)
+                                        .OrderByDescending(s => s.Frequency)
+                                        //TO DO Remove Limit on results!!
+                                        .Take(40)
                                         .ToList();
 
             grdMain.Rows.Clear();

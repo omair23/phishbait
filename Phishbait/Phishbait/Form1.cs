@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -11,8 +8,12 @@ namespace Phishbait
 {
     public partial class Form1 : Form
     {
-        int FrequentItems_MinimumLength = 3;
-        int FrequentItems_Confidence = 3;
+        int FrequentItems_MinimumLength;
+        int FrequentItems_Confidence;
+        double PassValue;
+        double UrlAnalysisWeight;
+        double UrlFqWeight;
+
         UrlStatistic CombinedStats;
         PhishModel db;
         EFRepository Repository;
@@ -29,13 +30,104 @@ namespace Phishbait
             txtUrl.Text = "www.google.com";
 
             CombinedStats = Repository.Find<UrlStatistic>(s => s.Type == StatisticType.Overall).FirstOrDefault();
+
+            //Cold start Database
+            //AlgorithmClass.ColdStartDb();
+
+            ConfigItemsGet();
+        }
+
+        public void SimulateQueries()
+        {
+            List<Resource> Resources = Repository.GetAll<Resource>().Take(1000).ToList();
+
+            foreach(var item in Resources)
+            {
+                DetectUrl(item.Url);
+            }
+        }
+
+        public void ConfigItemsGet()
+        {
+            Dictionary<string, string> Configs = Repository
+                                                .GetAll<Configuration>()
+                                                .ToDictionary(s => s.Parameter, z => z.Value);
+
+            try
+            {
+                FrequentItems_MinimumLength = Convert.ToInt32(Configs["FrequentItems_MinimumLength"]);
+
+                FrequentItems_Confidence = Convert.ToInt32(Configs["FrequentItems_Confidence"]);
+
+                UrlAnalysisWeight = Convert.ToDouble(Configs["UrlAnalysisWeight"]);
+
+                UrlFqWeight = Convert.ToDouble(Configs["UrlFqWeight"]);
+
+                PassValue = Convert.ToDouble(Configs["PassValue"]);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+        }
+
+        public void DetectUrl(string Url)
+        {
+            Resource Resource = Repository
+                    .Find<Resource>(s => s.Url == Url)
+                    .FirstOrDefault();
+
+            bool IsNewRecord = false;
+
+            if (Resource == null)
+            {
+                Resource = new Resource(Url);
+                IsNewRecord = true;
+            }
+
+            Resource = URLDetection(Url, Resource);
+
+            Resource = FrequentItemDetection(Url, Resource);
+
+            Resource.OverallRiskPercentage = (Resource.UrlFrequentPercentage * UrlFqWeight / 100)
+                                           + (Resource.UrlAnalysisPercentage * UrlAnalysisWeight / 100);
+
+            Resource.OverallRiskPercentage = Math.Round(Resource.OverallRiskPercentage, 2);
+
+            if (IsNewRecord)
+                Repository.Add(Resource);
+            else
+                Repository.Update(Resource);
+
+            txtWeights.Text = "Weightings:"
+                                + Environment.NewLine
+                                + "Url Frequent Items = "
+                                + UrlFqWeight.ToString() + "%"
+                                + Environment.NewLine
+                                + "Url Text Analysis = "
+                                + UrlAnalysisWeight.ToString() + "%";
+
+            lblOverallAnalysis.Text = Resource.OverallRiskPercentage.ToString() + " %";
+
+            if (Resource.OverallRiskPercentage >= PassValue)
+                lblOverallAnalysis.ForeColor = System.Drawing.Color.Red;
+            else
+                lblOverallAnalysis.ForeColor = System.Drawing.Color.Green;
+
+            grpOverall.Visible = true;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            //SimulateQueries();
+
             string Url = txtUrl.Text;
 
-            string htmlCode;
+            DetectUrl(Url);
+
+            //string htmlCode;
 
             //Get Source code of URL
             //using (WebClient client = new WebClient())
@@ -52,67 +144,83 @@ namespace Phishbait
 
             //    var y = 1;
             //}
-
-            URLDetection(Url);
-
-            FrequentItemDetection(Url);
         }
 
-        public void URLDetection(string Url)
+        public Resource URLDetection(string Url, Resource Resource)
         {
-            bool IsNewRecord = false;
-
-            Resource Resource = Repository
-                                .Find<Resource>(s => s.Url == Url)
-                                .FirstOrDefault();
-
-            if (Resource == null)
-            {
-                Resource = new Resource(Url);
-                IsNewRecord = true;
-            }
-
             int ProbabilityCounter = 0;
 
             if (CombinedStats == null)
             {
                 MessageBox.Show("Error: Cannot conduct analysis, baseline data not found");
-                return;
+                return Resource;
             }
 
             Resource.SetDetectionVariables();
 
+            //if (Resource.NumberOfFullStops > CombinedStats.FullStopAverage)
+            //    ProbabilityCounter += 1;
+
+            //if (Resource.NumberOfAtSymbols > CombinedStats.AtSymbolsAverage)
+            //    ProbabilityCounter += 1;
+
+            //if (Resource.NumberOfForwardSlashes > CombinedStats.ForwardSlashAverage)
+            //    ProbabilityCounter += 1;
+
+            //if (Resource.NumberOfMultipleForwardSlashes > CombinedStats.MultipleForwardSlashAverage)
+            //    ProbabilityCounter += 1;
+
+            //if (CombinedStats.AverageIPAddress <= 0.5)
+            //{
+            //    if (Resource.HasIPAddress)
+            //        ProbabilityCounter += 1;
+            //}
+
+            //if (CombinedStats.AveragePortNumbers <= 0.5)
+            //{
+            //    if (Resource.HasPortNumber)
+            //        ProbabilityCounter += 1;
+            //}
+
+            //if (CombinedStats.AverageBadHttps <= 0.5)
+            //{
+            //    if (Resource.IsBadHttps)
+            //        ProbabilityCounter += 1;
+            //}
+
+            //New Method
+            double OverallUrl = 0;
+
+            if (Resource.IsBadHttps)
+                OverallUrl += CombinedStats.AverageBadHttps;
+
+            if (Resource.HasPortNumber)
+                OverallUrl += CombinedStats.AveragePortNumbers;
+
+            if (Resource.HasIPAddress)
+                OverallUrl += CombinedStats.AverageIPAddress;
+
             if (Resource.NumberOfFullStops > CombinedStats.FullStopAverage)
-                ProbabilityCounter += 1;
+                OverallUrl += (Resource.NumberOfFullStops - CombinedStats.FullStopAverage);
 
             if (Resource.NumberOfAtSymbols > CombinedStats.AtSymbolsAverage)
-                ProbabilityCounter += 1;
+                OverallUrl += (Resource.NumberOfAtSymbols - CombinedStats.AtSymbolsAverage);
 
             if (Resource.NumberOfForwardSlashes > CombinedStats.ForwardSlashAverage)
-                ProbabilityCounter += 1;
+                OverallUrl += (Resource.NumberOfForwardSlashes - CombinedStats.ForwardSlashAverage);
 
             if (Resource.NumberOfMultipleForwardSlashes > CombinedStats.MultipleForwardSlashAverage)
-                ProbabilityCounter += 1;
+                OverallUrl += (Resource.NumberOfMultipleForwardSlashes - CombinedStats.MultipleForwardSlashAverage);
 
-            if (CombinedStats.AverageIPAddress <= 0.5)
-            {
-                if (Resource.HasIPAddress)
-                    ProbabilityCounter += 1;
-            }
+            OverallUrl = OverallUrl * 100;
+            //txtUrl.Text = OverallUrl.ToString();
+            //End of new method
 
-            if (CombinedStats.AveragePortNumbers <= 0.5)
-            {
-                if (Resource.HasPortNumber)
-                    ProbabilityCounter += 1;
-            }
+            double ProbabilityPercentage = ProbabilityCounter * 100 / 7;
+            ProbabilityPercentage = OverallUrl;
 
-            if (CombinedStats.AverageBadHttps <= 0.5)
-            {
-                if (Resource.IsBadHttps)
-                    ProbabilityCounter += 1;
-            }
-
-            if (ProbabilityCounter >= 3)
+            //if (ProbabilityCounter >= 3)
+            if (OverallUrl > PassValue)
                 Resource.IsPhishing = true;
 
             if (Resource.IsPhishing)
@@ -126,7 +234,11 @@ namespace Phishbait
                 lblFishPercentage.ForeColor = System.Drawing.Color.Green;
             }
 
-            double ProbabilityPercentage = ProbabilityCounter * 100 / 7;
+            if (ProbabilityPercentage > 100)
+                ProbabilityPercentage = 100;
+
+            Resource.UrlAnalysisPercentage = ProbabilityPercentage;
+
             lblFishPercentage.Text = ProbabilityPercentage.ToString() + " %";
 
             grdUrlAnalysis.Rows.Clear();
@@ -142,15 +254,12 @@ namespace Phishbait
 
             grpUrl.Visible = true;
 
-            if (IsNewRecord)
-                Repository.Add(Resource);
-            else
-                Repository.Update(Resource);
+            return Resource;
         }
 
         #region FrequentItems
 
-        public void FrequentItemDetection(string Url)
+        public Resource FrequentItemDetection(string Url, Resource Resource)
         {
             //Cleaning URL
             Regex rgx = new Regex("[^a-zA-Z0-9 -]");
@@ -181,6 +290,7 @@ namespace Phishbait
                             .Select(s => s.Term)
                             .Intersect(SplitUrl)
                             .Except(IgnoreRules.Select(x => x.Term))
+                            //Perhaps reconsider
                             .Except(PositiveNonUnion)
                             .ToList();
 
@@ -200,7 +310,7 @@ namespace Phishbait
             ProbabilityCounter = ProbabilityCounter * 100 / TotalRecords;
 
             // 50% probability
-            if (ProbabilityCounter >= 50)
+            if (ProbabilityCounter >= PassValue)
                 IsPhishing = true;
 
             if (IsPhishing)
@@ -216,7 +326,11 @@ namespace Phishbait
 
             lblFreqPercentage.Text = ProbabilityCounter.ToString() + " %";
 
+            Resource.UrlFrequentPercentage = ProbabilityCounter;
+
             grpFrequent.Visible = true;
+
+            return Resource;
         }
 
         public void FrequentItemCounter()
@@ -286,6 +400,12 @@ namespace Phishbait
         private void statsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmStats Form = new frmStats();
+            Form.Show();
+        }
+
+        private void resourcesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmResource Form = new frmResource();
             Form.Show();
         }
     }

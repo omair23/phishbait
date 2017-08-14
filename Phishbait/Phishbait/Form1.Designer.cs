@@ -60,6 +60,11 @@
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frequentItemCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uRLAnalysisCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpOverall = new System.Windows.Forms.GroupBox();
+            this.txtWeights = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblOverallAnalysis = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpFrequent.SuspendLayout();
@@ -67,41 +72,42 @@
             this.grpUrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.grpOverall.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(412, 11);
+            this.btnSubmit.Location = new System.Drawing.Point(371, 39);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(147, 23);
             this.btnSubmit.TabIndex = 0;
-            this.btnSubmit.Text = "Verify";
+            this.btnSubmit.Text = "Process";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(159, 13);
+            this.txtUrl.Location = new System.Drawing.Point(33, 41);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(231, 20);
+            this.txtUrl.Size = new System.Drawing.Size(326, 20);
             this.txtUrl.TabIndex = 1;
             // 
             // lblUrl
             // 
             this.lblUrl.AutoSize = true;
-            this.lblUrl.Location = new System.Drawing.Point(10, 16);
+            this.lblUrl.Location = new System.Drawing.Point(30, 16);
             this.lblUrl.Name = "lblUrl";
-            this.lblUrl.Size = new System.Drawing.Size(143, 13);
+            this.lblUrl.Size = new System.Drawing.Size(155, 13);
             this.lblUrl.TabIndex = 2;
-            this.lblUrl.Text = "Please enter a URL to verify:";
+            this.lblUrl.Text = "Please enter a URL to process:";
             // 
             // lblFishPercentage
             // 
             this.lblFishPercentage.AutoSize = true;
-            this.lblFishPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFishPercentage.Location = new System.Drawing.Point(351, 44);
+            this.lblFishPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFishPercentage.Location = new System.Drawing.Point(322, 44);
             this.lblFishPercentage.Name = "lblFishPercentage";
-            this.lblFishPercentage.Size = new System.Drawing.Size(96, 42);
+            this.lblFishPercentage.Size = new System.Drawing.Size(84, 37);
             this.lblFishPercentage.TabIndex = 4;
             this.lblFishPercentage.Text = "97%";
             // 
@@ -110,9 +116,9 @@
             this.groupBox1.Controls.Add(this.btnSubmit);
             this.groupBox1.Controls.Add(this.txtUrl);
             this.groupBox1.Controls.Add(this.lblUrl);
-            this.groupBox1.Location = new System.Drawing.Point(12, 42);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(577, 44);
+            this.groupBox1.Size = new System.Drawing.Size(528, 91);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
@@ -121,7 +127,7 @@
             this.groupBox2.Controls.Add(this.grpFrequent);
             this.groupBox2.Controls.Add(this.grpUrl);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 91);
+            this.groupBox2.Location = new System.Drawing.Point(12, 124);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(853, 368);
             this.groupBox2.TabIndex = 7;
@@ -139,7 +145,7 @@
             this.grpFrequent.Size = new System.Drawing.Size(354, 334);
             this.grpFrequent.TabIndex = 8;
             this.grpFrequent.TabStop = false;
-            this.grpFrequent.Text = "Frequent Items";
+            this.grpFrequent.Text = "URL Frequent Items";
             this.grpFrequent.Visible = false;
             // 
             // label2
@@ -154,10 +160,10 @@
             // lblFreqPercentage
             // 
             this.lblFreqPercentage.AutoSize = true;
-            this.lblFreqPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFreqPercentage.Location = new System.Drawing.Point(237, 44);
+            this.lblFreqPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFreqPercentage.Location = new System.Drawing.Point(227, 44);
             this.lblFreqPercentage.Name = "lblFreqPercentage";
-            this.lblFreqPercentage.Size = new System.Drawing.Size(96, 42);
+            this.lblFreqPercentage.Size = new System.Drawing.Size(84, 37);
             this.lblFreqPercentage.TabIndex = 9;
             this.lblFreqPercentage.Text = "97%";
             // 
@@ -206,13 +212,13 @@
             this.grpUrl.Size = new System.Drawing.Size(468, 334);
             this.grpUrl.TabIndex = 6;
             this.grpUrl.TabStop = false;
-            this.grpUrl.Text = "URL Analysis";
+            this.grpUrl.Text = "URL Text Analysis";
             this.grpUrl.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(340, 24);
+            this.label1.Location = new System.Drawing.Point(325, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 15);
             this.label1.TabIndex = 8;
@@ -282,10 +288,11 @@
             this.frequentItemsToolStripMenuItem,
             this.configurationToolStripMenuItem,
             this.statsToolStripMenuItem,
-            this.tasksToolStripMenuItem});
+            this.tasksToolStripMenuItem,
+            this.resourcesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(942, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -362,11 +369,60 @@
             this.uRLAnalysisCalculatorToolStripMenuItem.Text = "URL Analysis Calculator";
             this.uRLAnalysisCalculatorToolStripMenuItem.Click += new System.EventHandler(this.uRLAnalysisCalculatorToolStripMenuItem_Click);
             // 
+            // resourcesToolStripMenuItem
+            // 
+            this.resourcesToolStripMenuItem.Name = "resourcesToolStripMenuItem";
+            this.resourcesToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.resourcesToolStripMenuItem.Text = "Resources";
+            this.resourcesToolStripMenuItem.Click += new System.EventHandler(this.resourcesToolStripMenuItem_Click);
+            // 
+            // grpOverall
+            // 
+            this.grpOverall.Controls.Add(this.txtWeights);
+            this.grpOverall.Controls.Add(this.label3);
+            this.grpOverall.Controls.Add(this.lblOverallAnalysis);
+            this.grpOverall.Location = new System.Drawing.Point(546, 27);
+            this.grpOverall.Name = "grpOverall";
+            this.grpOverall.Size = new System.Drawing.Size(319, 100);
+            this.grpOverall.TabIndex = 10;
+            this.grpOverall.TabStop = false;
+            this.grpOverall.Text = "Overall Results";
+            this.grpOverall.Visible = false;
+            // 
+            // txtWeights
+            // 
+            this.txtWeights.Location = new System.Drawing.Point(6, 27);
+            this.txtWeights.Multiline = true;
+            this.txtWeights.Name = "txtWeights";
+            this.txtWeights.ReadOnly = true;
+            this.txtWeights.Size = new System.Drawing.Size(156, 64);
+            this.txtWeights.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(175, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(99, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Analysis Probability:";
+            // 
+            // lblOverallAnalysis
+            // 
+            this.lblOverallAnalysis.AutoSize = true;
+            this.lblOverallAnalysis.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOverallAnalysis.Location = new System.Drawing.Point(168, 41);
+            this.lblOverallAnalysis.Name = "lblOverallAnalysis";
+            this.lblOverallAnalysis.Size = new System.Drawing.Size(140, 42);
+            this.lblOverallAnalysis.TabIndex = 11;
+            this.lblOverallAnalysis.Text = "97.5 %";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 537);
+            this.ClientSize = new System.Drawing.Size(871, 537);
+            this.Controls.Add(this.grpOverall);
             this.Controls.Add(this.lblSystemStatus);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -385,6 +441,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.grpOverall.ResumeLayout(false);
+            this.grpOverall.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -424,6 +482,11 @@
         private System.Windows.Forms.ToolStripMenuItem tasksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frequentItemCalculatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uRLAnalysisCalculatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resourcesToolStripMenuItem;
+        private System.Windows.Forms.GroupBox grpOverall;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblOverallAnalysis;
+        private System.Windows.Forms.TextBox txtWeights;
     }
 }
 

@@ -10,6 +10,12 @@ namespace Phishbait
 
         }
 
+        public Configuration(string pParameter, string pValue)
+        {
+            Parameter = pParameter;
+            Value = pValue;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long UID { get; set; }

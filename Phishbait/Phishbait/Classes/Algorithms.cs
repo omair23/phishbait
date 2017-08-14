@@ -171,5 +171,22 @@ namespace Phishbait
 
             return "";
         }
+
+        public void ColdStartDb()
+        {
+            //Configuration Model
+
+            List<Configuration> ExistingConfigs = Repository.GetAll<Configuration>().ToList();
+            Repository.DeleteMultiple(ExistingConfigs);
+
+            List<Configuration> Configs = new List<Configuration>();
+            Configs.Add(new Configuration("FrequentItems_MinimumLength", "3"));
+            Configs.Add(new Configuration("FrequentItems_Confidence", "3"));
+            Configs.Add(new Configuration("UrlAnalysisWeight", "50"));
+            Configs.Add(new Configuration("UrlFqWeight", "50"));
+            Configs.Add(new Configuration("PassValue", "50"));
+
+            Repository.AddMultiple(Configs);
+        }
     }
 }

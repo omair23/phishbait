@@ -96,6 +96,12 @@
     <Compile Include="frmImport.Designer.cs">
       <DependentUpon>frmImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmResource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmResource.Designer.cs">
+      <DependentUpon>frmResource.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmStats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,10 @@
     <Compile Include="Migrations\201708061413487_Startup1.cs" />
     <Compile Include="Migrations\201708061413487_Startup1.Designer.cs">
       <DependentUpon>201708061413487_Startup1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708120720009_Startup10.cs" />
+    <Compile Include="Migrations\201708120720009_Startup10.Designer.cs">
+      <DependentUpon>201708120720009_Startup10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
@@ -137,6 +147,9 @@
     <EmbeddedResource Include="frmImport.resx">
       <DependentUpon>frmImport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmResource.resx">
+      <DependentUpon>frmResource.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmStats.resx">
       <DependentUpon>frmStats.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708061413487_Startup1.resx">
       <DependentUpon>201708061413487_Startup1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708120720009_Startup10.resx">
+      <DependentUpon>201708120720009_Startup10.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

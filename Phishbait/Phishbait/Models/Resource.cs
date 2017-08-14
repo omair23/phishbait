@@ -35,6 +35,16 @@ namespace Phishbait
 
         public PhishDataType ItemType { get; set; }
 
+        //System Generated/Calculated Values
+
+        public double UrlAnalysisPercentage { get; set; }
+
+        public double UrlFrequentPercentage { get; set; }
+
+        public double OverallRiskPercentage { get; set; }
+
+        ////////////////////////////////////
+
         //public bool IsPredeterminedPhishing { get; set; }
 
         //public bool IsPredeterminedTrusted { get; set; }
@@ -75,6 +85,9 @@ namespace Phishbait
             NumberOfMultipleForwardSlashes = Regex.Matches(Url, "///").Count;
 
             HasIPAddress = Regex.Match(Url, @"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b").Success;
+
+            if (HasIPAddress)
+                NumberOfFullStops = NumberOfFullStops - 3;
 
             HasPortNumber = Regex.Match(Url, @"\b(:\d{1,5})\b").Success;
 
