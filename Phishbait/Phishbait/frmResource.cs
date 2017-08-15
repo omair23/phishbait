@@ -1,11 +1,10 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Phishbait
@@ -49,36 +48,48 @@ namespace Phishbait
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    byte[] file;
+            try
+            {
+                string Path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            //    FileInfo fi = new FileInfo("wwwroot/assets/fulcrum/apps/Tax180/docs/OutputEligibleTemplate.xlsx");
-            //    var testData = _tax180Service.GetEligibleSnapshotsForExcel(AssessmentId);
-            //    using (var package = new ExcelPackage(fi))
-            //    {
-            //        ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-            //        worksheet.InsertRow(5, testData.Count() - 1);
-            //        worksheet.Cells["A5"].LoadFromArrays(testData);
-            //        worksheet.Cells["C2"].Value = assessment.EndDate;
-            //        worksheet.Cells["F2"].Value = clientinfo.RegisteredName;
-            //        worksheet.Cells["I2"].Value = assessment.DateOfReport;
+                byte[] file;
 
-            //        worksheet.Cells[testData.Count() + 5, 20].Formula = "SUM(T5:T" + (testData.Count() + 4).ToString() + ")";
-            //        worksheet.Cells[testData.Count() + 5, 21].Formula = "SUM(U5:U" + (testData.Count() + 4).ToString() + ")";
-            //        worksheet.Cells[testData.Count() + 5, 22].Formula = "SUM(V5:V" + (testData.Count() + 4).ToString() + ")";
+                string ExcelFileName = Path + @"\ExcelFile.xlsx";
+                FileInfo fi = new FileInfo(ExcelFileName);
 
-            //        var stream = new MemoryStream(package.GetAsByteArray());
-            //        file = stream.ToArray();
-            //    }
+                List<object[]> testData = new List<object[]>();
 
-            //    string filename = assessment.Name + "_Eligible.xlsx";
-            //    return File(file, "application/octet-stream", filename);
-            //}
-            //catch (Exception ex)
-            //{
+                foreach (var item in Items)
+                {
+                    testData.Add(new object[] {
+                    item.UID,
+                    item.Url,
+                    item.UrlAnalysisPercentage,
+                    item.UrlFrequentPercentage,
+                    item.OverallRiskPercentage,
+                    item.ItemType.ToString()});
+                }
+
+                using (var package = new ExcelPackage(fi))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+
+                    worksheet.Cells["A2"].LoadFromArrays(testData);
+
+                    ExcelWorksheet Analysis = package.Workbook.Worksheets[2];
+
+                    var stream = new MemoryStream(package.GetAsByteArray());
+                    file = stream.ToArray();
+                }
+
+                File.WriteAllBytes(Path + "\\NewFile.xlsx", file);
+
+                MessageBox.Show("File successfully generated");
+            }
+            catch (Exception ex)
+            {
                 
-            //}
+            }
         }
     }
 }
