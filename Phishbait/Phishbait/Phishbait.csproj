@@ -123,6 +123,10 @@
     <Compile Include="Migrations\201708120720009_Startup10.Designer.cs">
       <DependentUpon>201708120720009_Startup10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708151759230_Resource cleanup.cs" />
+    <Compile Include="Migrations\201708151759230_Resource cleanup.Designer.cs">
+      <DependentUpon>201708151759230_Resource cleanup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708120720009_Startup10.resx">
       <DependentUpon>201708120720009_Startup10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708151759230_Resource cleanup.resx">
+      <DependentUpon>201708151759230_Resource cleanup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
