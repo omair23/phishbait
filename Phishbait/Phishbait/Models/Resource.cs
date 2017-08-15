@@ -29,10 +29,6 @@ namespace Phishbait
 
         public string PageContent { get; set; }
 
-        public double PhishingUrlProbability { get; set; }
-
-        public double PhishingFrequentProbability { get; set; }
-
         public PhishDataType ItemType { get; set; }
 
         //System Generated/Calculated Values
@@ -44,10 +40,6 @@ namespace Phishbait
         public double OverallRiskPercentage { get; set; }
 
         ////////////////////////////////////
-
-        //public bool IsPredeterminedPhishing { get; set; }
-
-        //public bool IsPredeterminedTrusted { get; set; }
 
         public bool IsPhishing { get; set; }
 
