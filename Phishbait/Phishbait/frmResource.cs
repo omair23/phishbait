@@ -82,7 +82,14 @@ namespace Phishbait
                     file = stream.ToArray();
                 }
 
-                File.WriteAllBytes(Path + "\\NewFile.xlsx", file);
+                SaveFileDialog save = new SaveFileDialog();
+                save.FileName = "Phishbait Analysis.xlsx";
+                save.Filter = "Excel File | *.xlsx";
+
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllBytes(save.FileName, file);
+                }
 
                 MessageBox.Show("File successfully generated");
             }
