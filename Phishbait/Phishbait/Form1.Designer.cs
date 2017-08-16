@@ -65,6 +65,7 @@
             this.txtWeights = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblOverallAnalysis = new System.Windows.Forms.Label();
+            this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpFrequent.SuspendLayout();
@@ -350,7 +351,8 @@
             // 
             this.tasksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.frequentItemCalculatorToolStripMenuItem,
-            this.uRLAnalysisCalculatorToolStripMenuItem});
+            this.uRLAnalysisCalculatorToolStripMenuItem,
+            this.simulateURLAnalysisToolStripMenuItem});
             this.tasksToolStripMenuItem.Name = "tasksToolStripMenuItem";
             this.tasksToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.tasksToolStripMenuItem.Text = "Tasks";
@@ -416,6 +418,13 @@
             this.lblOverallAnalysis.Size = new System.Drawing.Size(140, 42);
             this.lblOverallAnalysis.TabIndex = 11;
             this.lblOverallAnalysis.Text = "97.5 %";
+            // 
+            // simulateURLAnalysisToolStripMenuItem
+            // 
+            this.simulateURLAnalysisToolStripMenuItem.Name = "simulateURLAnalysisToolStripMenuItem";
+            this.simulateURLAnalysisToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.simulateURLAnalysisToolStripMenuItem.Text = "Simulate URL Analysis";
+            this.simulateURLAnalysisToolStripMenuItem.Click += new System.EventHandler(this.simulateURLAnalysisToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -487,6 +496,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblOverallAnalysis;
         private System.Windows.Forms.TextBox txtWeights;
+        private System.Windows.Forms.ToolStripMenuItem simulateURLAnalysisToolStripMenuItem;
     }
 }
 

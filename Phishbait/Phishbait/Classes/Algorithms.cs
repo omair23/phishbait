@@ -122,20 +122,28 @@ namespace Phishbait
             Repository.AddMultiple(NewStats);
         }
 
+        public static double MinusFunction(double A, double B)
+        {
+            if (A > B)
+                return A - B;
+            else
+                return B - A;
+        }
+
         public static UrlStatistic OverallStatsCalc(UrlStatistic BadSites, UrlStatistic GoodSites)
         {
             UrlStatistic Stat = new UrlStatistic(StatisticType.Overall);
 
-            Stat.AtSymbolsAverage = BadSites.AtSymbolsAverage - GoodSites.AtSymbolsAverage;
-            Stat.AverageBadHttps = BadSites.AverageBadHttps - GoodSites.AverageBadHttps;
+            Stat.AtSymbolsAverage = MinusFunction(BadSites.AtSymbolsAverage, GoodSites.AtSymbolsAverage);
+            Stat.AverageBadHttps = MinusFunction(BadSites.AverageBadHttps, GoodSites.AverageBadHttps);
 
-            Stat.AverageIPAddress = BadSites.AverageIPAddress - GoodSites.AverageIPAddress;
-            Stat.AveragePortNumbers = BadSites.AveragePortNumbers - GoodSites.AveragePortNumbers;
+            Stat.AverageIPAddress = MinusFunction(BadSites.AverageIPAddress, GoodSites.AverageIPAddress);
+            Stat.AveragePortNumbers = MinusFunction(BadSites.AveragePortNumbers, GoodSites.AveragePortNumbers);
 
-            Stat.ForwardSlashAverage = BadSites.ForwardSlashAverage - GoodSites.ForwardSlashAverage;
-            Stat.FullStopAverage = BadSites.FullStopAverage - GoodSites.FullStopAverage;
+            Stat.ForwardSlashAverage = MinusFunction(BadSites.ForwardSlashAverage, GoodSites.ForwardSlashAverage);
+            Stat.FullStopAverage = MinusFunction(BadSites.FullStopAverage, GoodSites.FullStopAverage);
 
-            Stat.MultipleForwardSlashAverage = BadSites.MultipleForwardSlashAverage - GoodSites.MultipleForwardSlashAverage;
+            Stat.MultipleForwardSlashAverage = MinusFunction(BadSites.MultipleForwardSlashAverage, GoodSites.MultipleForwardSlashAverage);
 
 
             return Stat;

@@ -29,7 +29,8 @@ namespace Phishbait
 
             grdMain.Rows.Clear();
 
-            foreach (var item in Items)
+            //TO DO Remove Take Limit
+            foreach (var item in Items.Take(50))
             {
                 grdMain.Rows.Add(item.UID,
                                 item.Url,

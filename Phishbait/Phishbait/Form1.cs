@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -35,6 +36,52 @@ namespace Phishbait
             //AlgorithmClass.ColdStartDb();
 
             ConfigItemsGet();
+
+            //ImportTrusted();
+
+            List<double> mine = new List<double>();
+            mine.Add(3.14);
+            mine.Add(3.69);
+            mine.Add(3.22);
+
+            double average = mine.Average();
+            double sumOfSquaresOfDifferences = mine.Select(val => (val - average) * (val - average)).Sum();
+            double sd = Math.Sqrt(sumOfSquaresOfDifferences / mine.Count);
+
+            var x = 1;
+        }
+
+        public void ImportTrusted()
+        {
+            List<Resource> Resources = new List<Resource>();
+
+            var lines = File.ReadLines(@"C:\Users\okazi\Desktop\bookmarks_8_15_17.html");
+
+            foreach (var line in lines)
+            {
+                string match = GetStrBetweenTags(line, "HREF=", "ADD_DATE");
+                Resource res = new Resource();
+
+                res.Url = match.Trim();
+
+                res.ItemType = PhishDataType.Positive;
+                Resources.Add(res);
+            }
+
+            Repository.AddMultiple(Resources);
+        }
+
+        public string GetStrBetweenTags(string value,
+                                       string startTag,
+                                       string endTag)
+        {
+            if (value.Contains(startTag) && value.Contains(endTag))
+            {
+                int index = value.IndexOf(startTag) + startTag.Length;
+                return value.Substring(index, value.IndexOf(endTag) - index);
+            }
+            else
+                return null;
         }
 
         public void SimulateQueries()
@@ -158,37 +205,6 @@ namespace Phishbait
 
             Resource.SetDetectionVariables();
 
-            //if (Resource.NumberOfFullStops > CombinedStats.FullStopAverage)
-            //    ProbabilityCounter += 1;
-
-            //if (Resource.NumberOfAtSymbols > CombinedStats.AtSymbolsAverage)
-            //    ProbabilityCounter += 1;
-
-            //if (Resource.NumberOfForwardSlashes > CombinedStats.ForwardSlashAverage)
-            //    ProbabilityCounter += 1;
-
-            //if (Resource.NumberOfMultipleForwardSlashes > CombinedStats.MultipleForwardSlashAverage)
-            //    ProbabilityCounter += 1;
-
-            //if (CombinedStats.AverageIPAddress <= 0.5)
-            //{
-            //    if (Resource.HasIPAddress)
-            //        ProbabilityCounter += 1;
-            //}
-
-            //if (CombinedStats.AveragePortNumbers <= 0.5)
-            //{
-            //    if (Resource.HasPortNumber)
-            //        ProbabilityCounter += 1;
-            //}
-
-            //if (CombinedStats.AverageBadHttps <= 0.5)
-            //{
-            //    if (Resource.IsBadHttps)
-            //        ProbabilityCounter += 1;
-            //}
-
-            //New Method
             double OverallUrl = 0;
 
             if (Resource.IsBadHttps)
@@ -201,10 +217,10 @@ namespace Phishbait
                 OverallUrl += CombinedStats.AverageIPAddress;
 
             if (Resource.NumberOfFullStops > CombinedStats.FullStopAverage)
-                OverallUrl += (Resource.NumberOfFullStops - CombinedStats.FullStopAverage);
+                OverallUrl += (Resource.NumberOfFullStops - CombinedStats.FullStopAverage) / CombinedStats.FullStopAverage;
 
             if (Resource.NumberOfAtSymbols > CombinedStats.AtSymbolsAverage)
-                OverallUrl += (Resource.NumberOfAtSymbols - CombinedStats.AtSymbolsAverage);
+                OverallUrl += (Resource.NumberOfAtSymbols * CombinedStats.AtSymbolsAverage);
 
             if (Resource.NumberOfForwardSlashes > CombinedStats.ForwardSlashAverage)
                 OverallUrl += (Resource.NumberOfForwardSlashes - CombinedStats.ForwardSlashAverage);
@@ -307,7 +323,10 @@ namespace Phishbait
                 ProbabilityCounter += 1;// fitem.Frequency;
             }
 
-            ProbabilityCounter = ProbabilityCounter * 100 / TotalRecords;
+            if (TotalRecords > 0)
+                ProbabilityCounter = ProbabilityCounter * 100 / TotalRecords;
+            else
+                ProbabilityCounter = 0;
 
             // 50% probability
             if (ProbabilityCounter >= PassValue)
@@ -407,6 +426,11 @@ namespace Phishbait
         {
             frmResource Form = new frmResource();
             Form.Show();
+        }
+
+        private void simulateURLAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SimulateQueries();
         }
     }
 }

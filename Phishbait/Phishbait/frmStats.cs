@@ -39,6 +39,8 @@ namespace Phishbait
 
             grdMain.Rows.Add("Number of Ignored Rules:", Repository.GetAll<IgnoreRule>().Count());
 
+            Resources = Resources.Where(s => s.DetectionAnalysisConducted).ToList();
+
             //Correctly Identified
 
             int URLCorrect = Resources
