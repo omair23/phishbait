@@ -27,70 +27,99 @@ namespace Phishbait
                     .Select(a => a.Url)
                     .ToList();
 
+            //K Shingle Method
+            Dictionary<string, int> kdictionary = new Dictionary<string, int>();
+
             foreach (var record in Urls)
             {
-                String result = Regex.Replace(record, @"\p{P}", " ");
-                result = Regex.Replace(result, @"[\d-]", " ");
-                result = result.Replace("=", " ");
-                UrlsCleaned.Add(result);
-            }
-
-            foreach (var item in UrlsCleaned)
-            {
-                var line = item.ToLower().Trim();
-                var words = line.Split(' ');
-
-                foreach (var word in words)
+                for (int i =0; i < record.Length / 3; i++)
                 {
-                    if (String.IsNullOrEmpty(word) || word.Length < FrequentItems_MinimumLength)
-                        continue;
+                    string x = record.Substring(i * 3, 3);
 
-                    if (!dictionary.ContainsKey(word))
+                    if (!kdictionary.ContainsKey(x))
                     {
-                        dictionary.Add(word, 1);
+                        kdictionary.Add(x, 1);
                     }
                     else
                     {
-                        dictionary[word] = dictionary[word] + 1;
+                        kdictionary[x] = kdictionary[x] + 1;
                     }
                 }
 
             }
 
-            List<FrequentItem> FrequentItems = Repository
-                                                .Find<FrequentItem>(s => s.ItemType == Type)
-                                                .ToList();
+            kdictionary = kdictionary
+                            .OrderByDescending(s => s.Value)
+                            //.Where(s => s.Value > 25000)
+                            .ToDictionary(s => s.Key, s => s.Value);
 
-            List<FrequentItem> NewFrequentItems = new List<FrequentItem>();
+            var q = 1;
+            // End Method
 
-            List<FrequentItem> UpdateFrequentItems = new List<FrequentItem>();
+            //foreach (var record in Urls)
+            //{
+            //    String result = Regex.Replace(record, @"\p{P}", " ");
+            //    result = Regex.Replace(result, @"[\d-]", " ");
+            //    result = result.Replace("=", " ");
+            //    UrlsCleaned.Add(result);
+            //}
 
-            foreach (var item in dictionary)
-            {
-                if (item.Value < FrequentItems_Confidence)
-                    continue;
+            //foreach (var item in UrlsCleaned)
+            //{
+            //    var line = item.ToLower().Trim();
+            //    var words = line.Split(' ');
 
-                if (FrequentItems.Any(s => s.Term == item.Key))
-                {
-                    FrequentItem UItem = FrequentItems.Where(s => s.Term == item.Key).FirstOrDefault();
-                    UItem.MinimumFrequency = FrequentItems_MinimumLength;
-                    UItem.Frequency = item.Value;
-                    UItem.ItemType = Type;
-                    UpdateFrequentItems.Add(UItem);
-                }
-                else
-                {
-                    FrequentItem UItem = new FrequentItem();
-                    UItem.Term = item.Key;
-                    UItem.ItemType = Type;
-                    UItem.MinimumFrequency = FrequentItems_MinimumLength;
-                    UItem.Frequency = item.Value;
-                    NewFrequentItems.Add(UItem);
-                }
-            }
+            //    foreach (var word in words)
+            //    {
+            //        if (String.IsNullOrEmpty(word) || word.Length < FrequentItems_MinimumLength)
+            //            continue;
 
-            Repository.AddMultiple(NewFrequentItems);
-            Repository.UpdateMultiple(UpdateFrequentItems);
+            //        if (!dictionary.ContainsKey(word))
+            //        {
+            //            dictionary.Add(word, 1);
+            //        }
+            //        else
+            //        {
+            //            dictionary[word] = dictionary[word] + 1;
+            //        }
+            //    }
+
+            //}
+
+            //List<FrequentItem> FrequentItems = Repository
+            //                                    .Find<FrequentItem>(s => s.ItemType == Type)
+            //                                    .ToList();
+
+            //List<FrequentItem> NewFrequentItems = new List<FrequentItem>();
+
+            //List<FrequentItem> UpdateFrequentItems = new List<FrequentItem>();
+
+            //foreach (var item in dictionary)
+            //{
+            //    if (item.Value < FrequentItems_Confidence)
+            //        continue;
+
+            //    if (FrequentItems.Any(s => s.Term == item.Key))
+            //    {
+            //        FrequentItem UItem = FrequentItems.Where(s => s.Term == item.Key).FirstOrDefault();
+            //        UItem.MinimumFrequency = FrequentItems_MinimumLength;
+            //        UItem.Frequency = item.Value;
+            //        UItem.ItemType = Type;
+            //        UpdateFrequentItems.Add(UItem);
+            //    }
+            //    else
+            //    {
+            //        FrequentItem UItem = new FrequentItem();
+            //        UItem.Term = item.Key;
+            //        UItem.ItemType = Type;
+            //        UItem.MinimumFrequency = FrequentItems_MinimumLength;
+            //        UItem.Frequency = item.Value;
+            //        NewFrequentItems.Add(UItem);
+            //    }
+            //}
+
+            //Repository.AddMultiple(NewFrequentItems);
+            //Repository.UpdateMultiple(UpdateFrequentItems);
         }
         #endregion
 

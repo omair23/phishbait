@@ -39,37 +39,37 @@ namespace Phishbait
 
             //ImportTrusted();
 
-            List<double> mine = new List<double>();
-            mine.Add(3.14);
-            mine.Add(3.69);
-            mine.Add(3.22);
+            //List<double> mine = new List<double>();
+            //mine.Add(3.14);
+            //mine.Add(3.69);
+            //mine.Add(3.22);
 
-            double average = mine.Average();
-            double sumOfSquaresOfDifferences = mine.Select(val => (val - average) * (val - average)).Sum();
-            double sd = Math.Sqrt(sumOfSquaresOfDifferences / mine.Count);
+            //double average = mine.Average();
+            //double sumOfSquaresOfDifferences = mine.Select(val => (val - average) * (val - average)).Sum();
+            //double sd = Math.Sqrt(sumOfSquaresOfDifferences / mine.Count);
 
-            var x = 1;
+            //var x = 1;
         }
 
-        public void ImportTrusted()
-        {
-            List<Resource> Resources = new List<Resource>();
+        //public void ImportTrusted()
+        //{
+        //    List<Resource> Resources = new List<Resource>();
 
-            var lines = File.ReadLines(@"C:\Users\okazi\Desktop\bookmarks_8_15_17.html");
+        //    var lines = File.ReadLines(@"C:\Users\okazi\Desktop\bookmarks_8_15_17.html");
 
-            foreach (var line in lines)
-            {
-                string match = GetStrBetweenTags(line, "HREF=", "ADD_DATE");
-                Resource res = new Resource();
+        //    foreach (var line in lines)
+        //    {
+        //        string match = GetStrBetweenTags(line, "HREF=", "ADD_DATE");
+        //        Resource res = new Resource();
 
-                res.Url = match.Trim();
+        //        res.Url = match.Trim();
 
-                res.ItemType = PhishDataType.Positive;
-                Resources.Add(res);
-            }
+        //        res.ItemType = PhishDataType.Positive;
+        //        Resources.Add(res);
+        //    }
 
-            Repository.AddMultiple(Resources);
-        }
+        //    Repository.AddMultiple(Resources);
+        //}
 
         public string GetStrBetweenTags(string value,
                                        string startTag,
@@ -431,6 +431,12 @@ namespace Phishbait
         private void simulateURLAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SimulateQueries();
+        }
+
+        private void processToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProcess Form = new frmProcess();
+            Form.Show();
         }
     }
 }

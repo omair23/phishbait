@@ -60,12 +60,13 @@
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frequentItemCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uRLAnalysisCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpOverall = new System.Windows.Forms.GroupBox();
             this.txtWeights = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblOverallAnalysis = new System.Windows.Forms.Label();
-            this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpFrequent.SuspendLayout();
@@ -290,7 +291,8 @@
             this.configurationToolStripMenuItem,
             this.statsToolStripMenuItem,
             this.tasksToolStripMenuItem,
-            this.resourcesToolStripMenuItem});
+            this.resourcesToolStripMenuItem,
+            this.processToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(871, 24);
@@ -371,6 +373,13 @@
             this.uRLAnalysisCalculatorToolStripMenuItem.Text = "URL Analysis Calculator";
             this.uRLAnalysisCalculatorToolStripMenuItem.Click += new System.EventHandler(this.uRLAnalysisCalculatorToolStripMenuItem_Click);
             // 
+            // simulateURLAnalysisToolStripMenuItem
+            // 
+            this.simulateURLAnalysisToolStripMenuItem.Name = "simulateURLAnalysisToolStripMenuItem";
+            this.simulateURLAnalysisToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.simulateURLAnalysisToolStripMenuItem.Text = "Simulate URL Analysis";
+            this.simulateURLAnalysisToolStripMenuItem.Click += new System.EventHandler(this.simulateURLAnalysisToolStripMenuItem_Click);
+            // 
             // resourcesToolStripMenuItem
             // 
             this.resourcesToolStripMenuItem.Name = "resourcesToolStripMenuItem";
@@ -419,12 +428,12 @@
             this.lblOverallAnalysis.TabIndex = 11;
             this.lblOverallAnalysis.Text = "97.5 %";
             // 
-            // simulateURLAnalysisToolStripMenuItem
+            // processToolStripMenuItem
             // 
-            this.simulateURLAnalysisToolStripMenuItem.Name = "simulateURLAnalysisToolStripMenuItem";
-            this.simulateURLAnalysisToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.simulateURLAnalysisToolStripMenuItem.Text = "Simulate URL Analysis";
-            this.simulateURLAnalysisToolStripMenuItem.Click += new System.EventHandler(this.simulateURLAnalysisToolStripMenuItem_Click);
+            this.processToolStripMenuItem.Name = "processToolStripMenuItem";
+            this.processToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.processToolStripMenuItem.Text = "Process";
+            this.processToolStripMenuItem.Click += new System.EventHandler(this.processToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -497,6 +506,7 @@
         private System.Windows.Forms.Label lblOverallAnalysis;
         private System.Windows.Forms.TextBox txtWeights;
         private System.Windows.Forms.ToolStripMenuItem simulateURLAnalysisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processToolStripMenuItem;
     }
 }
 
