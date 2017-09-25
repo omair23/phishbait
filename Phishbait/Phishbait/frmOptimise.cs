@@ -17,8 +17,6 @@ namespace Phishbait
 
             db = new PhishModel();
             Repository = new EFRepository(db);
-
-            DrawChart();
         }
 
         public void DrawChart()
@@ -71,14 +69,6 @@ namespace Phishbait
             chart1.Series[6].Points.DataBindY(InvalidHttpsArray);
             var InvalidHttps = Math.Round(PhishingSites.Average(s => Convert.ToInt16(s.IsBadHttps)));
 
-            listBox1.Items.Add("Full Stops: " + FullStops.ToString());
-            listBox1.Items.Add("Forward Slashes: " + ForwardSlashes.ToString());
-            listBox1.Items.Add("Multiple Forward Slashes: " + MultipleFSlashes.ToString());
-            listBox1.Items.Add("At Symbols: " + AtSymbols.ToString());
-            listBox1.Items.Add("IP Address: " + IPAddresses.ToString());
-            listBox1.Items.Add("Port Numbers: " + PortNumbers.ToString());
-            listBox1.Items.Add("Invalid Https: " + InvalidHttps.ToString());
-
             List<Configuration> ConfigItems = new List<Configuration>();
 
             ConfigItems.Add(new Configuration("FullStops", FullStops.ToString()));
@@ -113,67 +103,86 @@ namespace Phishbait
              
              */
 
-            int HttpsWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                    && s.NumberOfForwardSlashes <= 1
-                                                    && s.NumberOfMultipleForwardSlashes < 1
-                                                    && s.NumberOfAtSymbols < 1
-                                                    && s.HasIPAddress == false
-                                                    && s.HasPortNumber == false
-                                                    && s.IsBadHttps == true)
+            int HttpsWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    //&& s.NumberOfForwardSlashes <= 1
+                                                    //&& s.NumberOfMultipleForwardSlashes < 1
+                                                    //&& s.NumberOfAtSymbols < 1
+                                                    //&& s.HasIPAddress == false
+                                                    //&& s.HasPortNumber == false
+                                                    //&& 
+                                                    s.IsBadHttps == true)
                                                     .Count();
 
-            int PortsWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                    && s.NumberOfForwardSlashes <= 1
-                                                    && s.NumberOfMultipleForwardSlashes < 1
-                                                    && s.NumberOfAtSymbols < 1
-                                                    && s.HasIPAddress == false
-                                                    && s.HasPortNumber == true
-                                                    && s.IsBadHttps == false)
+            int PortsWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    //&& s.NumberOfForwardSlashes <= 1
+                                                    //&& s.NumberOfMultipleForwardSlashes < 1
+                                                    //&& s.NumberOfAtSymbols < 1
+                                                    //&& s.HasIPAddress == false
+                                                    //&& 
+                                                    s.HasPortNumber == true
+                                                    //&& s.IsBadHttps == false
+                                                    )
                                                     .Count();
 
-            int IPWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                    && s.NumberOfForwardSlashes <= 1
-                                                    && s.NumberOfMultipleForwardSlashes < 1
-                                                    && s.NumberOfAtSymbols < 1
-                                                    && s.HasIPAddress == true
-                                                    && s.HasPortNumber == false
-                                                    && s.IsBadHttps == false)
+            int IPWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    //&& s.NumberOfForwardSlashes <= 1
+                                                    //&& s.NumberOfMultipleForwardSlashes < 1
+                                                    //&& s.NumberOfAtSymbols < 1
+                                                    //&& 
+                                                    s.HasIPAddress == true
+                                                    //&& s.HasPortNumber == false
+                                                    //&& s.IsBadHttps == false
+                                                    )
                                                     .Count();
 
-            int AtSymbolWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                    && s.NumberOfForwardSlashes <= 1
-                                                    && s.NumberOfMultipleForwardSlashes < 1
-                                                    && s.NumberOfAtSymbols >= 1
-                                                    && s.HasIPAddress == false
-                                                    && s.HasPortNumber == false
-                                                    && s.IsBadHttps == false)
+            int AtSymbolWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    //&& s.NumberOfForwardSlashes <= 1
+                                                    //&& s.NumberOfMultipleForwardSlashes < 1
+                                                    //&& 
+                                                    s.NumberOfAtSymbols >= 1
+                                                    //&& s.HasIPAddress == false
+                                                    //&& s.HasPortNumber == false
+                                                    //&& s.IsBadHttps == false
+                                                    )
                                                     .Count();
 
-            int MultipleFSlashWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                    && s.NumberOfForwardSlashes <= 1
-                                                    && s.NumberOfMultipleForwardSlashes >= 1
-                                                    && s.NumberOfAtSymbols < 1
-                                                    && s.HasIPAddress == false
-                                                    && s.HasPortNumber == false
-                                                    && s.IsBadHttps == false)
+            int MultipleFSlashWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    //&& s.NumberOfForwardSlashes <= 1
+                                                    //&& 
+                                                    s.NumberOfMultipleForwardSlashes >= 1
+                                                    //&& s.NumberOfAtSymbols < 1
+                                                    //&& s.HasIPAddress == false
+                                                    //&& s.HasPortNumber == false
+                                                    //&& s.IsBadHttps == false
+                                                    )
                                                     .Count();
 
-            int ForwardSlashesWeight = PhishingSites.Where(s => s.NumberOfFullStops <= 2
-                                                     && s.NumberOfForwardSlashes > 1
-                                                     && s.NumberOfMultipleForwardSlashes < 1
-                                                     && s.NumberOfAtSymbols < 1
-                                                     && s.HasIPAddress == false
-                                                     && s.HasPortNumber == false
-                                                     && s.IsBadHttps == false)
+            int ForwardSlashesWeight = PhishingSites.Where(s => 
+                                                    //s.NumberOfFullStops <= 2
+                                                    // && 
+                                                     s.NumberOfForwardSlashes > 1
+                                                     //&& s.NumberOfMultipleForwardSlashes < 1
+                                                     //&& s.NumberOfAtSymbols < 1
+                                                     //&& s.HasIPAddress == false
+                                                     //&& s.HasPortNumber == false
+                                                     //&& s.IsBadHttps == false
+                                                     )
                                                     .Count();
 
-            int FullStopsWeight = PhishingSites.Where(s => s.NumberOfFullStops > 2
-                                                     && s.NumberOfForwardSlashes <= 1
-                                                     && s.NumberOfMultipleForwardSlashes < 1
-                                                     && s.NumberOfAtSymbols < 1
-                                                     && s.HasIPAddress == false
-                                                     && s.HasPortNumber == false
-                                                     && s.IsBadHttps == false)
+            int FullStopsWeight = PhishingSites.Where(s => 
+                                                    s.NumberOfFullStops > 2
+                                                     //&& s.NumberOfForwardSlashes <= 1
+                                                     //&& s.NumberOfMultipleForwardSlashes < 1
+                                                     //&& s.NumberOfAtSymbols < 1
+                                                     //&& s.HasIPAddress == false
+                                                     //&& s.HasPortNumber == false
+                                                     //&& s.IsBadHttps == false
+                                                     )
                                                     .Count();
 
             int TotalWeight = AtSymbolWeight + ForwardSlashesWeight
@@ -187,6 +196,32 @@ namespace Phishbait
             IPWeight = MyCalculator(IPWeight, TotalWeight);
             MultipleFSlashWeight = MyCalculator(MultipleFSlashWeight, TotalWeight);
             PortsWeight = MyCalculator(PortsWeight, TotalWeight);
+
+            ConfigItems.Add(new Configuration("FullStopsW", FullStopsWeight.ToString()));
+            ConfigItems.Add(new Configuration("ForwardSlashesW", ForwardSlashesWeight.ToString()));
+            ConfigItems.Add(new Configuration("MultipleForwardSlashesW", MultipleFSlashWeight.ToString()));
+            ConfigItems.Add(new Configuration("AtSymbolsW", AtSymbolWeight.ToString()));
+            ConfigItems.Add(new Configuration("IPAddressW", IPWeight.ToString()));
+            ConfigItems.Add(new Configuration("PortNumbersW", PortsWeight.ToString()));
+            ConfigItems.Add(new Configuration("InvalidHttpsW", HttpsWeight.ToString()));
+
+            dataGridView1.Rows.Add("Full Stops", FullStops.ToString(), FullStopsWeight.ToString());
+            dataGridView1.Rows.Add("Forward Slashes", ForwardSlashes.ToString(), ForwardSlashesWeight.ToString());
+            dataGridView1.Rows.Add("Multiple Forward Slashes", MultipleFSlashes.ToString(), MultipleFSlashWeight.ToString());
+            dataGridView1.Rows.Add("At Symbols", AtSymbols.ToString(), AtSymbolWeight.ToString());
+            dataGridView1.Rows.Add("IP Address", IPAddresses.ToString(), IPWeight.ToString());
+            dataGridView1.Rows.Add("Port Numbers", PortNumbers.ToString(), PortsWeight.ToString());
+            dataGridView1.Rows.Add("Invalid Https", InvalidHttps.ToString(), HttpsWeight.ToString());
+
+            var OldConfigs = Repository.GetAll<Configuration>().ToList();
+
+            var Join = OldConfigs.Where(s => ConfigItems.Any(x => x.Parameter == s.Parameter)).ToList();
+
+            Repository.DeleteMultiple(Join);
+
+            Repository.AddMultiple(ConfigItems);
+
+            btnCompute.Enabled = false;
         }
 
         public int MyCalculator(int A, int B)
@@ -194,6 +229,11 @@ namespace Phishbait
             double a = A * 100;
             double b = a / B;
             return Convert.ToInt32(Math.Round(b));
+        }
+
+        private void btnCompute_Click(object sender, EventArgs e)
+        {
+            DrawChart();
         }
     }
 }
