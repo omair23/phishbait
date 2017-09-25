@@ -70,7 +70,7 @@
   <ItemGroup>
     <Compile Include="Classes\Algorithms.cs" />
     <Compile Include="Classes\BaseClass.cs" />
-    <Compile Include="cPhishbait.cs" />
+    <Compile Include="Classes\cPhishbait.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,17 +107,23 @@
     <Compile Include="frmImport.Designer.cs">
       <DependentUpon>frmImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmOptimise.cs">
+    <Compile Include="frmOptimiseHeur.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmOptimise.Designer.cs">
-      <DependentUpon>frmOptimise.cs</DependentUpon>
+    <Compile Include="frmOptimiseHeur.Designer.cs">
+      <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
     </Compile>
     <Compile Include="frmResource.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmResource.Designer.cs">
       <DependentUpon>frmResource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSimulate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSimulate.Designer.cs">
+      <DependentUpon>frmSimulate.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUrlChars.cs">
       <SubType>Form</SubType>
@@ -171,11 +177,14 @@
     <EmbeddedResource Include="frmImport.resx">
       <DependentUpon>frmImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmOptimise.resx">
-      <DependentUpon>frmOptimise.cs</DependentUpon>
+    <EmbeddedResource Include="frmOptimiseHeur.resx">
+      <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmResource.resx">
       <DependentUpon>frmResource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSimulate.resx">
+      <DependentUpon>frmSimulate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUrlChars.resx">
       <DependentUpon>frmUrlChars.cs</DependentUpon>

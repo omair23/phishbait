@@ -1,6 +1,6 @@
 ﻿namespace Phishbait
 {
-    partial class frmOptimise
+    partial class frmOptimiseHeur
     {
         /// <summary>
         /// Required designer variable.

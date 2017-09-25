@@ -35,6 +35,7 @@
             this.grdUrlAnalysis = new System.Windows.Forms.DataGridView();
             this.ParamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SystemParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OptimizedWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Analysis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grdFreq = new System.Windows.Forms.DataGridView();
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +56,8 @@
             this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heuristicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simulateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.Layer4 = new System.Windows.Forms.GroupBox();
             this.txtLayer4 = new System.Windows.Forms.TextBox();
@@ -70,6 +73,8 @@
             this.txtLayer3 = new System.Windows.Forms.TextBox();
             this.Layer1 = new System.Windows.Forms.GroupBox();
             this.txtLayer1 = new System.Windows.Forms.TextBox();
+            this.heuristicPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.frequentIPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).BeginInit();
@@ -127,6 +132,7 @@
             this.grdUrlAnalysis.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ParamName,
             this.SystemParameter,
+            this.OptimizedWeight,
             this.Analysis});
             this.grdUrlAnalysis.Location = new System.Drawing.Point(14, 61);
             this.grdUrlAnalysis.Name = "grdUrlAnalysis";
@@ -134,7 +140,7 @@
             this.grdUrlAnalysis.RowHeadersVisible = false;
             this.grdUrlAnalysis.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.grdUrlAnalysis.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdUrlAnalysis.Size = new System.Drawing.Size(484, 282);
+            this.grdUrlAnalysis.Size = new System.Drawing.Size(562, 282);
             this.grdUrlAnalysis.TabIndex = 7;
             // 
             // ParamName
@@ -146,13 +152,19 @@
             // 
             // SystemParameter
             // 
-            this.SystemParameter.HeaderText = "System Average";
+            this.SystemParameter.HeaderText = "Optimized Average";
             this.SystemParameter.Name = "SystemParameter";
             this.SystemParameter.ReadOnly = true;
             // 
+            // OptimizedWeight
+            // 
+            this.OptimizedWeight.HeaderText = "Optimized Weight";
+            this.OptimizedWeight.Name = "OptimizedWeight";
+            this.OptimizedWeight.ReadOnly = true;
+            // 
             // Analysis
             // 
-            this.Analysis.HeaderText = "URL Analysis";
+            this.Analysis.HeaderText = "Computed";
             this.Analysis.Name = "Analysis";
             this.Analysis.ReadOnly = true;
             // 
@@ -201,10 +213,11 @@
             this.configurationToolStripMenuItem,
             this.tasksToolStripMenuItem,
             this.resourcesToolStripMenuItem,
-            this.optimiseToolStripMenuItem});
+            this.optimiseToolStripMenuItem,
+            this.simulateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(774, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(848, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -307,10 +320,26 @@
             // 
             // optimiseToolStripMenuItem
             // 
+            this.optimiseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.heuristicToolStripMenuItem,
+            this.heuristicPassScoreToolStripMenuItem,
+            this.frequentIPassScoreToolStripMenuItem});
             this.optimiseToolStripMenuItem.Name = "optimiseToolStripMenuItem";
             this.optimiseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.optimiseToolStripMenuItem.Text = "Optimise";
-            this.optimiseToolStripMenuItem.Click += new System.EventHandler(this.optimiseToolStripMenuItem_Click);
+            // 
+            // heuristicToolStripMenuItem
+            // 
+            this.heuristicToolStripMenuItem.Name = "heuristicToolStripMenuItem";
+            this.heuristicToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.heuristicToolStripMenuItem.Text = "Heuristic Values & Weight";
+            this.heuristicToolStripMenuItem.Click += new System.EventHandler(this.heuristicToolStripMenuItem_Click);
+            // 
+            // simulateToolStripMenuItem
+            // 
+            this.simulateToolStripMenuItem.Name = "simulateToolStripMenuItem";
+            this.simulateToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.simulateToolStripMenuItem.Text = "Simulate";
             // 
             // grpMain
             // 
@@ -321,7 +350,7 @@
             this.grpMain.Controls.Add(this.Layer1);
             this.grpMain.Location = new System.Drawing.Point(12, 75);
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(749, 529);
+            this.grpMain.Size = new System.Drawing.Size(824, 529);
             this.grpMain.TabIndex = 11;
             this.grpMain.TabStop = false;
             this.grpMain.Visible = false;
@@ -331,7 +360,7 @@
             this.Layer4.Controls.Add(this.txtLayer4);
             this.Layer4.Controls.Add(this.grdFreq);
             this.Layer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Layer4.Location = new System.Drawing.Point(520, 24);
+            this.Layer4.Location = new System.Drawing.Point(594, 24);
             this.Layer4.Name = "Layer4";
             this.Layer4.Size = new System.Drawing.Size(221, 301);
             this.Layer4.TabIndex = 3;
@@ -357,7 +386,7 @@
             this.Layer5.Controls.Add(this.label1);
             this.Layer5.Controls.Add(this.txtLayer5);
             this.Layer5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Layer5.Location = new System.Drawing.Point(520, 331);
+            this.Layer5.Location = new System.Drawing.Point(600, 331);
             this.Layer5.Name = "Layer5";
             this.Layer5.Size = new System.Drawing.Size(216, 192);
             this.Layer5.TabIndex = 4;
@@ -438,7 +467,7 @@
             this.Layer3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Layer3.Location = new System.Drawing.Point(6, 165);
             this.Layer3.Name = "Layer3";
-            this.Layer3.Size = new System.Drawing.Size(508, 358);
+            this.Layer3.Size = new System.Drawing.Size(582, 358);
             this.Layer3.TabIndex = 2;
             this.Layer3.TabStop = false;
             this.Layer3.Text = "Layer 3 - Heuristic Analysis";
@@ -449,7 +478,7 @@
             this.txtLayer3.Location = new System.Drawing.Point(7, 28);
             this.txtLayer3.Name = "txtLayer3";
             this.txtLayer3.ReadOnly = true;
-            this.txtLayer3.Size = new System.Drawing.Size(495, 23);
+            this.txtLayer3.Size = new System.Drawing.Size(569, 23);
             this.txtLayer3.TabIndex = 8;
             this.txtLayer3.Text = "Layer 3 Text";
             // 
@@ -477,11 +506,23 @@
             this.txtLayer1.TabIndex = 0;
             this.txtLayer1.Text = "Layer 1 Text";
             // 
+            // heuristicPassScoreToolStripMenuItem
+            // 
+            this.heuristicPassScoreToolStripMenuItem.Name = "heuristicPassScoreToolStripMenuItem";
+            this.heuristicPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.heuristicPassScoreToolStripMenuItem.Text = "Heuristic Pass Score";
+            // 
+            // frequentIPassScoreToolStripMenuItem
+            // 
+            this.frequentIPassScoreToolStripMenuItem.Name = "frequentIPassScoreToolStripMenuItem";
+            this.frequentIPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.frequentIPassScoreToolStripMenuItem.Text = "FrequentI Pass Score";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 630);
+            this.ClientSize = new System.Drawing.Size(848, 630);
             this.Controls.Add(this.grpMain);
             this.Controls.Add(this.lblSystemStatus);
             this.Controls.Add(this.groupBox1);
@@ -518,9 +559,6 @@
         private System.Windows.Forms.Label lblUrl;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grdUrlAnalysis;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ParamName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SystemParameter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Analysis;
         private System.Windows.Forms.DataGridView grdFreq;
         private System.Windows.Forms.DataGridViewTextBoxColumn Item;
         private System.Windows.Forms.DataGridViewTextBoxColumn Frequency;
@@ -555,6 +593,14 @@
         private System.Windows.Forms.TextBox BayesTrusted;
         private System.Windows.Forms.TextBox BayesPhishing;
         private System.Windows.Forms.ToolStripMenuItem optimiseToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ParamName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SystemParameter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OptimizedWeight;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Analysis;
+        private System.Windows.Forms.ToolStripMenuItem simulateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem heuristicToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem heuristicPassScoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem frequentIPassScoreToolStripMenuItem;
     }
 }
 

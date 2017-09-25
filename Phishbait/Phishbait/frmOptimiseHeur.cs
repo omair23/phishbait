@@ -6,12 +6,12 @@ using System.Windows.Forms;
 
 namespace Phishbait
 {
-    public partial class frmOptimise : Form
+    public partial class frmOptimiseHeur : Form
     {
         PhishModel db;
         EFRepository Repository;
 
-        public frmOptimise()
+        public frmOptimiseHeur()
         {
             InitializeComponent();
 

@@ -7,16 +7,11 @@ namespace Phishbait
 {
     public partial class Form1 : Form
     {
-        int FrequentItems_MinimumLength;
-        int FrequentItems_Confidence;
-        double PassValue;
-        double UrlAnalysisWeight;
-        double UrlFqWeight;
-
         UrlStatistic CombinedStats;
         PhishModel db;
         EFRepository Repository;
         Algorithms AlgorithmClass;
+        Dictionary<string, string> ConfigItems;
 
         public Form1()
         {
@@ -33,20 +28,9 @@ namespace Phishbait
             //Cold start Database
             //AlgorithmClass.ColdStartDb();
 
-            ConfigItemsGet();
-
-            //ImportTrusted();
-
-            //List<double> mine = new List<double>();
-            //mine.Add(3.14);
-            //mine.Add(3.69);
-            //mine.Add(3.22);
-
-            //double average = mine.Average();
-            //double sumOfSquaresOfDifferences = mine.Select(val => (val - average) * (val - average)).Sum();
-            //double sd = Math.Sqrt(sumOfSquaresOfDifferences / mine.Count);
-
-            //var x = 1;
+            ConfigItems = Repository
+                        .GetAll<Configuration>()
+                        .ToDictionary(s => s.Parameter, z => z.Value);
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -59,7 +43,7 @@ namespace Phishbait
 
             string Url = txtUrl.Text;
 
-            cPhishbait Class = new cPhishbait(Url);
+            cPhishbait Class = new cPhishbait(Url, ConfigItems, 50);
 
             grpMain.Visible = true;
 
@@ -103,14 +87,14 @@ namespace Phishbait
 
             grdUrlAnalysis.Rows.Clear();
 
-            grdUrlAnalysis.Rows.Add("Number of Full Stops", 2, Resource.NumberOfFullStops.ToString());
-            grdUrlAnalysis.Rows.Add("Number of @ Symbols", 0, Resource.NumberOfAtSymbols.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", 1, Resource.NumberOfForwardSlashes.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", 0, Resource.NumberOfForwardSlashes.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Full Stops", ConfigItems["FullStops"].ToString(), ConfigItems["FullStopsW"].ToString(), Resource.NumberOfFullStops.ToString());
+            grdUrlAnalysis.Rows.Add("Number of @ Symbols", ConfigItems["AtSymbols"].ToString(), ConfigItems["AtSymbolsW"].ToString(), Resource.NumberOfAtSymbols.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", ConfigItems["ForwardSlashes"].ToString(), ConfigItems["ForwardSlashesW"].ToString(), Resource.NumberOfForwardSlashes.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", ConfigItems["MultipleForwardSlashes"].ToString(), ConfigItems["MultipleForwardSlashesW"].ToString(), Resource.NumberOfForwardSlashes.ToString());
 
-            grdUrlAnalysis.Rows.Add("Contains IP Address", 0, Resource.HasIPAddress.ToString());
-            grdUrlAnalysis.Rows.Add("Contains Port Number", 0, Resource.HasPortNumber.ToString());
-            grdUrlAnalysis.Rows.Add("Invalid HTTPS", 0, Resource.IsBadHttps.ToString());
+            grdUrlAnalysis.Rows.Add("Contains IP Address", ConfigItems["IPAddress"].ToString(), ConfigItems["IPAddressW"].ToString(), Resource.HasIPAddress.ToString());
+            grdUrlAnalysis.Rows.Add("Contains Port Number", ConfigItems["PortNumbers"].ToString(), ConfigItems["PortNumbersW"].ToString(), Resource.HasPortNumber.ToString());
+            grdUrlAnalysis.Rows.Add("Invalid HTTPS", ConfigItems["InvalidHttps"].ToString(), ConfigItems["InvalidHttpsW"].ToString(), Resource.IsBadHttps.ToString());
 
             if (Class.LayerDetected != 3)
             {
@@ -191,39 +175,6 @@ namespace Phishbait
             //}
         }
 
-        //public void ImportTrusted()
-        //{
-        //    List<Resource> Resources = new List<Resource>();
-
-        //    var lines = File.ReadLines(@"C:\Users\okazi\Desktop\bookmarks_8_15_17.html");
-
-        //    foreach (var line in lines)
-        //    {
-        //        string match = GetStrBetweenTags(line, "HREF=", "ADD_DATE");
-        //        Resource res = new Resource();
-
-        //        res.Url = match.Trim();
-
-        //        res.ItemType = PhishDataType.Positive;
-        //        Resources.Add(res);
-        //    }
-
-        //    Repository.AddMultiple(Resources);
-        //}
-
-        public string GetStrBetweenTags(string value,
-                                       string startTag,
-                                       string endTag)
-        {
-            if (value.Contains(startTag) && value.Contains(endTag))
-            {
-                int index = value.IndexOf(startTag) + startTag.Length;
-                return value.Substring(index, value.IndexOf(endTag) - index);
-            }
-            else
-                return null;
-        }
-
         public void SimulateQueries()
         {
             List<Resource> Resources = Repository.GetAll<Resource>().Take(1000).ToList();
@@ -234,41 +185,16 @@ namespace Phishbait
             }
         }
 
-        public void ConfigItemsGet()
-        {
-            Dictionary<string, string> Configs = Repository
-                                                .GetAll<Configuration>()
-                                                .ToDictionary(s => s.Parameter, z => z.Value);
-
-            try
-            {
-                FrequentItems_MinimumLength = Convert.ToInt32(Configs["FrequentItems_MinimumLength"]);
-
-                FrequentItems_Confidence = Convert.ToInt32(Configs["FrequentItems_Confidence"]);
-
-                UrlAnalysisWeight = Convert.ToDouble(Configs["UrlAnalysisWeight"]);
-
-                UrlFqWeight = Convert.ToDouble(Configs["UrlFqWeight"]);
-
-                PassValue = Convert.ToDouble(Configs["PassValue"]);
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-        }
 
         public void FrequentItemCounter()
         {
             AlgorithmClass.FrequentItemCounter(PhishDataType.Negative, 
-                                                FrequentItems_MinimumLength, 
-                                                FrequentItems_Confidence);
+                                                3, 
+                                                3);
 
             AlgorithmClass.FrequentItemCounter(PhishDataType.Positive,
-                                                FrequentItems_MinimumLength,
-                                                FrequentItems_Confidence);
+                                                3,
+                                                3);
 
         }
 
@@ -346,9 +272,9 @@ namespace Phishbait
             Form.Show();
         }
 
-        private void optimiseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void heuristicToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmOptimise Form = new frmOptimise();
+            frmOptimiseHeur Form = new frmOptimiseHeur();
             Form.Show();
         }
     }

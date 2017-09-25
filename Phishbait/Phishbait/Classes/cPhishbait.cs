@@ -15,18 +15,23 @@ namespace Phishbait
         public bool Detected = false;
 
         public int LayerDetected = 0;
+        int PassScore1;
 
         public Dictionary<string, int> grdFreq;
         public Dictionary<string, double> BayesScore;
+        Dictionary<string, string> ConfigItems;
 
         Classifier m_Classifier;
         PhishModel db;
         EFRepository Repository;
 
-        public cPhishbait(string paramUrl)
+        public cPhishbait(string paramUrl, Dictionary<string, string> Configuration, int PassScore1)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
+
+            this.PassScore1 = PassScore1;
+            ConfigItems = Configuration;
 
             Url = paramUrl;
 
@@ -102,31 +107,41 @@ namespace Phishbait
             double OverallUrl = 0;
 
             if (Resource.IsBadHttps)
-                OverallUrl += 14.28;
+                OverallUrl += Convert.ToInt32(ConfigItems["InvalidHttpsW"]);
 
             if (Resource.HasPortNumber)
-                OverallUrl += 14.28;
+                OverallUrl += Convert.ToInt32(ConfigItems["PortNumbersW"]);
 
             if (Resource.HasIPAddress)
-                OverallUrl += 14.28;
+                OverallUrl += Convert.ToInt32(ConfigItems["IPAddressW"]);
 
-            if (Resource.NumberOfFullStops > 2)
+            if (Resource.NumberOfFullStops > Convert.ToInt32(ConfigItems["FullStops"]))
             {
-                double Mod = (Resource.NumberOfFullStops - 2) / 2;
-                double FlooredMod = Convert.ToInt32(Math.Floor(Mod));
-                OverallUrl += (14.28 * FlooredMod);
+                double Mod = Math.Round((double)(Resource.NumberOfFullStops - Convert.ToInt32(ConfigItems["FullStops"])) / Convert.ToInt32(ConfigItems["FullStops"]), 2);
+                var x = (Convert.ToInt32(ConfigItems["FullStopsW"]) * Mod);
+                OverallUrl += x;
             }
             
-            if (Resource.NumberOfAtSymbols > 0)
-                OverallUrl += (14.28 * Resource.NumberOfAtSymbols);
+            if (Resource.NumberOfAtSymbols > Convert.ToInt32(ConfigItems["AtSymbols"]))
+            {
+                var x = (Convert.ToInt32(ConfigItems["AtSymbolsW"]) * Resource.NumberOfAtSymbols);
+                OverallUrl += x;
+            }  
 
-            if (Resource.NumberOfForwardSlashes > 1)
-                OverallUrl += (14.28 * Resource.NumberOfForwardSlashes);
+            if (Resource.NumberOfForwardSlashes > Convert.ToInt32(ConfigItems["ForwardSlashes"]))
+            {
+                var x = (Convert.ToInt32(ConfigItems["ForwardSlashesW"]) * (Resource.NumberOfForwardSlashes - 1));
+                OverallUrl += x;
+            }
+                 
+            if (Resource.NumberOfMultipleForwardSlashes > Convert.ToInt32(ConfigItems["MultipleForwardSlashes"]))
+            {
+                var x = (Convert.ToInt32(ConfigItems["MultipleForwardSlashesW"]) * Resource.NumberOfMultipleForwardSlashes);
+                OverallUrl += x;
+            }
+                
 
-            if (Resource.NumberOfMultipleForwardSlashes > 0)
-                OverallUrl += (14.28 * Resource.NumberOfMultipleForwardSlashes);
-
-            if (OverallUrl > 40) //Pass Score
+            if (OverallUrl > PassScore1) //Pass Score
             {
                 LayerDetected = 3;
                 return true;
