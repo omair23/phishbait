@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Phishbait
@@ -51,6 +49,148 @@ namespace Phishbait
             //var x = 1;
         }
 
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Layer1.Visible = false;
+            Layer2.Visible = false;
+            Layer3.Visible = false;
+            Layer4.Visible = false;
+            Layer5.Visible = false;
+
+            string Url = txtUrl.Text;
+
+            cPhishbait Class = new cPhishbait(Url);
+
+            grpMain.Visible = true;
+
+            Layer1.Visible = true;
+
+            if (Class.LayerDetected != 1)
+            {
+                txtLayer1.Text = "The requested URL was not found in the whitelist (Layer 1)";
+                txtLayer1.BackColor = System.Drawing.Color.Green;
+                txtLayer1.ForeColor = System.Drawing.Color.White;
+            }
+            
+            if (Class.LayerDetected == 1)
+            {
+                txtLayer1.Text = "The requested URL was detected as phishing by the whitelist (Layer 1)";
+                txtLayer1.BackColor = System.Drawing.Color.Red;
+                txtLayer1.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer2.Visible = true;
+
+            if (Class.LayerDetected != 2)
+            {
+                txtLayer2.Text = "The requested URL was not found in the blacklist (Layer 2)";
+                txtLayer2.BackColor = System.Drawing.Color.Green;
+                txtLayer2.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 2)
+            {
+                txtLayer2.Text = "The requested URL was detected as phishing by the blacklist (Layer 2)";
+                txtLayer2.BackColor = System.Drawing.Color.Red;
+                txtLayer2.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer3.Visible = true;
+
+            Resource Resource = Class.Resource;
+
+            grdUrlAnalysis.Rows.Clear();
+
+            grdUrlAnalysis.Rows.Add("Number of Full Stops", 2, Resource.NumberOfFullStops.ToString());
+            grdUrlAnalysis.Rows.Add("Number of @ Symbols", 0, Resource.NumberOfAtSymbols.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", 1, Resource.NumberOfForwardSlashes.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", 0, Resource.NumberOfForwardSlashes.ToString());
+
+            grdUrlAnalysis.Rows.Add("Contains IP Address", 0, Resource.HasIPAddress.ToString());
+            grdUrlAnalysis.Rows.Add("Contains Port Number", 0, Resource.HasPortNumber.ToString());
+            grdUrlAnalysis.Rows.Add("Invalid HTTPS", 0, Resource.IsBadHttps.ToString());
+
+            if (Class.LayerDetected != 3)
+            {
+                txtLayer3.Text = "The requested URL does not possess common elements found in phishing sites";
+                txtLayer3.BackColor = System.Drawing.Color.Green;
+                txtLayer3.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 3)
+            {
+                txtLayer3.Text = "The requested URL possesses common elements found in phishing sites";
+                txtLayer3.BackColor = System.Drawing.Color.Red;
+                txtLayer3.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer4.Visible = true;
+
+            grdFreq.Rows.Clear();
+            foreach (var item in Class.grdFreq)
+            {
+                grdFreq.Rows.Add(item.Key, Convert.ToString(item.Value));
+            }
+
+            if (Class.LayerDetected != 4)
+            {
+                txtLayer4.Text = "The requested URL does not contain sufficient frequent items found in phishing sites";
+                txtLayer4.BackColor = System.Drawing.Color.Green;
+                txtLayer4.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 4)
+            {
+                txtLayer4.Text = "The requested URL contains the following frequent items found in phishing sites";
+                txtLayer4.BackColor = System.Drawing.Color.Red;
+                txtLayer4.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer5.Visible = true;
+
+            if (Class.LayerDetected != 5)
+            {
+                txtLayer5.Text = "According to Bayesian Theorem of classification, using the system's data, the requested URL is not a phishing site";
+                txtLayer5.BackColor = System.Drawing.Color.Green;
+                txtLayer5.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 5)
+            {
+                txtLayer5.Text = "According to Bayesian Theorem of classification, using the system's data, the requested URL is a phishing site";
+                txtLayer5.BackColor = System.Drawing.Color.Red;
+                txtLayer5.ForeColor = System.Drawing.Color.White;
+            }
+
+            BayesTrusted.Text = Math.Round(Class.BayesScore["Phishing"], 3).ToString();
+
+            BayesPhishing.Text = Math.Round(Class.BayesScore["Non Phishing"], 3).ToString();
+
+            //string htmlCode;
+
+            //SimulateQueries();
+
+            //Get Source code of URL
+            //using (WebClient client = new WebClient())
+            //{
+            //    string EditedUrl = Url;
+
+            //    //Add http://
+            //    if (Url.Substring(0, 4) != "http")
+            //    {
+            //        EditedUrl = "http://" + Url;
+            //    }
+
+            //    htmlCode = client.DownloadString(EditedUrl);
+
+            //    var y = 1;
+            //}
+        }
+
         //public void ImportTrusted()
         //{
         //    List<Resource> Resources = new List<Resource>();
@@ -90,7 +230,7 @@ namespace Phishbait
 
             foreach(var item in Resources)
             {
-                DetectUrl(item.Url);
+                //DetectUrl(item.Url);
             }
         }
 
@@ -120,240 +260,6 @@ namespace Phishbait
 
         }
 
-        public void DetectUrl(string Url)
-        {
-            Resource Resource = Repository
-                    .Find<Resource>(s => s.Url == Url)
-                    .FirstOrDefault();
-
-            bool IsNewRecord = false;
-
-            if (Resource == null)
-            {
-                Resource = new Resource(Url);
-                IsNewRecord = true;
-            }
-
-            Resource = URLDetection(Url, Resource);
-
-            Resource = FrequentItemDetection(Url, Resource);
-
-            Resource.OverallRiskPercentage = (Resource.UrlFrequentPercentage * UrlFqWeight / 100)
-                                           + (Resource.UrlAnalysisPercentage * UrlAnalysisWeight / 100);
-
-            Resource.OverallRiskPercentage = Math.Round(Resource.OverallRiskPercentage, 2);
-
-            if (IsNewRecord)
-                Repository.Add(Resource);
-            else
-                Repository.Update(Resource);
-
-            txtWeights.Text = "Weightings:"
-                                + Environment.NewLine
-                                + "Url Frequent Items = "
-                                + UrlFqWeight.ToString() + "%"
-                                + Environment.NewLine
-                                + "Url Text Analysis = "
-                                + UrlAnalysisWeight.ToString() + "%";
-
-            lblOverallAnalysis.Text = Resource.OverallRiskPercentage.ToString() + " %";
-
-            if (Resource.OverallRiskPercentage >= PassValue)
-                lblOverallAnalysis.ForeColor = System.Drawing.Color.Red;
-            else
-                lblOverallAnalysis.ForeColor = System.Drawing.Color.Green;
-
-            grpOverall.Visible = true;
-        }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            //SimulateQueries();
-
-            string Url = txtUrl.Text;
-
-            DetectUrl(Url);
-
-            cPhishbait Class = new cPhishbait(Url);
-
-            //string htmlCode;
-
-            //Get Source code of URL
-            //using (WebClient client = new WebClient())
-            //{
-            //    string EditedUrl = Url;
-
-            //    //Add http://
-            //    if (Url.Substring(0, 4) != "http")
-            //    {
-            //        EditedUrl = "http://" + Url;
-            //    }
-
-            //    htmlCode = client.DownloadString(EditedUrl);
-
-            //    var y = 1;
-            //}
-        }
-
-        public Resource URLDetection(string Url, Resource Resource)
-        {
-            int ProbabilityCounter = 0;
-
-            if (CombinedStats == null)
-            {
-                MessageBox.Show("Error: Cannot conduct analysis, baseline data not found");
-                return Resource;
-            }
-
-            Resource.SetDetectionVariables();
-
-            double OverallUrl = 0;
-
-            if (Resource.IsBadHttps)
-                OverallUrl += CombinedStats.AverageBadHttps;
-
-            if (Resource.HasPortNumber)
-                OverallUrl += CombinedStats.AveragePortNumbers;
-
-            if (Resource.HasIPAddress)
-                OverallUrl += CombinedStats.AverageIPAddress;
-
-            if (Resource.NumberOfFullStops > CombinedStats.FullStopAverage)
-                OverallUrl += (Resource.NumberOfFullStops - CombinedStats.FullStopAverage) / CombinedStats.FullStopAverage;
-
-            if (Resource.NumberOfAtSymbols > CombinedStats.AtSymbolsAverage)
-                OverallUrl += (Resource.NumberOfAtSymbols * CombinedStats.AtSymbolsAverage);
-
-            if (Resource.NumberOfForwardSlashes > CombinedStats.ForwardSlashAverage)
-                OverallUrl += (Resource.NumberOfForwardSlashes - CombinedStats.ForwardSlashAverage);
-
-            if (Resource.NumberOfMultipleForwardSlashes > CombinedStats.MultipleForwardSlashAverage)
-                OverallUrl += (Resource.NumberOfMultipleForwardSlashes - CombinedStats.MultipleForwardSlashAverage);
-
-            OverallUrl = OverallUrl * 100;
-            //txtUrl.Text = OverallUrl.ToString();
-            //End of new method
-
-            double ProbabilityPercentage = ProbabilityCounter * 100 / 7;
-            ProbabilityPercentage = OverallUrl;
-
-            //if (ProbabilityCounter >= 3)
-            if (OverallUrl > PassValue)
-                Resource.IsPhishing = true;
-
-            if (Resource.IsPhishing)
-            {
-                lblPhishingInd.Text = String.Format("Based on the testing performed, {0} is a phishing site according to the analysis shown below", Url);
-                lblFishPercentage.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                lblPhishingInd.Text = String.Format("Based on the testing performed, {0} is not a phishing site according to the analysis shown below", Url);
-                lblFishPercentage.ForeColor = System.Drawing.Color.Green;
-            }
-
-            if (ProbabilityPercentage > 100)
-                ProbabilityPercentage = 100;
-
-            Resource.UrlAnalysisPercentage = ProbabilityPercentage;
-
-            lblFishPercentage.Text = ProbabilityPercentage.ToString() + " %";
-
-            grdUrlAnalysis.Rows.Clear();
-
-            grdUrlAnalysis.Rows.Add("Number of Full Stops", CombinedStats.FullStopAverage.ToString(), Resource.NumberOfFullStops.ToString());
-            grdUrlAnalysis.Rows.Add("Number of @ Symbols", CombinedStats.AtSymbolsAverage.ToString(), Resource.NumberOfAtSymbols.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", CombinedStats.ForwardSlashAverage.ToString(), Resource.NumberOfForwardSlashes.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", CombinedStats.MultipleForwardSlashAverage.ToString(), Resource.NumberOfForwardSlashes.ToString());
-
-            grdUrlAnalysis.Rows.Add("Contains IP Address", CombinedStats.AverageIPAddress.ToString(), Resource.HasIPAddress.ToString());
-            grdUrlAnalysis.Rows.Add("Contains Port Number", CombinedStats.AveragePortNumbers.ToString(), Resource.HasPortNumber.ToString());
-            grdUrlAnalysis.Rows.Add("Invalid HTTPS", CombinedStats.AverageBadHttps.ToString(), Resource.IsBadHttps.ToString());
-
-            grpUrl.Visible = true;
-
-            return Resource;
-        }
-
-        #region FrequentItems
-
-        public Resource FrequentItemDetection(string Url, Resource Resource)
-        {
-            //Cleaning URL
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            String StrippedUrl = rgx.Replace(Url, " ");
-            var SplitUrl = StrippedUrl.Split(null).ToList();
-            SplitUrl.RemoveAll(item => String.IsNullOrWhiteSpace(item) || String.IsNullOrEmpty(item));
-
-            List<FrequentItem> PositiveFrequentItems = Repository
-                                                .Find<FrequentItem>(s => s.ItemType == PhishDataType.Positive)
-                                                .ToList();
-
-            List<FrequentItem> NegativeFrequentItems = Repository
-                                                .Find<FrequentItem>(s => s.ItemType == PhishDataType.Negative)
-                                                .ToList();
-
-
-            List<IgnoreRule> IgnoreRules = Repository
-                                            .Find<IgnoreRule>(s => s.Type == IgnoreType.FrequentItem)
-                                            .ToList();
-
-            List<string> PositiveNonUnion = PositiveFrequentItems
-                            .Select(s => s.Term)
-                            .Intersect(SplitUrl)
-                            .Except(IgnoreRules.Select(x => x.Term))
-                            .ToList();
-
-            List<string> UnionItems = NegativeFrequentItems
-                            .Select(s => s.Term)
-                            .Intersect(SplitUrl)
-                            .Except(IgnoreRules.Select(x => x.Term))
-                            //Perhaps reconsider
-                            .Except(PositiveNonUnion)
-                            .ToList();
-
-            int TotalRecords = SplitUrl.Count - PositiveNonUnion.Count;
-            int ProbabilityCounter = 0;
-            bool IsPhishing = false;
-
-            grdFreq.Rows.Clear();
-
-            foreach (var item in UnionItems)
-            {
-                FrequentItem fitem = NegativeFrequentItems.Where(s => s.Term == item).FirstOrDefault();
-                grdFreq.Rows.Add(item, Convert.ToString(fitem.Frequency));
-                ProbabilityCounter += 1;// fitem.Frequency;
-            }
-
-            if (TotalRecords > 0)
-                ProbabilityCounter = ProbabilityCounter * 100 / TotalRecords;
-            else
-                ProbabilityCounter = 0;
-
-            // 50% probability
-            if (ProbabilityCounter >= PassValue)
-                IsPhishing = true;
-
-            if (IsPhishing)
-            {
-                txtFreqM.Text = String.Format("Based on the testing performed, {0} is a phishing site according to the analysis shown below", Url);
-                lblFreqPercentage.ForeColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                txtFreqM.Text = String.Format("Based on the testing performed, {0} is not a phishing site according to the analysis shown below", Url);
-                lblFreqPercentage.ForeColor = System.Drawing.Color.Green;
-            }
-
-            lblFreqPercentage.Text = ProbabilityCounter.ToString() + " %";
-
-            Resource.UrlFrequentPercentage = ProbabilityCounter;
-
-            grpFrequent.Visible = true;
-
-            return Resource;
-        }
-
         public void FrequentItemCounter()
         {
             AlgorithmClass.FrequentItemCounter(PhishDataType.Negative, 
@@ -365,7 +271,6 @@ namespace Phishbait
                                                 FrequentItems_Confidence);
 
         }
-        #endregion
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -418,12 +323,6 @@ namespace Phishbait
             Form.Show();
         }
 
-        private void statsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmStats Form = new frmStats();
-            Form.Show();
-        }
-
         private void resourcesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmResource Form = new frmResource();
@@ -435,23 +334,6 @@ namespace Phishbait
             SimulateQueries();
         }
 
-        private void processToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmProcess Form = new frmProcess();
-            Form.Show();
-        }
-
-        private void bayesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void bayesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            frmBayes Form = new frmBayes();
-            Form.Show();
-        }
-
         private void crawlerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmCrawler Form = new frmCrawler();
@@ -461,6 +343,12 @@ namespace Phishbait
         private void uRLCharsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmUrlChars Form = new frmUrlChars();
+            Form.Show();
+        }
+
+        private void optimiseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOptimise Form = new frmOptimise();
             Form.Show();
         }
     }

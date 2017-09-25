@@ -1,7 +1,9 @@
-﻿using System;
+﻿using BayesClassifier;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Phishbait
 {
@@ -14,6 +16,10 @@ namespace Phishbait
 
         public int LayerDetected = 0;
 
+        public Dictionary<string, int> grdFreq;
+        public Dictionary<string, double> BayesScore;
+
+        Classifier m_Classifier;
         PhishModel db;
         EFRepository Repository;
 
@@ -23,6 +29,8 @@ namespace Phishbait
             Repository = new EFRepository(db);
 
             Url = paramUrl;
+
+            grdFreq = new Dictionary<string, int>();
 
             Resource = Repository.Find<Resource>(s => s.Url == Url).FirstOrDefault();
 
@@ -44,8 +52,6 @@ namespace Phishbait
 
             if (!Detected)
                 Detected = Layer5();
-
-            var Test = 1;
         }
 
         //Check if website is in whitelist
@@ -170,12 +176,12 @@ namespace Phishbait
             int TotalRecords = SplitUrl.Count - PositiveNonUnion.Count;
             int ProbabilityCounter = 0;
 
-            //grdFreq.Rows.Clear();
+            grdFreq.Clear();
 
             foreach (var item in UnionItems)
             {
                 FrequentItem fitem = NegativeFrequentItems.Where(s => s.Term == item).FirstOrDefault();
-                //grdFreq.Rows.Add(item, Convert.ToString(fitem.Frequency));
+                grdFreq.Add(item, fitem.Frequency);
                 ProbabilityCounter += 1;// fitem.Frequency;
             }
 
@@ -200,7 +206,38 @@ namespace Phishbait
         //Bayesian Classification of URL
         public bool Layer5()
         {
-            return false;
+            m_Classifier = new Classifier();
+
+            var GoodUrls = Repository
+                            .Find<Resource>(s => s.ItemType == PhishDataType.Positive)
+                            .Select(x => x.Url)
+                            .ToList();
+
+            var BadUrls = Repository
+                            .Find<Resource>(s => s.ItemType == PhishDataType.Negative)
+                            .Select(x => x.Url)
+                            .ToList();
+
+            //Even out the lists so that the results aren't skewed by sample sizes
+            BadUrls = BadUrls.Take(GoodUrls.Count).ToList();
+
+            m_Classifier.TeachCategoryList("Phishing", BadUrls);
+
+            m_Classifier.TeachCategoryList("Non Phishing", GoodUrls);
+
+            BayesScore = m_Classifier.Classify(Url);
+
+            double sc = BayesScore["Phishing"];
+
+            if (BayesScore["Phishing"] < BayesScore["Non Phishing"])
+            {
+                LayerDetected = 5;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

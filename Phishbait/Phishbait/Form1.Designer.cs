@@ -31,23 +31,14 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.lblUrl = new System.Windows.Forms.Label();
-            this.lblFishPercentage = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.grpFrequent = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblFreqPercentage = new System.Windows.Forms.Label();
-            this.txtFreqM = new System.Windows.Forms.TextBox();
-            this.grdFreq = new System.Windows.Forms.DataGridView();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grpUrl = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.grdUrlAnalysis = new System.Windows.Forms.DataGridView();
             this.ParamName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SystemParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Analysis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblPhishingInd = new System.Windows.Forms.TextBox();
+            this.grdFreq = new System.Windows.Forms.DataGridView();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblSystemStatus = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,32 +49,42 @@
             this.ignoreRulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frequentItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frequentItemCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uRLAnalysisCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bayesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bayesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpOverall = new System.Windows.Forms.GroupBox();
-            this.txtWeights = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblOverallAnalysis = new System.Windows.Forms.Label();
+            this.optimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpMain = new System.Windows.Forms.GroupBox();
+            this.Layer4 = new System.Windows.Forms.GroupBox();
+            this.txtLayer4 = new System.Windows.Forms.TextBox();
+            this.Layer5 = new System.Windows.Forms.GroupBox();
+            this.BayesPhishing = new System.Windows.Forms.TextBox();
+            this.BayesTrusted = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtLayer5 = new System.Windows.Forms.TextBox();
+            this.Layer2 = new System.Windows.Forms.GroupBox();
+            this.txtLayer2 = new System.Windows.Forms.TextBox();
+            this.Layer3 = new System.Windows.Forms.GroupBox();
+            this.txtLayer3 = new System.Windows.Forms.TextBox();
+            this.Layer1 = new System.Windows.Forms.GroupBox();
+            this.txtLayer1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.grpFrequent.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).BeginInit();
-            this.grpUrl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.grpOverall.SuspendLayout();
+            this.grpMain.SuspendLayout();
+            this.Layer4.SuspendLayout();
+            this.Layer5.SuspendLayout();
+            this.Layer2.SuspendLayout();
+            this.Layer3.SuspendLayout();
+            this.Layer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(371, 39);
+            this.btnSubmit.Location = new System.Drawing.Point(594, 11);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(147, 23);
             this.btnSubmit.TabIndex = 0;
@@ -93,29 +94,19 @@
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(33, 41);
+            this.txtUrl.Location = new System.Drawing.Point(171, 13);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(326, 20);
+            this.txtUrl.Size = new System.Drawing.Size(417, 20);
             this.txtUrl.TabIndex = 1;
             // 
             // lblUrl
             // 
             this.lblUrl.AutoSize = true;
-            this.lblUrl.Location = new System.Drawing.Point(30, 16);
+            this.lblUrl.Location = new System.Drawing.Point(10, 16);
             this.lblUrl.Name = "lblUrl";
             this.lblUrl.Size = new System.Drawing.Size(155, 13);
             this.lblUrl.TabIndex = 2;
             this.lblUrl.Text = "Please enter a URL to process:";
-            // 
-            // lblFishPercentage
-            // 
-            this.lblFishPercentage.AutoSize = true;
-            this.lblFishPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFishPercentage.Location = new System.Drawing.Point(322, 44);
-            this.lblFishPercentage.Name = "lblFishPercentage";
-            this.lblFishPercentage.Size = new System.Drawing.Size(84, 37);
-            this.lblFishPercentage.TabIndex = 4;
-            this.lblFishPercentage.Text = "97%";
             // 
             // groupBox1
             // 
@@ -124,111 +115,9 @@
             this.groupBox1.Controls.Add(this.lblUrl);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(528, 91);
+            this.groupBox1.Size = new System.Drawing.Size(749, 42);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.grpFrequent);
-            this.groupBox2.Controls.Add(this.grpUrl);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 124);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(853, 368);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Results";
-            // 
-            // grpFrequent
-            // 
-            this.grpFrequent.Controls.Add(this.label2);
-            this.grpFrequent.Controls.Add(this.lblFreqPercentage);
-            this.grpFrequent.Controls.Add(this.txtFreqM);
-            this.grpFrequent.Controls.Add(this.grdFreq);
-            this.grpFrequent.Location = new System.Drawing.Point(493, 27);
-            this.grpFrequent.Name = "grpFrequent";
-            this.grpFrequent.Size = new System.Drawing.Size(354, 334);
-            this.grpFrequent.TabIndex = 8;
-            this.grpFrequent.TabStop = false;
-            this.grpFrequent.Text = "URL Frequent Items";
-            this.grpFrequent.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(224, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 15);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Analysis Probability:";
-            // 
-            // lblFreqPercentage
-            // 
-            this.lblFreqPercentage.AutoSize = true;
-            this.lblFreqPercentage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFreqPercentage.Location = new System.Drawing.Point(227, 44);
-            this.lblFreqPercentage.Name = "lblFreqPercentage";
-            this.lblFreqPercentage.Size = new System.Drawing.Size(84, 37);
-            this.lblFreqPercentage.TabIndex = 9;
-            this.lblFreqPercentage.Text = "97%";
-            // 
-            // txtFreqM
-            // 
-            this.txtFreqM.Location = new System.Drawing.Point(6, 21);
-            this.txtFreqM.Multiline = true;
-            this.txtFreqM.Name = "txtFreqM";
-            this.txtFreqM.Size = new System.Drawing.Size(217, 68);
-            this.txtFreqM.TabIndex = 7;
-            this.txtFreqM.Text = "www.google.com is possibly a phishing site";
-            // 
-            // grdFreq
-            // 
-            this.grdFreq.AllowUserToAddRows = false;
-            this.grdFreq.AllowUserToDeleteRows = false;
-            this.grdFreq.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdFreq.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Item,
-            this.Frequency});
-            this.grdFreq.Location = new System.Drawing.Point(6, 114);
-            this.grdFreq.Name = "grdFreq";
-            this.grdFreq.RowHeadersVisible = false;
-            this.grdFreq.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.grdFreq.Size = new System.Drawing.Size(217, 204);
-            this.grdFreq.TabIndex = 0;
-            // 
-            // Item
-            // 
-            this.Item.HeaderText = "Item";
-            this.Item.Name = "Item";
-            // 
-            // Frequency
-            // 
-            this.Frequency.HeaderText = "Frequency";
-            this.Frequency.Name = "Frequency";
-            // 
-            // grpUrl
-            // 
-            this.grpUrl.Controls.Add(this.label1);
-            this.grpUrl.Controls.Add(this.grdUrlAnalysis);
-            this.grpUrl.Controls.Add(this.lblPhishingInd);
-            this.grpUrl.Controls.Add(this.lblFishPercentage);
-            this.grpUrl.Location = new System.Drawing.Point(13, 27);
-            this.grpUrl.Name = "grpUrl";
-            this.grpUrl.Size = new System.Drawing.Size(468, 334);
-            this.grpUrl.TabIndex = 6;
-            this.grpUrl.TabStop = false;
-            this.grpUrl.Text = "URL Text Analysis";
-            this.grpUrl.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(325, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 15);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Analysis Probability:";
             // 
             // grdUrlAnalysis
             // 
@@ -239,12 +128,13 @@
             this.ParamName,
             this.SystemParameter,
             this.Analysis});
-            this.grdUrlAnalysis.Location = new System.Drawing.Point(9, 114);
+            this.grdUrlAnalysis.Location = new System.Drawing.Point(14, 61);
             this.grdUrlAnalysis.Name = "grdUrlAnalysis";
             this.grdUrlAnalysis.ReadOnly = true;
             this.grdUrlAnalysis.RowHeadersVisible = false;
+            this.grdUrlAnalysis.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.grdUrlAnalysis.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdUrlAnalysis.Size = new System.Drawing.Size(453, 204);
+            this.grdUrlAnalysis.Size = new System.Drawing.Size(484, 282);
             this.grdUrlAnalysis.TabIndex = 7;
             // 
             // ParamName
@@ -266,20 +156,36 @@
             this.Analysis.Name = "Analysis";
             this.Analysis.ReadOnly = true;
             // 
-            // lblPhishingInd
+            // grdFreq
             // 
-            this.lblPhishingInd.Location = new System.Drawing.Point(9, 21);
-            this.lblPhishingInd.Multiline = true;
-            this.lblPhishingInd.Name = "lblPhishingInd";
-            this.lblPhishingInd.Size = new System.Drawing.Size(306, 68);
-            this.lblPhishingInd.TabIndex = 6;
-            this.lblPhishingInd.Text = "www.google.com is possibly a phishing site";
+            this.grdFreq.AllowUserToAddRows = false;
+            this.grdFreq.AllowUserToDeleteRows = false;
+            this.grdFreq.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdFreq.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Item,
+            this.Frequency});
+            this.grdFreq.Location = new System.Drawing.Point(6, 124);
+            this.grdFreq.Name = "grdFreq";
+            this.grdFreq.RowHeadersVisible = false;
+            this.grdFreq.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.grdFreq.Size = new System.Drawing.Size(206, 169);
+            this.grdFreq.TabIndex = 0;
+            // 
+            // Item
+            // 
+            this.Item.HeaderText = "Item";
+            this.Item.Name = "Item";
+            // 
+            // Frequency
+            // 
+            this.Frequency.HeaderText = "Frequency";
+            this.Frequency.Name = "Frequency";
             // 
             // lblSystemStatus
             // 
             this.lblSystemStatus.AutoSize = true;
             this.lblSystemStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSystemStatus.Location = new System.Drawing.Point(22, 512);
+            this.lblSystemStatus.Location = new System.Drawing.Point(22, 607);
             this.lblSystemStatus.Name = "lblSystemStatus";
             this.lblSystemStatus.Size = new System.Drawing.Size(54, 16);
             this.lblSystemStatus.TabIndex = 8;
@@ -293,14 +199,12 @@
             this.ignoreRulesToolStripMenuItem,
             this.frequentItemsToolStripMenuItem,
             this.configurationToolStripMenuItem,
-            this.statsToolStripMenuItem,
             this.tasksToolStripMenuItem,
             this.resourcesToolStripMenuItem,
-            this.processToolStripMenuItem,
-            this.bayesToolStripMenuItem});
+            this.optimiseToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(871, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(774, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -363,13 +267,6 @@
             this.configurationToolStripMenuItem.Text = "Configuration";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
-            // statsToolStripMenuItem
-            // 
-            this.statsToolStripMenuItem.Name = "statsToolStripMenuItem";
-            this.statsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.statsToolStripMenuItem.Text = "Stats";
-            this.statsToolStripMenuItem.Click += new System.EventHandler(this.statsToolStripMenuItem_Click);
-            // 
             // tasksToolStripMenuItem
             // 
             this.tasksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -408,78 +305,185 @@
             this.resourcesToolStripMenuItem.Text = "Resources";
             this.resourcesToolStripMenuItem.Click += new System.EventHandler(this.resourcesToolStripMenuItem_Click);
             // 
-            // processToolStripMenuItem
+            // optimiseToolStripMenuItem
             // 
-            this.processToolStripMenuItem.Name = "processToolStripMenuItem";
-            this.processToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.processToolStripMenuItem.Text = "Process";
-            this.processToolStripMenuItem.Click += new System.EventHandler(this.processToolStripMenuItem_Click);
+            this.optimiseToolStripMenuItem.Name = "optimiseToolStripMenuItem";
+            this.optimiseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.optimiseToolStripMenuItem.Text = "Optimise";
+            this.optimiseToolStripMenuItem.Click += new System.EventHandler(this.optimiseToolStripMenuItem_Click);
             // 
-            // bayesToolStripMenuItem
+            // grpMain
             // 
-            this.bayesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bayesToolStripMenuItem1});
-            this.bayesToolStripMenuItem.Name = "bayesToolStripMenuItem";
-            this.bayesToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-            this.bayesToolStripMenuItem.Text = "New Research";
-            this.bayesToolStripMenuItem.Click += new System.EventHandler(this.bayesToolStripMenuItem_Click);
+            this.grpMain.Controls.Add(this.Layer4);
+            this.grpMain.Controls.Add(this.Layer5);
+            this.grpMain.Controls.Add(this.Layer2);
+            this.grpMain.Controls.Add(this.Layer3);
+            this.grpMain.Controls.Add(this.Layer1);
+            this.grpMain.Location = new System.Drawing.Point(12, 75);
+            this.grpMain.Name = "grpMain";
+            this.grpMain.Size = new System.Drawing.Size(749, 529);
+            this.grpMain.TabIndex = 11;
+            this.grpMain.TabStop = false;
+            this.grpMain.Visible = false;
             // 
-            // bayesToolStripMenuItem1
+            // Layer4
             // 
-            this.bayesToolStripMenuItem1.Name = "bayesToolStripMenuItem1";
-            this.bayesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.bayesToolStripMenuItem1.Text = "Bayes";
-            this.bayesToolStripMenuItem1.Click += new System.EventHandler(this.bayesToolStripMenuItem1_Click);
+            this.Layer4.Controls.Add(this.txtLayer4);
+            this.Layer4.Controls.Add(this.grdFreq);
+            this.Layer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Layer4.Location = new System.Drawing.Point(520, 24);
+            this.Layer4.Name = "Layer4";
+            this.Layer4.Size = new System.Drawing.Size(221, 301);
+            this.Layer4.TabIndex = 3;
+            this.Layer4.TabStop = false;
+            this.Layer4.Text = "Layer 4 - Frequent Item Detection";
+            this.Layer4.Visible = false;
             // 
-            // grpOverall
+            // txtLayer4
             // 
-            this.grpOverall.Controls.Add(this.txtWeights);
-            this.grpOverall.Controls.Add(this.label3);
-            this.grpOverall.Controls.Add(this.lblOverallAnalysis);
-            this.grpOverall.Location = new System.Drawing.Point(546, 27);
-            this.grpOverall.Name = "grpOverall";
-            this.grpOverall.Size = new System.Drawing.Size(319, 100);
-            this.grpOverall.TabIndex = 10;
-            this.grpOverall.TabStop = false;
-            this.grpOverall.Text = "Overall Results";
-            this.grpOverall.Visible = false;
+            this.txtLayer4.Location = new System.Drawing.Point(6, 21);
+            this.txtLayer4.Multiline = true;
+            this.txtLayer4.Name = "txtLayer4";
+            this.txtLayer4.ReadOnly = true;
+            this.txtLayer4.Size = new System.Drawing.Size(206, 97);
+            this.txtLayer4.TabIndex = 9;
+            this.txtLayer4.Text = "Layer 4 Text";
             // 
-            // txtWeights
+            // Layer5
             // 
-            this.txtWeights.Location = new System.Drawing.Point(6, 27);
-            this.txtWeights.Multiline = true;
-            this.txtWeights.Name = "txtWeights";
-            this.txtWeights.ReadOnly = true;
-            this.txtWeights.Size = new System.Drawing.Size(156, 64);
-            this.txtWeights.TabIndex = 13;
+            this.Layer5.Controls.Add(this.BayesPhishing);
+            this.Layer5.Controls.Add(this.BayesTrusted);
+            this.Layer5.Controls.Add(this.label2);
+            this.Layer5.Controls.Add(this.label1);
+            this.Layer5.Controls.Add(this.txtLayer5);
+            this.Layer5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Layer5.Location = new System.Drawing.Point(520, 331);
+            this.Layer5.Name = "Layer5";
+            this.Layer5.Size = new System.Drawing.Size(216, 192);
+            this.Layer5.TabIndex = 4;
+            this.Layer5.TabStop = false;
+            this.Layer5.Text = "Layer 5 - Bayesian Classification";
+            this.Layer5.Visible = false;
             // 
-            // label3
+            // BayesPhishing
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(175, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Analysis Probability:";
+            this.BayesPhishing.Location = new System.Drawing.Point(118, 155);
+            this.BayesPhishing.Name = "BayesPhishing";
+            this.BayesPhishing.ReadOnly = true;
+            this.BayesPhishing.Size = new System.Drawing.Size(92, 22);
+            this.BayesPhishing.TabIndex = 14;
             // 
-            // lblOverallAnalysis
+            // BayesTrusted
             // 
-            this.lblOverallAnalysis.AutoSize = true;
-            this.lblOverallAnalysis.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOverallAnalysis.Location = new System.Drawing.Point(168, 41);
-            this.lblOverallAnalysis.Name = "lblOverallAnalysis";
-            this.lblOverallAnalysis.Size = new System.Drawing.Size(140, 42);
-            this.lblOverallAnalysis.TabIndex = 11;
-            this.lblOverallAnalysis.Text = "97.5 %";
+            this.BayesTrusted.Location = new System.Drawing.Point(6, 155);
+            this.BayesTrusted.Name = "BayesTrusted";
+            this.BayesTrusted.ReadOnly = true;
+            this.BayesTrusted.Size = new System.Drawing.Size(92, 22);
+            this.BayesTrusted.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(113, 136);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 16);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Phishing Value";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 136);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 16);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Trusted Value";
+            // 
+            // txtLayer5
+            // 
+            this.txtLayer5.Location = new System.Drawing.Point(6, 21);
+            this.txtLayer5.Multiline = true;
+            this.txtLayer5.Name = "txtLayer5";
+            this.txtLayer5.ReadOnly = true;
+            this.txtLayer5.Size = new System.Drawing.Size(204, 112);
+            this.txtLayer5.TabIndex = 10;
+            this.txtLayer5.Text = "Layer 4 Text";
+            // 
+            // Layer2
+            // 
+            this.Layer2.Controls.Add(this.txtLayer2);
+            this.Layer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Layer2.Location = new System.Drawing.Point(269, 24);
+            this.Layer2.Name = "Layer2";
+            this.Layer2.Size = new System.Drawing.Size(245, 135);
+            this.Layer2.TabIndex = 1;
+            this.Layer2.TabStop = false;
+            this.Layer2.Text = "Layer 2 - Blacklist";
+            this.Layer2.Visible = false;
+            // 
+            // txtLayer2
+            // 
+            this.txtLayer2.Location = new System.Drawing.Point(6, 21);
+            this.txtLayer2.Multiline = true;
+            this.txtLayer2.Name = "txtLayer2";
+            this.txtLayer2.ReadOnly = true;
+            this.txtLayer2.Size = new System.Drawing.Size(229, 105);
+            this.txtLayer2.TabIndex = 0;
+            this.txtLayer2.Text = "Layer 2 Text";
+            // 
+            // Layer3
+            // 
+            this.Layer3.Controls.Add(this.txtLayer3);
+            this.Layer3.Controls.Add(this.grdUrlAnalysis);
+            this.Layer3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Layer3.Location = new System.Drawing.Point(6, 165);
+            this.Layer3.Name = "Layer3";
+            this.Layer3.Size = new System.Drawing.Size(508, 358);
+            this.Layer3.TabIndex = 2;
+            this.Layer3.TabStop = false;
+            this.Layer3.Text = "Layer 3 - Heuristic Analysis";
+            this.Layer3.Visible = false;
+            // 
+            // txtLayer3
+            // 
+            this.txtLayer3.Location = new System.Drawing.Point(7, 28);
+            this.txtLayer3.Name = "txtLayer3";
+            this.txtLayer3.ReadOnly = true;
+            this.txtLayer3.Size = new System.Drawing.Size(495, 23);
+            this.txtLayer3.TabIndex = 8;
+            this.txtLayer3.Text = "Layer 3 Text";
+            // 
+            // Layer1
+            // 
+            this.Layer1.Controls.Add(this.txtLayer1);
+            this.Layer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Layer1.Location = new System.Drawing.Point(6, 24);
+            this.Layer1.Name = "Layer1";
+            this.Layer1.Size = new System.Drawing.Size(253, 135);
+            this.Layer1.TabIndex = 0;
+            this.Layer1.TabStop = false;
+            this.Layer1.Text = "Layer 1 - Whitelist";
+            this.Layer1.Visible = false;
+            // 
+            // txtLayer1
+            // 
+            this.txtLayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLayer1.ForeColor = System.Drawing.Color.White;
+            this.txtLayer1.Location = new System.Drawing.Point(7, 23);
+            this.txtLayer1.Multiline = true;
+            this.txtLayer1.Name = "txtLayer1";
+            this.txtLayer1.ReadOnly = true;
+            this.txtLayer1.Size = new System.Drawing.Size(235, 106);
+            this.txtLayer1.TabIndex = 0;
+            this.txtLayer1.Text = "Layer 1 Text";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 537);
-            this.Controls.Add(this.grpOverall);
+            this.ClientSize = new System.Drawing.Size(774, 630);
+            this.Controls.Add(this.grpMain);
             this.Controls.Add(this.lblSystemStatus);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -487,17 +491,21 @@
             this.Text = "Phishbait";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.grpFrequent.ResumeLayout(false);
-            this.grpFrequent.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).EndInit();
-            this.grpUrl.ResumeLayout(false);
-            this.grpUrl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.grpOverall.ResumeLayout(false);
-            this.grpOverall.PerformLayout();
+            this.grpMain.ResumeLayout(false);
+            this.Layer4.ResumeLayout(false);
+            this.Layer4.PerformLayout();
+            this.Layer5.ResumeLayout(false);
+            this.Layer5.PerformLayout();
+            this.Layer2.ResumeLayout(false);
+            this.Layer2.PerformLayout();
+            this.Layer3.ResumeLayout(false);
+            this.Layer3.PerformLayout();
+            this.Layer1.ResumeLayout(false);
+            this.Layer1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,21 +516,12 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Label lblUrl;
-        private System.Windows.Forms.Label lblFishPercentage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox grpUrl;
-        private System.Windows.Forms.TextBox lblPhishingInd;
         private System.Windows.Forms.DataGridView grdUrlAnalysis;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ParamName;
         private System.Windows.Forms.DataGridViewTextBoxColumn SystemParameter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Analysis;
-        private System.Windows.Forms.GroupBox grpFrequent;
         private System.Windows.Forms.DataGridView grdFreq;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblFreqPercentage;
-        private System.Windows.Forms.TextBox txtFreqM;
         private System.Windows.Forms.DataGridViewTextBoxColumn Item;
         private System.Windows.Forms.DataGridViewTextBoxColumn Frequency;
         private System.Windows.Forms.Label lblSystemStatus;
@@ -533,21 +532,29 @@
         private System.Windows.Forms.ToolStripMenuItem ignoreRulesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frequentItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tasksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem frequentItemCalculatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uRLAnalysisCalculatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resourcesToolStripMenuItem;
-        private System.Windows.Forms.GroupBox grpOverall;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblOverallAnalysis;
-        private System.Windows.Forms.TextBox txtWeights;
         private System.Windows.Forms.ToolStripMenuItem simulateURLAnalysisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem processToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bayesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bayesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem crawlerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uRLCharsToolStripMenuItem;
+        private System.Windows.Forms.GroupBox grpMain;
+        private System.Windows.Forms.GroupBox Layer1;
+        private System.Windows.Forms.GroupBox Layer2;
+        private System.Windows.Forms.GroupBox Layer3;
+        private System.Windows.Forms.GroupBox Layer5;
+        private System.Windows.Forms.GroupBox Layer4;
+        private System.Windows.Forms.TextBox txtLayer1;
+        private System.Windows.Forms.TextBox txtLayer2;
+        private System.Windows.Forms.TextBox txtLayer3;
+        private System.Windows.Forms.TextBox txtLayer4;
+        private System.Windows.Forms.TextBox txtLayer5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox BayesTrusted;
+        private System.Windows.Forms.TextBox BayesPhishing;
+        private System.Windows.Forms.ToolStripMenuItem optimiseToolStripMenuItem;
     }
 }
 
