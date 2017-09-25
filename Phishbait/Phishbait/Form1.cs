@@ -174,6 +174,8 @@ namespace Phishbait
 
             DetectUrl(Url);
 
+            cPhishbait Class = new cPhishbait(Url);
+
             //string htmlCode;
 
             //Get Source code of URL
@@ -436,6 +438,29 @@ namespace Phishbait
         private void processToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmProcess Form = new frmProcess();
+            Form.Show();
+        }
+
+        private void bayesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void bayesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmBayes Form = new frmBayes();
+            Form.Show();
+        }
+
+        private void crawlerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCrawler Form = new frmCrawler();
+            Form.Show();
+        }
+
+        private void uRLCharsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUrlChars Form = new frmUrlChars();
             Form.Show();
         }
     }

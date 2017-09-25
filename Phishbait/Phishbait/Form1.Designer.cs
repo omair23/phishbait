@@ -51,6 +51,8 @@
             this.lblSystemStatus = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crawlerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uRLCharsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ignoreRulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,11 +64,13 @@
             this.uRLAnalysisCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateURLAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bayesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bayesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.grpOverall = new System.Windows.Forms.GroupBox();
             this.txtWeights = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblOverallAnalysis = new System.Windows.Forms.Label();
-            this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpFrequent.SuspendLayout();
@@ -292,7 +296,8 @@
             this.statsToolStripMenuItem,
             this.tasksToolStripMenuItem,
             this.resourcesToolStripMenuItem,
-            this.processToolStripMenuItem});
+            this.processToolStripMenuItem,
+            this.bayesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(871, 24);
@@ -302,15 +307,31 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.crawlerToolStripMenuItem,
+            this.uRLCharsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // crawlerToolStripMenuItem
+            // 
+            this.crawlerToolStripMenuItem.Name = "crawlerToolStripMenuItem";
+            this.crawlerToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.crawlerToolStripMenuItem.Text = "Crawler";
+            this.crawlerToolStripMenuItem.Click += new System.EventHandler(this.crawlerToolStripMenuItem_Click);
+            // 
+            // uRLCharsToolStripMenuItem
+            // 
+            this.uRLCharsToolStripMenuItem.Name = "uRLCharsToolStripMenuItem";
+            this.uRLCharsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.uRLCharsToolStripMenuItem.Text = "URL Chars.";
+            this.uRLCharsToolStripMenuItem.Click += new System.EventHandler(this.uRLCharsToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -387,6 +408,29 @@
             this.resourcesToolStripMenuItem.Text = "Resources";
             this.resourcesToolStripMenuItem.Click += new System.EventHandler(this.resourcesToolStripMenuItem_Click);
             // 
+            // processToolStripMenuItem
+            // 
+            this.processToolStripMenuItem.Name = "processToolStripMenuItem";
+            this.processToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.processToolStripMenuItem.Text = "Process";
+            this.processToolStripMenuItem.Click += new System.EventHandler(this.processToolStripMenuItem_Click);
+            // 
+            // bayesToolStripMenuItem
+            // 
+            this.bayesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bayesToolStripMenuItem1});
+            this.bayesToolStripMenuItem.Name = "bayesToolStripMenuItem";
+            this.bayesToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.bayesToolStripMenuItem.Text = "New Research";
+            this.bayesToolStripMenuItem.Click += new System.EventHandler(this.bayesToolStripMenuItem_Click);
+            // 
+            // bayesToolStripMenuItem1
+            // 
+            this.bayesToolStripMenuItem1.Name = "bayesToolStripMenuItem1";
+            this.bayesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.bayesToolStripMenuItem1.Text = "Bayes";
+            this.bayesToolStripMenuItem1.Click += new System.EventHandler(this.bayesToolStripMenuItem1_Click);
+            // 
             // grpOverall
             // 
             this.grpOverall.Controls.Add(this.txtWeights);
@@ -427,13 +471,6 @@
             this.lblOverallAnalysis.Size = new System.Drawing.Size(140, 42);
             this.lblOverallAnalysis.TabIndex = 11;
             this.lblOverallAnalysis.Text = "97.5 %";
-            // 
-            // processToolStripMenuItem
-            // 
-            this.processToolStripMenuItem.Name = "processToolStripMenuItem";
-            this.processToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.processToolStripMenuItem.Text = "Process";
-            this.processToolStripMenuItem.Click += new System.EventHandler(this.processToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -507,6 +544,10 @@
         private System.Windows.Forms.TextBox txtWeights;
         private System.Windows.Forms.ToolStripMenuItem simulateURLAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bayesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bayesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem crawlerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uRLCharsToolStripMenuItem;
     }
 }
 

@@ -69,17 +69,30 @@
   <ItemGroup>
     <Compile Include="Classes\Algorithms.cs" />
     <Compile Include="Classes\BaseClass.cs" />
+    <Compile Include="cPhishbait.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBayes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBayes.Designer.cs">
+      <DependentUpon>frmBayes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConfig.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmConfig.Designer.cs">
       <DependentUpon>frmConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCrawler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCrawler.Designer.cs">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
     </Compile>
     <Compile Include="frmFrequent.cs">
       <SubType>Form</SubType>
@@ -117,6 +130,12 @@
     <Compile Include="frmStats.Designer.cs">
       <DependentUpon>frmStats.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUrlChars.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUrlChars.Designer.cs">
+      <DependentUpon>frmUrlChars.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201708061409073_Startup.cs" />
     <Compile Include="Migrations\201708061409073_Startup.Designer.cs">
       <DependentUpon>201708061409073_Startup.cs</DependentUpon>
@@ -148,8 +167,14 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmBayes.resx">
+      <DependentUpon>frmBayes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCrawler.resx">
+      <DependentUpon>frmCrawler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmFrequent.resx">
       <DependentUpon>frmFrequent.cs</DependentUpon>
@@ -168,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStats.resx">
       <DependentUpon>frmStats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUrlChars.resx">
+      <DependentUpon>frmUrlChars.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708061409073_Startup.resx">
       <DependentUpon>201708061409073_Startup.cs</DependentUpon>
@@ -204,6 +232,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BayesClassifier\BayesClassifier.csproj">
+      <Project>{a6a8c5b0-b4fd-4bca-836e-24d96a73d30d}</Project>
+      <Name>BayesClassifier</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
