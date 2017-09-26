@@ -43,7 +43,7 @@ namespace Phishbait
 
             string Url = txtUrl.Text;
 
-            cPhishbait Class = new cPhishbait(Url, ConfigItems, 50);
+            cPhishbait Class = new cPhishbait(Url, ConfigItems, false, false, false, false, false, 50);
 
             grpMain.Visible = true;
 
@@ -87,14 +87,14 @@ namespace Phishbait
 
             grdUrlAnalysis.Rows.Clear();
 
-            grdUrlAnalysis.Rows.Add("Number of Full Stops", ConfigItems["FullStops"].ToString(), ConfigItems["FullStopsW"].ToString(), Resource.NumberOfFullStops.ToString());
-            grdUrlAnalysis.Rows.Add("Number of @ Symbols", ConfigItems["AtSymbols"].ToString(), ConfigItems["AtSymbolsW"].ToString(), Resource.NumberOfAtSymbols.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", ConfigItems["ForwardSlashes"].ToString(), ConfigItems["ForwardSlashesW"].ToString(), Resource.NumberOfForwardSlashes.ToString());
-            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", ConfigItems["MultipleForwardSlashes"].ToString(), ConfigItems["MultipleForwardSlashesW"].ToString(), Resource.NumberOfForwardSlashes.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Full Stops", ConfigItems["FullStops"].ToString(), ConfigItems["FullStopsW"].ToString() + " %", Resource.NumberOfFullStops.ToString());
+            grdUrlAnalysis.Rows.Add("Number of @ Symbols", ConfigItems["AtSymbols"].ToString(), ConfigItems["AtSymbolsW"].ToString() + " %", Resource.NumberOfAtSymbols.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Double Forward Slashes", ConfigItems["ForwardSlashes"].ToString(), ConfigItems["ForwardSlashesW"].ToString() + " %", Resource.NumberOfForwardSlashes.ToString());
+            grdUrlAnalysis.Rows.Add("Number of Multiple Forward Slashes", ConfigItems["MultipleForwardSlashes"].ToString(), ConfigItems["MultipleForwardSlashesW"].ToString() + " %", Resource.NumberOfForwardSlashes.ToString());
 
-            grdUrlAnalysis.Rows.Add("Contains IP Address", ConfigItems["IPAddress"].ToString(), ConfigItems["IPAddressW"].ToString(), Resource.HasIPAddress.ToString());
-            grdUrlAnalysis.Rows.Add("Contains Port Number", ConfigItems["PortNumbers"].ToString(), ConfigItems["PortNumbersW"].ToString(), Resource.HasPortNumber.ToString());
-            grdUrlAnalysis.Rows.Add("Invalid HTTPS", ConfigItems["InvalidHttps"].ToString(), ConfigItems["InvalidHttpsW"].ToString(), Resource.IsBadHttps.ToString());
+            grdUrlAnalysis.Rows.Add("Contains IP Address", ConfigItems["IPAddress"].ToString(), ConfigItems["IPAddressW"].ToString() + " %", Resource.HasIPAddress.ToString());
+            grdUrlAnalysis.Rows.Add("Contains Port Number", ConfigItems["PortNumbers"].ToString(), ConfigItems["PortNumbersW"].ToString() + " %", Resource.HasPortNumber.ToString());
+            grdUrlAnalysis.Rows.Add("Invalid HTTPS", ConfigItems["InvalidHttps"].ToString(), ConfigItems["InvalidHttpsW"].ToString() + " %", Resource.IsBadHttps.ToString());
 
             if (Class.LayerDetected != 3)
             {
@@ -275,6 +275,12 @@ namespace Phishbait
         private void heuristicToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmOptimiseHeur Form = new frmOptimiseHeur();
+            Form.Show();
+        }
+
+        private void heuristicPassScoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOptimiseHeurPass Form = new frmOptimiseHeurPass();
             Form.Show();
         }
     }

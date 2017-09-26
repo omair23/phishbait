@@ -57,6 +57,8 @@
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optimiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heuristicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heuristicPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.frequentIPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.Layer4 = new System.Windows.Forms.GroupBox();
@@ -73,8 +75,6 @@
             this.txtLayer3 = new System.Windows.Forms.TextBox();
             this.Layer1 = new System.Windows.Forms.GroupBox();
             this.txtLayer1 = new System.Windows.Forms.TextBox();
-            this.heuristicPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.frequentIPassScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdUrlAnalysis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdFreq)).BeginInit();
@@ -335,6 +335,19 @@
             this.heuristicToolStripMenuItem.Text = "Heuristic Values & Weight";
             this.heuristicToolStripMenuItem.Click += new System.EventHandler(this.heuristicToolStripMenuItem_Click);
             // 
+            // heuristicPassScoreToolStripMenuItem
+            // 
+            this.heuristicPassScoreToolStripMenuItem.Name = "heuristicPassScoreToolStripMenuItem";
+            this.heuristicPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.heuristicPassScoreToolStripMenuItem.Text = "Heuristic Pass Score";
+            this.heuristicPassScoreToolStripMenuItem.Click += new System.EventHandler(this.heuristicPassScoreToolStripMenuItem_Click);
+            // 
+            // frequentIPassScoreToolStripMenuItem
+            // 
+            this.frequentIPassScoreToolStripMenuItem.Name = "frequentIPassScoreToolStripMenuItem";
+            this.frequentIPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.frequentIPassScoreToolStripMenuItem.Text = "FrequentI Pass Score";
+            // 
             // simulateToolStripMenuItem
             // 
             this.simulateToolStripMenuItem.Name = "simulateToolStripMenuItem";
@@ -505,18 +518,6 @@
             this.txtLayer1.Size = new System.Drawing.Size(235, 106);
             this.txtLayer1.TabIndex = 0;
             this.txtLayer1.Text = "Layer 1 Text";
-            // 
-            // heuristicPassScoreToolStripMenuItem
-            // 
-            this.heuristicPassScoreToolStripMenuItem.Name = "heuristicPassScoreToolStripMenuItem";
-            this.heuristicPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.heuristicPassScoreToolStripMenuItem.Text = "Heuristic Pass Score";
-            // 
-            // frequentIPassScoreToolStripMenuItem
-            // 
-            this.frequentIPassScoreToolStripMenuItem.Name = "frequentIPassScoreToolStripMenuItem";
-            this.frequentIPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.frequentIPassScoreToolStripMenuItem.Text = "FrequentI Pass Score";
             // 
             // Form1
             // 

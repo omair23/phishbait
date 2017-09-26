@@ -25,12 +25,15 @@ namespace Phishbait
         PhishModel db;
         EFRepository Repository;
 
-        public cPhishbait(string paramUrl, Dictionary<string, string> Configuration, int PassScore1)
+        public cPhishbait(string paramUrl, Dictionary<string, string> Configuration, 
+                            bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
+                            bool IgnoreLayer4, bool IgnoreLayer5,
+                            int Score1)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
 
-            this.PassScore1 = PassScore1;
+            PassScore1 = Score1;
             ConfigItems = Configuration;
 
             Url = paramUrl;
@@ -44,18 +47,21 @@ namespace Phishbait
                 Resource = new Resource(Url);
             }
 
-            Detected = Layer1();
+            if (!IgnoreLayer1)
+            {
+                Detected = Layer1();
+            }
 
-            if (!Detected)
+            if (!Detected && !IgnoreLayer2)
                 Detected = Layer2();
 
-            if (!Detected)
+            if (!Detected && !IgnoreLayer3)
                 Detected = Layer3();
 
-            if (!Detected)
+            if (!Detected && !IgnoreLayer4)
                 Detected = Layer4();
 
-            if (!Detected)
+            if (!Detected && !IgnoreLayer5)
                 Detected = Layer5();
         }
 
@@ -141,7 +147,7 @@ namespace Phishbait
             }
                 
 
-            if (OverallUrl > PassScore1) //Pass Score
+            if (OverallUrl >= PassScore1) //Pass Score
             {
                 LayerDetected = 3;
                 return true;

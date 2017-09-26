@@ -113,6 +113,12 @@
     <Compile Include="frmOptimiseHeur.Designer.cs">
       <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOptimiseHeurPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOptimiseHeurPass.Designer.cs">
+      <DependentUpon>frmOptimiseHeurPass.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmResource.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmOptimiseHeur.resx">
       <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOptimiseHeurPass.resx">
+      <DependentUpon>frmOptimiseHeurPass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmResource.resx">
       <DependentUpon>frmResource.cs</DependentUpon>
