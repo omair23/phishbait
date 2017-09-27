@@ -93,12 +93,12 @@
             // 
             // False_Positives
             // 
-            this.False_Positives.HeaderText = "False Positives (Inverted) %";
+            this.False_Positives.HeaderText = "False Positives %";
             this.False_Positives.Name = "False_Positives";
             // 
             // False_Negatives
             // 
-            this.False_Negatives.HeaderText = "False Negatives (Inverted) %";
+            this.False_Negatives.HeaderText = "False Negatives %";
             this.False_Negatives.Name = "False_Negatives";
             // 
             // True_Negatives

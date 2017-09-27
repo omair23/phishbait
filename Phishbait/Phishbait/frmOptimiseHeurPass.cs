@@ -58,12 +58,30 @@ namespace Phishbait
 
             //chtMain.ChartAreas[0].AxisX.Minimum = 0;
 
-            for (int i = 1; i <=10; i++)
+            for (int i = 1; i <=15; i++)
             {
                 ComputeScore(i);
             }
 
+            FindOptimalScore();
+
             ExportToExcel();
+        }
+
+        public void FindOptimalScore()
+        {
+            double HighestValue = 0;
+            int Score = 1;
+
+            foreach (DataGridViewRow row in grdMain.Rows)
+            {
+                if (Convert.ToDouble(row.Cells[1].Value) >= HighestValue)
+                {
+                    Score = Convert.ToInt32(row.Cells[0].Value);
+                }
+            }
+
+            var Test = 1;
         }
 
         public void ComputeScore(int Score)
@@ -104,10 +122,10 @@ namespace Phishbait
                             TrueNegative.ToString());
 
 
-            chtMain.Series[0].Points.AddXY(Score, TruePositive);
-            chtMain.Series[1].Points.AddXY(Score, FalsePositive);
-            chtMain.Series[2].Points.AddXY(Score, FalseNegative);
-            chtMain.Series[3].Points.AddXY(Score, TrueNegative);
+            //chtMain.Series[0].Points.AddXY(Score, TruePositive);
+            //chtMain.Series[1].Points.AddXY(Score, FalsePositive);
+            //chtMain.Series[2].Points.AddXY(Score, FalseNegative);
+            //chtMain.Series[3].Points.AddXY(Score, TrueNegative);
         }
 
 
