@@ -41,9 +41,22 @@ namespace Phishbait
             Layer4.Visible = false;
             Layer5.Visible = false;
 
+
             string Url = txtUrl.Text;
 
-            cPhishbait Class = new cPhishbait(Url, ConfigItems, false, false, false, false, false, 50);
+            bool IsNewResource = false;
+
+            Resource Resource = Repository
+                                .Find<Resource>(s => s.Url == Url)
+                                .FirstOrDefault();
+
+            if (Resource == null)
+            {
+                IsNewResource = true;
+                Resource = new Resource(Url);
+            }
+
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, false, false, false, false, false, 0);
 
             grpMain.Visible = true;
 
@@ -82,8 +95,6 @@ namespace Phishbait
             }
 
             Layer3.Visible = true;
-
-            Resource Resource = Class.Resource;
 
             grdUrlAnalysis.Rows.Clear();
 
@@ -153,6 +164,15 @@ namespace Phishbait
             BayesTrusted.Text = Math.Round(Class.BayesScore["Phishing"], 3).ToString();
 
             BayesPhishing.Text = Math.Round(Class.BayesScore["Non Phishing"], 3).ToString();
+
+            Resource = Class.Resource;
+
+            Resource.LayerDetected = Class.LayerDetected;
+
+            if (IsNewResource)
+                Repository.Add(Resource);
+            else
+                Repository.Update(Resource);
 
             //string htmlCode;
 

@@ -10,7 +10,6 @@ namespace Phishbait
     class cPhishbait
     {
         public string Url;
-        public Resource Resource;
 
         public bool Detected = false;
 
@@ -25,13 +24,17 @@ namespace Phishbait
         PhishModel db;
         EFRepository Repository;
 
-        public cPhishbait(string paramUrl, Dictionary<string, string> Configuration, 
+        public Resource Resource;
+
+        public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
                             bool IgnoreLayer4, bool IgnoreLayer5,
                             int Score1)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
+
+            Resource = pResource;
 
             PassScore1 = Score1;
             ConfigItems = Configuration;
@@ -40,20 +43,13 @@ namespace Phishbait
 
             grdFreq = new Dictionary<string, int>();
 
-            Resource = Repository.Find<Resource>(s => s.Url == Url).FirstOrDefault();
-
-            if (Resource == null)
-            {
-                Resource = new Resource(Url);
-            }
-
             if (!IgnoreLayer1)
             {
-                Detected = Layer1();
+                Detected = Layer1(Resource);
             }
 
             if (!Detected && !IgnoreLayer2)
-                Detected = Layer2();
+                Detected = Layer2(Resource);
 
             if (!Detected && !IgnoreLayer3)
                 Detected = Layer3();
@@ -66,14 +62,9 @@ namespace Phishbait
         }
 
         //Check if website is in whitelist
-        public bool Layer1()
+        public bool Layer1(Resource Resource)
         {
-            Resource WhiteListItem = Repository
-                                        .Find<Resource>(s => s.Url == Url
-                                                        && s.ItemType == PhishDataType.Positive)
-                                        .FirstOrDefault();
-
-            if (WhiteListItem != null)
+            if (Resource.ItemType == PhishDataType.Positive)
             {
                 LayerDetected = 1;
                 return true;
@@ -86,14 +77,9 @@ namespace Phishbait
         }
 
         //Check if website is in blacklist
-        public bool Layer2()
+        public bool Layer2(Resource Resource)
         {
-            Resource BlackListItem = Repository
-                                        .Find<Resource>(s => s.Url == Url
-                                                        && s.ItemType == PhishDataType.Negative)
-                                        .FirstOrDefault();
-
-            if (BlackListItem != null)
+            if (Resource.ItemType == PhishDataType.Negative)
             {
                 LayerDetected = 2;
                 return true;
@@ -211,9 +197,7 @@ namespace Phishbait
             else
                 ProbabilityCounter = 0;
 
-            Resource.UrlFrequentPercentage = ProbabilityCounter;
-
-            if (ProbabilityCounter >= PassScore1) //Pass score
+            if (ProbabilityCounter >= Convert.ToDouble(ConfigItems["FrequentPassScore"])) //Pass score
             {
                 LayerDetected = 4;
                 return true;

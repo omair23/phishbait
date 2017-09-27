@@ -33,22 +33,6 @@ namespace Phishbait
 
         public PhishDataType ItemType { get; set; }
 
-        //System Generated/Calculated Values
-
-        public double UrlAnalysisPercentage { get; set; }
-
-        public double UrlFrequentPercentage { get; set; }
-
-        public double OverallRiskPercentage { get; set; }
-
-        ////////////////////////////////////
-
-        //public bool IsPhishing { get; set; }
-
-        //public Source ResourceSource { get; set; }
-
-        //DetectionVariables
-
         public int NumberOfFullStops { get; set; }
 
         public int NumberOfAtSymbols { get; set; }

@@ -34,9 +34,6 @@ namespace Phishbait
             {
                 grdMain.Rows.Add(item.UID,
                                 item.Url,
-                                item.UrlAnalysisPercentage.ToString(),
-                                item.UrlFrequentPercentage.ToString(),
-                                item.OverallRiskPercentage.ToString(),
                                 item.ItemType.ToString()
                                 );
             }
@@ -65,9 +62,6 @@ namespace Phishbait
                     testData.Add(new object[] {
                     item.UID,
                     item.Url,
-                    item.UrlAnalysisPercentage,
-                    item.UrlFrequentPercentage,
-                    item.OverallRiskPercentage,
                     item.ItemType.ToString()});
                 }
 

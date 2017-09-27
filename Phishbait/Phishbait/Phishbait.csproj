@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201709271734256_Layered Structure.Designer.cs">
       <DependentUpon>201709271734256_Layered Structure.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709271741491_Remove reduntant variables.cs" />
+    <Compile Include="Migrations\201709271741491_Remove reduntant variables.Designer.cs">
+      <DependentUpon>201709271741491_Remove reduntant variables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
@@ -225,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709271734256_Layered Structure.resx">
       <DependentUpon>201709271734256_Layered Structure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709271741491_Remove reduntant variables.resx">
+      <DependentUpon>201709271741491_Remove reduntant variables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
