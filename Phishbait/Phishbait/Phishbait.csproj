@@ -107,6 +107,12 @@
     <Compile Include="frmImport.Designer.cs">
       <DependentUpon>frmImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOptimiseFrequentPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOptimiseFrequentPass.Designer.cs">
+      <DependentUpon>frmOptimiseFrequentPass.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOptimiseHeur.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,10 @@
     <Compile Include="Migrations\201708151759230_Resource cleanup.Designer.cs">
       <DependentUpon>201708151759230_Resource cleanup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709271734256_Layered Structure.cs" />
+    <Compile Include="Migrations\201709271734256_Layered Structure.Designer.cs">
+      <DependentUpon>201709271734256_Layered Structure.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
@@ -183,6 +193,9 @@
     <EmbeddedResource Include="frmImport.resx">
       <DependentUpon>frmImport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOptimiseFrequentPass.resx">
+      <DependentUpon>frmOptimiseFrequentPass.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmOptimiseHeur.resx">
       <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708151759230_Resource cleanup.resx">
       <DependentUpon>201708151759230_Resource cleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709271734256_Layered Structure.resx">
+      <DependentUpon>201709271734256_Layered Structure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

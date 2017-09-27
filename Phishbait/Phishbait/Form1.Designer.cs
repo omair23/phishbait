@@ -347,6 +347,7 @@
             this.frequentIPassScoreToolStripMenuItem.Name = "frequentIPassScoreToolStripMenuItem";
             this.frequentIPassScoreToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.frequentIPassScoreToolStripMenuItem.Text = "FrequentI Pass Score";
+            this.frequentIPassScoreToolStripMenuItem.Click += new System.EventHandler(this.frequentIPassScoreToolStripMenuItem_Click);
             // 
             // simulateToolStripMenuItem
             // 

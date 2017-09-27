@@ -283,5 +283,11 @@ namespace Phishbait
             frmOptimiseHeurPass Form = new frmOptimiseHeurPass();
             Form.Show();
         }
+
+        private void frequentIPassScoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOptimiseFrequentPass Form = new frmOptimiseFrequentPass();
+            Form.Show();
+        }
     }
 }

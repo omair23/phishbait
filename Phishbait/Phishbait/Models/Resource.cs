@@ -27,6 +27,8 @@ namespace Phishbait
 
         public string Url { get; set; }
 
+        public int LayerDetected { get; set; }
+
         public string PageContent { get; set; }
 
         public PhishDataType ItemType { get; set; }
@@ -41,9 +43,9 @@ namespace Phishbait
 
         ////////////////////////////////////
 
-        public bool IsPhishing { get; set; }
+        //public bool IsPhishing { get; set; }
 
-        public Source ResourceSource { get; set; }
+        //public Source ResourceSource { get; set; }
 
         //DetectionVariables
 

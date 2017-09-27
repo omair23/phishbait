@@ -213,7 +213,7 @@ namespace Phishbait
 
             Resource.UrlFrequentPercentage = ProbabilityCounter;
 
-            if (ProbabilityCounter >= 40) //Pass score
+            if (ProbabilityCounter >= PassScore1) //Pass score
             {
                 LayerDetected = 4;
                 return true;
