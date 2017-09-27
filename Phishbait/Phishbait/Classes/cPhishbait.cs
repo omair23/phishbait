@@ -147,7 +147,7 @@ namespace Phishbait
             }
                 
 
-            if (OverallUrl >= PassScore1) //Pass Score
+            if (OverallUrl >= Convert.ToDouble(ConfigItems["HeuristicPassScore"])) //Pass Score
             {
                 LayerDetected = 3;
                 return true;

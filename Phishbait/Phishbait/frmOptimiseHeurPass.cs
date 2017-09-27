@@ -32,12 +32,12 @@ namespace Phishbait
         {
             PhishingSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Negative)
-                            .Take(1000) //TO DO Remove Limit
+                            .Take(100) //TO DO Remove Limit
                             .ToList();
 
             TrustedSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Positive)
-                            .Take(1000) //TO DO Remove Limit
+                            .Take(100) //TO DO Remove Limit
                             .ToList();
 
             chtMain.Series.Add("True Positives");
@@ -65,23 +65,31 @@ namespace Phishbait
 
             FindOptimalScore();
 
-            ExportToExcel();
+            //ExportToExcel();
         }
 
         public void FindOptimalScore()
         {
             double HighestValue = 0;
-            int Score = 1;
+            int Score = 0;
 
             foreach (DataGridViewRow row in grdMain.Rows)
             {
                 if (Convert.ToDouble(row.Cells[1].Value) >= HighestValue)
                 {
+                    HighestValue = Convert.ToDouble(row.Cells[1].Value);
                     Score = Convert.ToInt32(row.Cells[0].Value);
                 }
             }
 
-            var Test = 1;
+            List<Configuration> ScoreConfigs = Repository
+                                                .Find<Configuration>(s => s.Parameter == "HeuristicPassScore")
+                                                .ToList();
+
+            Configuration Config = new Configuration("HeuristicPassScore", Score.ToString());
+
+            Repository.DeleteMultiple(ScoreConfigs);
+            Repository.Add(Config);
         }
 
         public void ComputeScore(int Score)
@@ -122,10 +130,10 @@ namespace Phishbait
                             TrueNegative.ToString());
 
 
-            //chtMain.Series[0].Points.AddXY(Score, TruePositive);
-            //chtMain.Series[1].Points.AddXY(Score, FalsePositive);
-            //chtMain.Series[2].Points.AddXY(Score, FalseNegative);
-            //chtMain.Series[3].Points.AddXY(Score, TrueNegative);
+            chtMain.Series[0].Points.AddXY(Score, TruePositive);
+            chtMain.Series[1].Points.AddXY(Score, FalsePositive);
+            chtMain.Series[2].Points.AddXY(Score, FalseNegative);
+            chtMain.Series[3].Points.AddXY(Score, TrueNegative);
         }
 
 
