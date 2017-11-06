@@ -47,6 +47,9 @@
             this.txtLayer2 = new System.Windows.Forms.TextBox();
             this.Layer1 = new System.Windows.Forms.GroupBox();
             this.txtLayer1 = new System.Windows.Forms.TextBox();
+            this.Layer3 = new System.Windows.Forms.GroupBox();
+            this.Layer4 = new System.Windows.Forms.GroupBox();
+            this.Layer5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.grpMain.SuspendLayout();
@@ -176,6 +179,9 @@
             // 
             // grpMain
             // 
+            this.grpMain.Controls.Add(this.Layer5);
+            this.grpMain.Controls.Add(this.Layer4);
+            this.grpMain.Controls.Add(this.Layer3);
             this.grpMain.Controls.Add(this.Layer2);
             this.grpMain.Controls.Add(this.Layer1);
             this.grpMain.Location = new System.Drawing.Point(12, 75);
@@ -231,6 +237,33 @@
             this.txtLayer1.TabIndex = 0;
             this.txtLayer1.Text = "Layer 1 Text";
             // 
+            // Layer3
+            // 
+            this.Layer3.Location = new System.Drawing.Point(6, 174);
+            this.Layer3.Name = "Layer3";
+            this.Layer3.Size = new System.Drawing.Size(199, 167);
+            this.Layer3.TabIndex = 2;
+            this.Layer3.TabStop = false;
+            this.Layer3.Text = "Layer 3 - URL-Based Features";
+            // 
+            // Layer4
+            // 
+            this.Layer4.Location = new System.Drawing.Point(223, 174);
+            this.Layer4.Name = "Layer4";
+            this.Layer4.Size = new System.Drawing.Size(199, 167);
+            this.Layer4.TabIndex = 3;
+            this.Layer4.TabStop = false;
+            this.Layer4.Text = "Layer 4 - URL-Based Features";
+            // 
+            // Layer5
+            // 
+            this.Layer5.Location = new System.Drawing.Point(428, 174);
+            this.Layer5.Name = "Layer5";
+            this.Layer5.Size = new System.Drawing.Size(199, 167);
+            this.Layer5.TabIndex = 4;
+            this.Layer5.TabStop = false;
+            this.Layer5.Text = "Layer 5 - Page-Based Features";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +311,9 @@
         private System.Windows.Forms.TextBox txtLayer1;
         private System.Windows.Forms.TextBox txtLayer2;
         private System.Windows.Forms.ToolStripMenuItem simulateToolStripMenuItem;
+        private System.Windows.Forms.GroupBox Layer3;
+        private System.Windows.Forms.GroupBox Layer4;
+        private System.Windows.Forms.GroupBox Layer5;
     }
 }
 

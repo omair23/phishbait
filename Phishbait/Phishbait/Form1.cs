@@ -44,6 +44,9 @@ namespace Phishbait
         {
             Layer1.Visible = false;
             Layer2.Visible = false;
+            Layer3.Visible = false;
+            Layer4.Visible = false;
+            Layer5.Visible = false;
 
             string Url = txtUrl.Text;
 
@@ -59,7 +62,7 @@ namespace Phishbait
                 Resource = new Resource(Url);
             }
 
-            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, false, false, false, false, false, 0, 0, false);
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, false, false, false, false, false, false);
 
             grpMain.Visible = true;
 

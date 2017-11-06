@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -14,8 +15,6 @@ namespace Phishbait
         bool IsTestEnvironment;
 
         public int LayerDetected = 0;
-        int HeurScore;
-        int FreqScore;
 
         public Dictionary<string, int> grdFreq;
         Dictionary<string, string> ConfigItems;
@@ -28,15 +27,12 @@ namespace Phishbait
         public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
                             bool IgnoreLayer4, bool IgnoreLayer5,
-                            int pHeurScore, int pFreqScore, bool pIsTestEnvironment)
+                            bool pIsTestEnvironment)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
 
             Resource = pResource;
-
-            HeurScore = pHeurScore;
-            FreqScore = pFreqScore;
 
             ConfigItems = Configuration;
 
@@ -53,10 +49,13 @@ namespace Phishbait
                 Detected = Layer2(Resource);
 
             if (!Detected && !IgnoreLayer3)
-                Detected = Layer3();
+                Detected = Layer3(Resource);
 
             if (!Detected && !IgnoreLayer4)
-                Detected = Layer4();
+                Detected = Layer4(Resource);
+
+            if (!Detected && !IgnoreLayer5)
+                Detected = Layer5(Resource);
         }
 
         //Check if website is in whitelist
@@ -89,9 +88,19 @@ namespace Phishbait
 
         }
 
-        //Check heuristic elements of URL
-        public bool Layer3()
+        //Layer 3 - URL-Based Features
+        public bool Layer3(Resource Resource)
         {
+            int DigitCount = Resource.Url.Count(char.IsDigit);
+
+            int URLLength = Resource.Url.Length;
+
+            int NumberOfSubDomains = 0;
+            bool CommonTLD = true;
+
+
+
+
             Resource.SetDetectionVariables();
 
             double OverallUrl = 0;
@@ -131,7 +140,7 @@ namespace Phishbait
             }
 
 
-            double PassScore = HeurScore;
+            double PassScore = 0;
 
             if (!IsTestEnvironment)
             {
@@ -149,11 +158,27 @@ namespace Phishbait
             }
         }
 
-        //Check string of URL for frequent items
-        public bool Layer4()
+        //Layer 4 - Domain-Based Features
+        public bool Layer4(Resource Resource)
         {
+            bool HasIPAddress = false;
+            int DaysSinceDomainRegistered = 0;
+            bool RegistrantNameHidden = false;
+
             return true;
         }
-        
+
+        //Layer 5 - Page-Based Features
+        public bool Layer5(Resource Resource)
+        {
+            int GlobalPagerank = 0;
+            int CountryPagerank = 0;
+
+            //Estimated number of visit for the domain ın a daily, weekly, or monthly basis
+            // Average Pageviews per visit
+            //Average Visit Duration
+            //Web traffic share per country
+            return true;
+        }
     }
 }
