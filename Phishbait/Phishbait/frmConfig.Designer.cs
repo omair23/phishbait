@@ -42,13 +42,13 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.grpUpdate = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.txtUpdateParameter = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtUpdateId = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtUpdateValue = new System.Windows.Forms.TextBox();
-            this.txtUpdateParameter = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.grpUpdate.SuspendLayout();
@@ -68,7 +68,7 @@
             this.grdMain.ReadOnly = true;
             this.grdMain.RowHeadersVisible = false;
             this.grdMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMain.Size = new System.Drawing.Size(515, 190);
+            this.grdMain.Size = new System.Drawing.Size(515, 374);
             this.grdMain.TabIndex = 0;
             // 
             // Id
@@ -150,7 +150,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(13, 260);
+            this.btnClose.Location = new System.Drawing.Point(708, 396);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(91, 29);
             this.btnClose.TabIndex = 7;
@@ -195,6 +195,33 @@
             this.grpUpdate.Text = "Update Configuration";
             this.grpUpdate.Visible = false;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(21, 100);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(91, 29);
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // txtUpdateParameter
+            // 
+            this.txtUpdateParameter.Location = new System.Drawing.Point(82, 29);
+            this.txtUpdateParameter.Name = "txtUpdateParameter";
+            this.txtUpdateParameter.ReadOnly = true;
+            this.txtUpdateParameter.Size = new System.Drawing.Size(175, 20);
+            this.txtUpdateParameter.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Parameter:";
+            // 
             // txtUpdateId
             // 
             this.txtUpdateId.Location = new System.Drawing.Point(126, 105);
@@ -229,45 +256,18 @@
             this.txtUpdateValue.Size = new System.Drawing.Size(175, 20);
             this.txtUpdateValue.TabIndex = 3;
             // 
-            // txtUpdateParameter
-            // 
-            this.txtUpdateParameter.Location = new System.Drawing.Point(82, 29);
-            this.txtUpdateParameter.Name = "txtUpdateParameter";
-            this.txtUpdateParameter.ReadOnly = true;
-            this.txtUpdateParameter.Size = new System.Drawing.Size(175, 20);
-            this.txtUpdateParameter.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Parameter:";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(21, 100);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(91, 29);
-            this.btnCancel.TabIndex = 9;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // frmConfig
+            // frmIgnore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 309);
+            this.ClientSize = new System.Drawing.Size(811, 437);
             this.Controls.Add(this.grpUpdate);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grdMain);
-            this.Name = "frmConfig";
+            this.Name = "frmIgnore";
             this.Text = "Delete";
             ((System.ComponentModel.ISupportInitialize)(this.grdMain)).EndInit();
             this.groupBox1.ResumeLayout(false);

@@ -16,10 +16,6 @@ namespace Phishbait
 
         public virtual DbSet<Resource> Resources { get; set; }
 
-        public virtual DbSet<FrequentItem> FrequentItems { get; set; }
-
-        public virtual DbSet<IgnoreRule> IgnoreRules { get; set; }
-
         public virtual DbSet<UrlStatistic> UrlStatistics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

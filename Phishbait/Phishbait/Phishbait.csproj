@@ -89,29 +89,11 @@
     <Compile Include="frmCrawler.Designer.cs">
       <DependentUpon>frmCrawler.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmFrequent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmFrequent.Designer.cs">
-      <DependentUpon>frmFrequent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmIgnoreRules.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmIgnoreRules.Designer.cs">
-      <DependentUpon>frmIgnoreRules.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmImport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmImport.Designer.cs">
       <DependentUpon>frmImport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmOptimiseFrequentPass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmOptimiseFrequentPass.Designer.cs">
-      <DependentUpon>frmOptimiseFrequentPass.cs</DependentUpon>
     </Compile>
     <Compile Include="frmOptimiseHeur.cs">
       <SubType>Form</SubType>
@@ -136,6 +118,12 @@
     </Compile>
     <Compile Include="frmSimulate.Designer.cs">
       <DependentUpon>frmSimulate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStats.Designer.cs">
+      <DependentUpon>frmStats.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUrlChars.cs">
       <SubType>Form</SubType>
@@ -167,11 +155,13 @@
     <Compile Include="Migrations\201709271741491_Remove reduntant variables.Designer.cs">
       <DependentUpon>201709271741491_Remove reduntant variables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711061900499_Cleanup.cs" />
+    <Compile Include="Migrations\201711061900499_Cleanup.Designer.cs">
+      <DependentUpon>201711061900499_Cleanup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
-    <Compile Include="Models\IgnoreRule.cs" />
-    <Compile Include="Models\FrequentItem.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\PhishModel.cs" />
@@ -188,17 +178,8 @@
     <EmbeddedResource Include="frmCrawler.resx">
       <DependentUpon>frmCrawler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmFrequent.resx">
-      <DependentUpon>frmFrequent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmIgnoreRules.resx">
-      <DependentUpon>frmIgnoreRules.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmImport.resx">
       <DependentUpon>frmImport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOptimiseFrequentPass.resx">
-      <DependentUpon>frmOptimiseFrequentPass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOptimiseHeur.resx">
       <DependentUpon>frmOptimiseHeur.cs</DependentUpon>
@@ -211,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSimulate.resx">
       <DependentUpon>frmSimulate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStats.resx">
+      <DependentUpon>frmStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUrlChars.resx">
       <DependentUpon>frmUrlChars.cs</DependentUpon>
@@ -232,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709271741491_Remove reduntant variables.resx">
       <DependentUpon>201709271741491_Remove reduntant variables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061900499_Cleanup.resx">
+      <DependentUpon>201711061900499_Cleanup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -255,12 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BayesClassifier\BayesClassifier.csproj">
-      <Project>{a6a8c5b0-b4fd-4bca-836e-24d96a73d30d}</Project>
-      <Name>BayesClassifier</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

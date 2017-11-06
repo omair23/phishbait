@@ -1,5 +1,4 @@
-﻿using BayesClassifier;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,15 +11,15 @@ namespace Phishbait
         public string Url;
 
         public bool Detected = false;
+        bool IsTestEnvironment;
 
         public int LayerDetected = 0;
-        int PassScore1;
+        int HeurScore;
+        int FreqScore;
 
         public Dictionary<string, int> grdFreq;
-        public Dictionary<string, double> BayesScore;
         Dictionary<string, string> ConfigItems;
 
-        Classifier m_Classifier;
         PhishModel db;
         EFRepository Repository;
 
@@ -29,14 +28,16 @@ namespace Phishbait
         public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
                             bool IgnoreLayer4, bool IgnoreLayer5,
-                            int Score1)
+                            int pHeurScore, int pFreqScore, bool pIsTestEnvironment)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
 
             Resource = pResource;
 
-            PassScore1 = Score1;
+            HeurScore = pHeurScore;
+            FreqScore = pFreqScore;
+
             ConfigItems = Configuration;
 
             Url = paramUrl;
@@ -56,9 +57,6 @@ namespace Phishbait
 
             if (!Detected && !IgnoreLayer4)
                 Detected = Layer4();
-
-            if (!Detected && !IgnoreLayer5)
-                Detected = Layer5();
         }
 
         //Check if website is in whitelist
@@ -131,9 +129,16 @@ namespace Phishbait
                 var x = (Convert.ToInt32(ConfigItems["MultipleForwardSlashesW"]) * Resource.NumberOfMultipleForwardSlashes);
                 OverallUrl += x;
             }
-                
 
-            if (OverallUrl >= Convert.ToDouble(ConfigItems["HeuristicPassScore"])) //Pass Score
+
+            double PassScore = HeurScore;
+
+            if (!IsTestEnvironment)
+            {
+                PassScore = Convert.ToDouble(ConfigItems["HeuristicPassScore"]);
+            }
+
+            if (OverallUrl >= PassScore)
             {
                 LayerDetected = 3;
                 return true;
@@ -147,102 +152,8 @@ namespace Phishbait
         //Check string of URL for frequent items
         public bool Layer4()
         {
-            //Cleaning URL
-            Regex rgx = new Regex("[^a-zA-Z0-9 -]");
-            String StrippedUrl = rgx.Replace(Url, " ");
-            var SplitUrl = StrippedUrl.Split(null).ToList();
-            SplitUrl.RemoveAll(item => String.IsNullOrWhiteSpace(item) || String.IsNullOrEmpty(item));
-
-            List<FrequentItem> PositiveFrequentItems = Repository
-                                                .Find<FrequentItem>(s => s.ItemType == PhishDataType.Positive)
-                                                .ToList();
-
-            List<FrequentItem> NegativeFrequentItems = Repository
-                                                .Find<FrequentItem>(s => s.ItemType == PhishDataType.Negative)
-                                                .ToList();
-
-
-            List<IgnoreRule> IgnoreRules = Repository
-                                            .Find<IgnoreRule>(s => s.Type == IgnoreType.FrequentItem)
-                                            .ToList();
-
-            List<string> PositiveNonUnion = PositiveFrequentItems
-                            .Select(s => s.Term)
-                            .Intersect(SplitUrl)
-                            .Except(IgnoreRules.Select(x => x.Term))
-                            .ToList();
-
-            List<string> UnionItems = NegativeFrequentItems
-                            .Select(s => s.Term)
-                            .Intersect(SplitUrl)
-                            .Except(IgnoreRules.Select(x => x.Term))
-                            //Perhaps reconsider
-                            .Except(PositiveNonUnion)
-                            .ToList();
-
-            int TotalRecords = SplitUrl.Count - PositiveNonUnion.Count;
-            int ProbabilityCounter = 0;
-
-            grdFreq.Clear();
-
-            foreach (var item in UnionItems)
-            {
-                FrequentItem fitem = NegativeFrequentItems.Where(s => s.Term == item).FirstOrDefault();
-                grdFreq.Add(item, fitem.Frequency);
-                ProbabilityCounter += 1;// fitem.Frequency;
-            }
-
-            if (TotalRecords > 0)
-                ProbabilityCounter = ProbabilityCounter * 100 / TotalRecords;
-            else
-                ProbabilityCounter = 0;
-
-            if (ProbabilityCounter >= Convert.ToDouble(ConfigItems["FrequentPassScore"])) //Pass score
-            {
-                LayerDetected = 4;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
-
-        //Bayesian Classification of URL
-        public bool Layer5()
-        {
-            m_Classifier = new Classifier();
-
-            var GoodUrls = Repository
-                            .Find<Resource>(s => s.ItemType == PhishDataType.Positive)
-                            .Select(x => x.Url)
-                            .ToList();
-
-            var BadUrls = Repository
-                            .Find<Resource>(s => s.ItemType == PhishDataType.Negative)
-                            .Select(x => x.Url)
-                            .ToList();
-
-            //Even out the lists so that the results aren't skewed by sample sizes
-            BadUrls = BadUrls.Take(GoodUrls.Count).ToList();
-
-            m_Classifier.TeachCategoryList("Phishing", BadUrls);
-
-            m_Classifier.TeachCategoryList("Non Phishing", GoodUrls);
-
-            BayesScore = m_Classifier.Classify(Url);
-
-            double sc = BayesScore["Phishing"];
-
-            if (BayesScore["Phishing"] < BayesScore["Non Phishing"])
-            {
-                LayerDetected = 5;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        
     }
 }

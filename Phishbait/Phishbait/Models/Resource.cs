@@ -13,6 +13,13 @@ namespace Phishbait
         Query
     };
 
+    public enum PhishDataType
+    {
+        Undefined,
+        Positive,
+        Negative
+    }
+
     public partial class Resource: AuditableEntity
     {
         public Resource()
