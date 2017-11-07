@@ -34,11 +34,7 @@
             this.lblPhishing = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.TrustedKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrustedValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.PhishingKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhishingValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCompute = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +43,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.PhishingKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhishingValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrustedKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrustedValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -59,7 +59,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(79, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(107, 116);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -70,7 +70,7 @@
             // 
             this.lblTrusted.AutoSize = true;
             this.lblTrusted.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTrusted.Location = new System.Drawing.Point(9, 131);
+            this.lblTrusted.Location = new System.Drawing.Point(76, 131);
             this.lblTrusted.Name = "lblTrusted";
             this.lblTrusted.Size = new System.Drawing.Size(100, 16);
             this.lblTrusted.TabIndex = 1;
@@ -80,7 +80,7 @@
             // 
             this.lblPhishing.AutoSize = true;
             this.lblPhishing.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhishing.Location = new System.Drawing.Point(251, 131);
+            this.lblPhishing.Location = new System.Drawing.Point(399, 131);
             this.lblPhishing.Name = "lblPhishing";
             this.lblPhishing.Size = new System.Drawing.Size(106, 16);
             this.lblPhishing.TabIndex = 3;
@@ -89,7 +89,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(257, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(405, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(107, 116);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -104,26 +104,13 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TrustedKey,
             this.TrustedValue});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 159);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 150);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(185, 200);
+            this.dataGridView1.Size = new System.Drawing.Size(310, 231);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // TrustedKey
-            // 
-            this.TrustedKey.HeaderText = "Character";
-            this.TrustedKey.Name = "TrustedKey";
-            this.TrustedKey.ReadOnly = true;
-            this.TrustedKey.Width = 60;
-            // 
-            // TrustedValue
-            // 
-            this.TrustedValue.HeaderText = "Value";
-            this.TrustedValue.Name = "TrustedValue";
-            this.TrustedValue.ReadOnly = true;
             // 
             // dataGridView2
             // 
@@ -133,31 +120,18 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PhishingKey,
             this.PhishingValue});
-            this.dataGridView2.Location = new System.Drawing.Point(254, 159);
+            this.dataGridView2.Location = new System.Drawing.Point(328, 150);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView2.Size = new System.Drawing.Size(191, 200);
+            this.dataGridView2.Size = new System.Drawing.Size(277, 231);
             this.dataGridView2.TabIndex = 5;
-            // 
-            // PhishingKey
-            // 
-            this.PhishingKey.HeaderText = "Character";
-            this.PhishingKey.Name = "PhishingKey";
-            this.PhishingKey.ReadOnly = true;
-            this.PhishingKey.Width = 60;
-            // 
-            // PhishingValue
-            // 
-            this.PhishingValue.HeaderText = "Value";
-            this.PhishingValue.Name = "PhishingValue";
-            this.PhishingValue.ReadOnly = true;
             // 
             // btnCompute
             // 
             this.btnCompute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompute.Location = new System.Drawing.Point(456, 63);
+            this.btnCompute.Location = new System.Drawing.Point(615, 60);
             this.btnCompute.Name = "btnCompute";
             this.btnCompute.Size = new System.Drawing.Size(78, 34);
             this.btnCompute.TabIndex = 6;
@@ -174,22 +148,22 @@
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.Significant});
-            this.dataGridView3.Location = new System.Drawing.Point(540, 159);
+            this.dataGridView3.Location = new System.Drawing.Point(699, 159);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowHeadersVisible = false;
-            this.dataGridView3.Size = new System.Drawing.Size(382, 222);
+            this.dataGridView3.Size = new System.Drawing.Size(306, 222);
             this.dataGridView3.TabIndex = 7;
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Character";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Parameter";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Delta Value";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Abs Difference";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
@@ -203,7 +177,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(650, 131);
+            this.label3.Location = new System.Drawing.Point(788, 131);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 16);
             this.label3.TabIndex = 9;
@@ -212,7 +186,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(664, 12);
+            this.pictureBox3.Location = new System.Drawing.Point(802, 12);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(107, 116);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -222,18 +196,44 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(462, 175);
+            this.pictureBox4.Location = new System.Drawing.Point(630, 208);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(63, 51);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 11;
             this.pictureBox4.TabStop = false;
             // 
+            // PhishingKey
+            // 
+            this.PhishingKey.HeaderText = "Parameter";
+            this.PhishingKey.Name = "PhishingKey";
+            this.PhishingKey.ReadOnly = true;
+            this.PhishingKey.Width = 150;
+            // 
+            // PhishingValue
+            // 
+            this.PhishingValue.HeaderText = "Average";
+            this.PhishingValue.Name = "PhishingValue";
+            this.PhishingValue.ReadOnly = true;
+            // 
+            // TrustedKey
+            // 
+            this.TrustedKey.HeaderText = "Parameter";
+            this.TrustedKey.Name = "TrustedKey";
+            this.TrustedKey.ReadOnly = true;
+            this.TrustedKey.Width = 150;
+            // 
+            // TrustedValue
+            // 
+            this.TrustedValue.HeaderText = "Average";
+            this.TrustedValue.Name = "TrustedValue";
+            this.TrustedValue.ReadOnly = true;
+            // 
             // frmUrlChars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 393);
+            this.ClientSize = new System.Drawing.Size(1017, 393);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label3);
@@ -269,12 +269,12 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btnCompute;
         private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Significant;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Significant;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrustedKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrustedValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn PhishingKey;

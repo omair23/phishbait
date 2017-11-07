@@ -148,6 +148,14 @@
     <Compile Include="Migrations\201711061900499_Cleanup.Designer.cs">
       <DependentUpon>201711061900499_Cleanup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711072022011_Layer1_Changes.cs" />
+    <Compile Include="Migrations\201711072022011_Layer1_Changes.Designer.cs">
+      <DependentUpon>201711072022011_Layer1_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711072139138_Layer4_Changes.cs" />
+    <Compile Include="Migrations\201711072139138_Layer4_Changes.Designer.cs">
+      <DependentUpon>201711072139138_Layer4_Changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
@@ -202,6 +210,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711061900499_Cleanup.resx">
       <DependentUpon>201711061900499_Cleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711072022011_Layer1_Changes.resx">
+      <DependentUpon>201711072022011_Layer1_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711072139138_Layer4_Changes.resx">
+      <DependentUpon>201711072139138_Layer4_Changes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

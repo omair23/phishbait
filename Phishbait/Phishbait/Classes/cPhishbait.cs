@@ -10,8 +10,6 @@ namespace Phishbait
 {
     class cPhishbait
     {
-        public string Url;
-
         public bool Detected = false;
         bool IsTestEnvironment;
         int TestPassScore;
@@ -42,7 +40,7 @@ namespace Phishbait
 
             TestPassScore = pTestPassScore;
 
-            Url = paramUrl;
+            //Url = paramUrl;
 
             grdFreq = new Dictionary<string, int>();
 
@@ -97,80 +95,27 @@ namespace Phishbait
         //Layer 3 - URL-Based Features
         public bool Layer3(Resource Resource)
         {
-            int DigitCount = Resource.Url.Count(char.IsDigit);
+            double DigitPhishing = 7.82;
+            double DigitDelta = 6.37;
+            double DigitDeltaHalved = DigitPhishing - (DigitDelta / 2);
 
-            int URLLength = Resource.Url.Length;
+            double URLPhishing = 75.28;
+            double URLDelta = 21.51;
+            double URLDeltaHalved = URLPhishing - (URLDelta / 2);
 
-            int NumberOfSubDomains = 0;
-
-            bool CommonTLD = false;
-
-            string Url = Resource.Url;
-
-            if (Url.StartsWith("http://"))
-                Url = Url.Substring("http://".Length);
-
-            if (Url.StartsWith("https://"))
-                Url = Url.Substring("https://".Length);
-
-            if (Url.EndsWith(".php"))
-                Url = Url.Substring(0, Url.Length - 4);
-
-            if (Url.EndsWith(".html"))
-                Url = Url.Substring(0, Url.Length - 5);
-
-            if (Url.EndsWith(".htm"))
-                Url = Url.Substring(0, Url.Length - 5);
-
-            List<string> SplitUrl = Url.Split('.').ToList();
-
-            TldList ls = new TldList();
-
-            //Checking for TLD and removing it so that subdomains can be traced
-            if (SplitUrl.Count > 1)
-            {
-                if (SplitUrl[SplitUrl.Count - 1].Contains('/'))
-                    SplitUrl[SplitUrl.Count - 1] = SplitUrl[SplitUrl.Count - 1].Substring(0, SplitUrl[SplitUrl.Count - 1].IndexOf("/"));
-
-                string LastTwo = SplitUrl[SplitUrl.Count - 2] + "." + SplitUrl[SplitUrl.Count - 1];
-
-                if (ls.Exact.Any(s => s == LastTwo) || ls.UnderCombined.Any(s => s == LastTwo))
-                {
-                    CommonTLD = true;
-                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
-                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
-                }
-                else if (ls.Exact.Any(s => s == SplitUrl[SplitUrl.Count - 1]) || ls.UnderCombined.Any(s => s == SplitUrl[SplitUrl.Count - 1]))
-                {
-                    CommonTLD = true;
-                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
-                }
-            }
-
-            NumberOfSubDomains = SplitUrl.Count - 1;
+            Resource.SetDetectionVariables();
 
             double OverallUrl = 0;
 
-            if (DigitCount > 0) //Convert.ToInt32(ConfigItems["DigitCount"])
-                OverallUrl += 1;// Convert.ToInt32(ConfigItems["DigitCount"]);
+            if (Resource.DigitCount >= DigitDeltaHalved)
+                OverallUrl += 1;
 
-            if (Resource.NumberOfFullStops > Convert.ToInt32(ConfigItems["FullStops"]))
-            {
-                double Mod = Math.Round((double)(Resource.NumberOfFullStops - Convert.ToInt32(ConfigItems["FullStops"])) / Convert.ToInt32(ConfigItems["FullStops"]), 2);
-                var x = (Convert.ToInt32(ConfigItems["FullStopsW"]) * Mod);
-                OverallUrl += x;
-            }
+            if (Resource.URLLength >= URLDeltaHalved)
+                OverallUrl += 1;
 
-            //Resource.SetDetectionVariables();
+            double FailScore = 0;
 
-            double PassScore = 0;
-
-            if (!IsTestEnvironment)
-            {
-                PassScore = Convert.ToDouble(ConfigItems["Layer3Pass"]);
-            }
-
-            if (OverallUrl >= PassScore)
+            if (OverallUrl > FailScore)
             {
                 LayerDetected = 3;
                 return true;
@@ -184,11 +129,29 @@ namespace Phishbait
         //Layer 4 - Domain-Based Features
         public bool Layer4(Resource Resource)
         {
-            bool HasIPAddress = false;
-            int DaysSinceDomainRegistered = 0;
-            bool RegistrantNameHidden = false;
+            double OverallUrl = 0;
 
-            return true;
+            if (Resource.HasIPAddress)
+                OverallUrl += 1;
+
+            if (Resource.DaysSinceDomainRegistered >= 0)
+                OverallUrl += 1;
+
+            if (Resource.RegistrantNameHidden)
+                OverallUrl += 1;
+
+            double FailScore = 0;
+
+            if (OverallUrl > FailScore)
+            {
+                LayerDetected = 4;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         //Layer 5 - Page-Based Features

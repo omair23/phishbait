@@ -46,6 +46,10 @@ namespace Phishbait
 
         private void btnCompute_Click(object sender, EventArgs e)
         {
+            grdNewSites.Rows.Clear();
+            grdPhishing.Rows.Clear();
+            grdTrusted.Rows.Clear();
+
             Cursor.Current = Cursors.WaitCursor;
 
             PhishingSites();
@@ -59,7 +63,7 @@ namespace Phishbait
         {
             List<Resource> TrustedSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Positive)
-                            .Take(50) //TO DO Remove Limit
+                            .Take(5000) //TO DO Remove Limit
                             .ToList();
 
             int FPCount = 0;
@@ -87,7 +91,7 @@ namespace Phishbait
         {
             List<Resource> PhishingSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Negative)
-                            .Take(50) //TO DO Remove Limit
+                            .Take(5000) //TO DO Remove Limit
                             .ToList();
 
             int TPCount = 0;

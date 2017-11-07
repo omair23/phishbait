@@ -53,7 +53,8 @@ namespace Phishbait
                 Resource = new Resource(Url);
             }
 
-            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, false, false, 0);
+            //TO DO remove test environment
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, false, true, 0);
 
             grpMain.Visible = true;
 

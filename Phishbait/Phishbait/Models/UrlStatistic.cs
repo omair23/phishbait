@@ -51,11 +51,6 @@ namespace Phishbait
                     item.SetDetectionVariables();
                 }
 
-                FullStopAverage = Math.Round(Sites.Average(s => s.NumberOfFullStops), 4);
-                AtSymbolsAverage = Math.Round(Sites.Average(s => s.NumberOfAtSymbols), 4);
-                ForwardSlashAverage = Math.Round(Sites.Average(s => s.NumberOfForwardSlashes), 4);
-                MultipleForwardSlashAverage = Math.Round(Sites.Average(s => s.NumberOfMultipleForwardSlashes), 4);
-
                 AverageIPAddress = Math.Round(Sites.Average(s => Convert.ToInt16(s.HasIPAddress)), 4);
                 AveragePortNumbers = Math.Round(Sites.Average(s => Convert.ToInt16(s.HasPortNumber)), 4);
 
