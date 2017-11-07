@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phishbait.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Phishbait
 
         public bool Detected = false;
         bool IsTestEnvironment;
+        int TestPassScore;
 
         public int LayerDetected = 0;
 
@@ -27,7 +29,7 @@ namespace Phishbait
         public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
                             bool IgnoreLayer4, bool IgnoreLayer5,
-                            bool pIsTestEnvironment)
+                            bool pIsTestEnvironment, int pTestPassScore)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
@@ -35,6 +37,10 @@ namespace Phishbait
             Resource = pResource;
 
             ConfigItems = Configuration;
+
+            IsTestEnvironment = pIsTestEnvironment;
+
+            TestPassScore = pTestPassScore;
 
             Url = paramUrl;
 
@@ -96,23 +102,57 @@ namespace Phishbait
             int URLLength = Resource.Url.Length;
 
             int NumberOfSubDomains = 0;
-            bool CommonTLD = true;
 
+            bool CommonTLD = false;
 
+            string Url = Resource.Url;
 
+            if (Url.StartsWith("http://"))
+                Url = Url.Substring("http://".Length);
 
-            Resource.SetDetectionVariables();
+            if (Url.StartsWith("https://"))
+                Url = Url.Substring("https://".Length);
+
+            if (Url.EndsWith(".php"))
+                Url = Url.Substring(0, Url.Length - 4);
+
+            if (Url.EndsWith(".html"))
+                Url = Url.Substring(0, Url.Length - 5);
+
+            if (Url.EndsWith(".htm"))
+                Url = Url.Substring(0, Url.Length - 5);
+
+            List<string> SplitUrl = Url.Split('.').ToList();
+
+            TldList ls = new TldList();
+
+            //Checking for TLD and removing it so that subdomains can be traced
+            if (SplitUrl.Count > 1)
+            {
+                if (SplitUrl[SplitUrl.Count - 1].Contains('/'))
+                    SplitUrl[SplitUrl.Count - 1] = SplitUrl[SplitUrl.Count - 1].Substring(0, SplitUrl[SplitUrl.Count - 1].IndexOf("/"));
+
+                string LastTwo = SplitUrl[SplitUrl.Count - 2] + "." + SplitUrl[SplitUrl.Count - 1];
+
+                if (ls.Exact.Any(s => s == LastTwo) || ls.UnderCombined.Any(s => s == LastTwo))
+                {
+                    CommonTLD = true;
+                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
+                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
+                }
+                else if (ls.Exact.Any(s => s == SplitUrl[SplitUrl.Count - 1]) || ls.UnderCombined.Any(s => s == SplitUrl[SplitUrl.Count - 1]))
+                {
+                    CommonTLD = true;
+                    SplitUrl.RemoveAt(SplitUrl.Count - 1);
+                }
+            }
+
+            NumberOfSubDomains = SplitUrl.Count - 1;
 
             double OverallUrl = 0;
 
-            if (Resource.IsBadHttps)
-                OverallUrl += Convert.ToInt32(ConfigItems["InvalidHttpsW"]);
-
-            if (Resource.HasPortNumber)
-                OverallUrl += Convert.ToInt32(ConfigItems["PortNumbersW"]);
-
-            if (Resource.HasIPAddress)
-                OverallUrl += Convert.ToInt32(ConfigItems["IPAddressW"]);
+            if (DigitCount > 0) //Convert.ToInt32(ConfigItems["DigitCount"])
+                OverallUrl += 1;// Convert.ToInt32(ConfigItems["DigitCount"]);
 
             if (Resource.NumberOfFullStops > Convert.ToInt32(ConfigItems["FullStops"]))
             {
@@ -120,31 +160,14 @@ namespace Phishbait
                 var x = (Convert.ToInt32(ConfigItems["FullStopsW"]) * Mod);
                 OverallUrl += x;
             }
-            
-            if (Resource.NumberOfAtSymbols > Convert.ToInt32(ConfigItems["AtSymbols"]))
-            {
-                var x = (Convert.ToInt32(ConfigItems["AtSymbolsW"]) * Resource.NumberOfAtSymbols);
-                OverallUrl += x;
-            }  
 
-            if (Resource.NumberOfForwardSlashes > Convert.ToInt32(ConfigItems["ForwardSlashes"]))
-            {
-                var x = (Convert.ToInt32(ConfigItems["ForwardSlashesW"]) * (Resource.NumberOfForwardSlashes - 1));
-                OverallUrl += x;
-            }
-                 
-            if (Resource.NumberOfMultipleForwardSlashes > Convert.ToInt32(ConfigItems["MultipleForwardSlashes"]))
-            {
-                var x = (Convert.ToInt32(ConfigItems["MultipleForwardSlashesW"]) * Resource.NumberOfMultipleForwardSlashes);
-                OverallUrl += x;
-            }
-
+            //Resource.SetDetectionVariables();
 
             double PassScore = 0;
 
             if (!IsTestEnvironment)
             {
-                PassScore = Convert.ToDouble(ConfigItems["HeuristicPassScore"]);
+                PassScore = Convert.ToDouble(ConfigItems["Layer3Pass"]);
             }
 
             if (OverallUrl >= PassScore)

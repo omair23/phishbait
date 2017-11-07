@@ -25,18 +25,9 @@ namespace Phishbait
 
             CombinedStats = Repository.Find<UrlStatistic>(s => s.Type == StatisticType.Overall).FirstOrDefault();
 
-            //Cold start Database
-            //AlgorithmClass.ColdStartDb();
-
             ConfigItems = Repository
                         .GetAll<Configuration>()
                         .ToDictionary(s => s.Parameter, z => z.Value);
-
-            //var DeleteTheseItems = Repository
-            //                    .Find<Resource>(s => s.ItemType == PhishDataType.Undefined)
-            //                    .ToList();
-
-            //Repository.DeleteMultiple(DeleteTheseItems);
                                 
         }
 
@@ -62,7 +53,7 @@ namespace Phishbait
                 Resource = new Resource(Url);
             }
 
-            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, false, false, false, false, false, false);
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, false, false, 0);
 
             grpMain.Visible = true;
 

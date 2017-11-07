@@ -71,6 +71,7 @@
     <Compile Include="Classes\Algorithms.cs" />
     <Compile Include="Classes\BaseClass.cs" />
     <Compile Include="Classes\cPhishbait.cs" />
+    <Compile Include="Classes\TldList.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

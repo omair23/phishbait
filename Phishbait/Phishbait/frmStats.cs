@@ -67,7 +67,7 @@ namespace Phishbait
 
             foreach (var item in TrustedSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     TNCount += 1;
@@ -95,7 +95,7 @@ namespace Phishbait
 
             foreach (var item in PhishingSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     FNCount += 1;
@@ -134,7 +134,7 @@ namespace Phishbait
 
             foreach (var item in Resources)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     FNCount += 1;
