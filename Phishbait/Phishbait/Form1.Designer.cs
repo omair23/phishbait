@@ -43,16 +43,20 @@
             this.resourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpMain = new System.Windows.Forms.GroupBox();
+            this.Layer5 = new System.Windows.Forms.GroupBox();
+            this.Layer4 = new System.Windows.Forms.GroupBox();
+            this.txtLayer4 = new System.Windows.Forms.TextBox();
+            this.Layer3 = new System.Windows.Forms.GroupBox();
+            this.txtLayer3 = new System.Windows.Forms.TextBox();
             this.Layer2 = new System.Windows.Forms.GroupBox();
             this.txtLayer2 = new System.Windows.Forms.TextBox();
             this.Layer1 = new System.Windows.Forms.GroupBox();
             this.txtLayer1 = new System.Windows.Forms.TextBox();
-            this.Layer3 = new System.Windows.Forms.GroupBox();
-            this.Layer4 = new System.Windows.Forms.GroupBox();
-            this.Layer5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.grpMain.SuspendLayout();
+            this.Layer4.SuspendLayout();
+            this.Layer3.SuspendLayout();
             this.Layer2.SuspendLayout();
             this.Layer1.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +102,7 @@
             // 
             this.lblSystemStatus.AutoSize = true;
             this.lblSystemStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSystemStatus.Location = new System.Drawing.Point(22, 607);
+            this.lblSystemStatus.Location = new System.Drawing.Point(22, 394);
             this.lblSystemStatus.Name = "lblSystemStatus";
             this.lblSystemStatus.Size = new System.Drawing.Size(54, 16);
             this.lblSystemStatus.TabIndex = 8;
@@ -186,10 +190,63 @@
             this.grpMain.Controls.Add(this.Layer1);
             this.grpMain.Location = new System.Drawing.Point(12, 75);
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(824, 529);
+            this.grpMain.Size = new System.Drawing.Size(824, 316);
             this.grpMain.TabIndex = 11;
             this.grpMain.TabStop = false;
             this.grpMain.Visible = false;
+            // 
+            // Layer5
+            // 
+            this.Layer5.Location = new System.Drawing.Point(520, 24);
+            this.Layer5.Name = "Layer5";
+            this.Layer5.Size = new System.Drawing.Size(288, 135);
+            this.Layer5.TabIndex = 4;
+            this.Layer5.TabStop = false;
+            this.Layer5.Text = "Layer 5 - Page-Based Features";
+            // 
+            // Layer4
+            // 
+            this.Layer4.Controls.Add(this.txtLayer4);
+            this.Layer4.Location = new System.Drawing.Point(269, 174);
+            this.Layer4.Name = "Layer4";
+            this.Layer4.Size = new System.Drawing.Size(245, 136);
+            this.Layer4.TabIndex = 3;
+            this.Layer4.TabStop = false;
+            this.Layer4.Text = "Layer 4 - Domain-Based Features";
+            // 
+            // txtLayer4
+            // 
+            this.txtLayer4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLayer4.ForeColor = System.Drawing.Color.White;
+            this.txtLayer4.Location = new System.Drawing.Point(5, 21);
+            this.txtLayer4.Multiline = true;
+            this.txtLayer4.Name = "txtLayer4";
+            this.txtLayer4.ReadOnly = true;
+            this.txtLayer4.Size = new System.Drawing.Size(235, 106);
+            this.txtLayer4.TabIndex = 2;
+            this.txtLayer4.Text = "Layer 4 Text";
+            // 
+            // Layer3
+            // 
+            this.Layer3.Controls.Add(this.txtLayer3);
+            this.Layer3.Location = new System.Drawing.Point(6, 174);
+            this.Layer3.Name = "Layer3";
+            this.Layer3.Size = new System.Drawing.Size(253, 136);
+            this.Layer3.TabIndex = 2;
+            this.Layer3.TabStop = false;
+            this.Layer3.Text = "Layer 3 - URL-Based Features";
+            // 
+            // txtLayer3
+            // 
+            this.txtLayer3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLayer3.ForeColor = System.Drawing.Color.White;
+            this.txtLayer3.Location = new System.Drawing.Point(7, 23);
+            this.txtLayer3.Multiline = true;
+            this.txtLayer3.Name = "txtLayer3";
+            this.txtLayer3.ReadOnly = true;
+            this.txtLayer3.Size = new System.Drawing.Size(235, 106);
+            this.txtLayer3.TabIndex = 1;
+            this.txtLayer3.Text = "Layer 3 Text";
             // 
             // Layer2
             // 
@@ -237,38 +294,11 @@
             this.txtLayer1.TabIndex = 0;
             this.txtLayer1.Text = "Layer 1 Text";
             // 
-            // Layer3
-            // 
-            this.Layer3.Location = new System.Drawing.Point(6, 174);
-            this.Layer3.Name = "Layer3";
-            this.Layer3.Size = new System.Drawing.Size(199, 167);
-            this.Layer3.TabIndex = 2;
-            this.Layer3.TabStop = false;
-            this.Layer3.Text = "Layer 3 - URL-Based Features";
-            // 
-            // Layer4
-            // 
-            this.Layer4.Location = new System.Drawing.Point(223, 174);
-            this.Layer4.Name = "Layer4";
-            this.Layer4.Size = new System.Drawing.Size(199, 167);
-            this.Layer4.TabIndex = 3;
-            this.Layer4.TabStop = false;
-            this.Layer4.Text = "Layer 4 - URL-Based Features";
-            // 
-            // Layer5
-            // 
-            this.Layer5.Location = new System.Drawing.Point(428, 174);
-            this.Layer5.Name = "Layer5";
-            this.Layer5.Size = new System.Drawing.Size(199, 167);
-            this.Layer5.TabIndex = 4;
-            this.Layer5.TabStop = false;
-            this.Layer5.Text = "Layer 5 - Page-Based Features";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(848, 630);
+            this.ClientSize = new System.Drawing.Size(848, 417);
             this.Controls.Add(this.grpMain);
             this.Controls.Add(this.lblSystemStatus);
             this.Controls.Add(this.groupBox1);
@@ -281,6 +311,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.grpMain.ResumeLayout(false);
+            this.Layer4.ResumeLayout(false);
+            this.Layer4.PerformLayout();
+            this.Layer3.ResumeLayout(false);
+            this.Layer3.PerformLayout();
             this.Layer2.ResumeLayout(false);
             this.Layer2.PerformLayout();
             this.Layer1.ResumeLayout(false);
@@ -314,6 +348,8 @@
         private System.Windows.Forms.GroupBox Layer3;
         private System.Windows.Forms.GroupBox Layer4;
         private System.Windows.Forms.GroupBox Layer5;
+        private System.Windows.Forms.TextBox txtLayer3;
+        private System.Windows.Forms.TextBox txtLayer4;
     }
 }
 

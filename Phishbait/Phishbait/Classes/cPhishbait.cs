@@ -26,7 +26,7 @@ namespace Phishbait
 
         public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
-                            bool IgnoreLayer4, bool IgnoreLayer5,
+                            bool IgnoreLayer4,
                             bool pIsTestEnvironment, int pTestPassScore)
         {
             db = new PhishModel();
@@ -57,9 +57,6 @@ namespace Phishbait
 
             if (!Detected && !IgnoreLayer4)
                 Detected = Layer4(Resource);
-
-            if (!Detected && !IgnoreLayer5)
-                Detected = Layer5(Resource);
         }
 
         //Check if website is in whitelist
@@ -95,12 +92,12 @@ namespace Phishbait
         //Layer 3 - URL-Based Features
         public bool Layer3(Resource Resource)
         {
-            double DigitPhishing = 7.82;
-            double DigitDelta = 6.37;
+            double DigitPhishing = 7.65;
+            double DigitDelta = 6.18;
             double DigitDeltaHalved = DigitPhishing - (DigitDelta / 2);
 
-            double URLPhishing = 75.28;
-            double URLDelta = 21.51;
+            double URLPhishing = 74.46;
+            double URLDelta = 20.23;
             double URLDeltaHalved = URLPhishing - (URLDelta / 2);
 
             Resource.SetDetectionVariables();
@@ -134,13 +131,19 @@ namespace Phishbait
             if (Resource.HasIPAddress)
                 OverallUrl += 1;
 
-            if (Resource.DaysSinceDomainRegistered >= 0)
+            if (Resource.HasIPAddress)
                 OverallUrl += 1;
 
-            if (Resource.RegistrantNameHidden)
+            if (Resource.IsBadHttps)
                 OverallUrl += 1;
 
-            double FailScore = 0;
+            //if (Resource.DaysSinceDomainRegistered >= 0)
+            //    OverallUrl += 1;
+
+            //if (Resource.RegistrantNameHidden)
+            //    OverallUrl += 1;
+
+            double FailScore = 1;
 
             if (OverallUrl > FailScore)
             {
@@ -152,19 +155,6 @@ namespace Phishbait
                 return false;
             }
 
-        }
-
-        //Layer 5 - Page-Based Features
-        public bool Layer5(Resource Resource)
-        {
-            int GlobalPagerank = 0;
-            int CountryPagerank = 0;
-
-            //Estimated number of visit for the domain ın a daily, weekly, or monthly basis
-            // Average Pageviews per visit
-            //Average Visit Duration
-            //Web traffic share per country
-            return true;
         }
     }
 }

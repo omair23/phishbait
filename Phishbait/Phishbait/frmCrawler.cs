@@ -36,7 +36,7 @@ namespace Phishbait
 
             //lstSites.Items.Add("https://www2.deloitte.com/za/en.html");
 
-            lstSites.Items.Add("http://www.flysaa.com/");
+            lstSites.Items.Add("http://jamiat.org.za/");
         }
 
         private void button1_Click(object sender, System.EventArgs e)

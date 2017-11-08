@@ -54,7 +54,7 @@ namespace Phishbait
             }
 
             //TO DO remove test environment
-            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, false, true, 0);
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, true, 0);
 
             grpMain.Visible = true;
 
@@ -89,6 +89,40 @@ namespace Phishbait
                 txtLayer2.Text = "The requested URL was detected as phishing by the blacklist (Layer 2)";
                 txtLayer2.BackColor = System.Drawing.Color.Red;
                 txtLayer2.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer3.Visible = true;
+
+            if (Class.LayerDetected != 3)
+            {
+                txtLayer3.Text = "The requested URL was not found in the URL-Based Features Layer (Layer 3)";
+                txtLayer3.BackColor = System.Drawing.Color.Green;
+                txtLayer3.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 3)
+            {
+                txtLayer3.Text = "The requested URL was detected as phishing by the URL-Based Features Layer (Layer 3)";
+                txtLayer3.BackColor = System.Drawing.Color.Red;
+                txtLayer3.ForeColor = System.Drawing.Color.White;
+                return;
+            }
+
+            Layer4.Visible = true;
+
+            if (Class.LayerDetected != 4)
+            {
+                txtLayer4.Text = "The requested URL was not found in the Domain-Based Features Layer (Layer 4)";
+                txtLayer4.BackColor = System.Drawing.Color.Green;
+                txtLayer4.ForeColor = System.Drawing.Color.White;
+            }
+
+            if (Class.LayerDetected == 4)
+            {
+                txtLayer4.Text = "The requested URL was detected as phishing by the Domain-Based Features Layer (Layer 4)";
+                txtLayer4.BackColor = System.Drawing.Color.Red;
+                txtLayer4.ForeColor = System.Drawing.Color.White;
                 return;
             }
 

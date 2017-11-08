@@ -63,27 +63,34 @@ namespace Phishbait
         {
             List<Resource> TrustedSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Positive)
-                            .Take(5000) //TO DO Remove Limit
+                            //.Take(5000) //TO DO Remove Limit
                             .ToList();
 
             int FPCount = 0;
             int TNCount = 0;
 
+            Dictionary<int, int> LayerChecker = new Dictionary<int, int>();
+
             foreach (var item in TrustedSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     TNCount += 1;
                 else
                     FPCount += 1;
+
+                if (LayerChecker.ContainsKey(Class.LayerDetected))
+                    LayerChecker[Class.LayerDetected] += 1;
+                else
+                    LayerChecker[Class.LayerDetected] = 1;
             }
-            double FalsePositive = Math.Round((double)FPCount / TrustedSites.Count * 100, 4); 
-            double TrueNegative = Math.Round((double)TNCount / TrustedSites.Count * 100, 4);
+            double FalsePositive = Math.Round((double)FPCount / TrustedSites.Count * 100, 2); 
+            double TrueNegative = Math.Round((double)TNCount / TrustedSites.Count * 100, 2);
 
             grdTrusted.Rows.Add("Total Records", TrustedSites.Count.ToString());
-            grdTrusted.Rows.Add("True Negatives", TrueNegative.ToString());
-            grdTrusted.Rows.Add("False Positives", FalsePositive.ToString());
+            grdTrusted.Rows.Add("True Negatives", TrueNegative.ToString() + " %");
+            grdTrusted.Rows.Add("False Positives", FalsePositive.ToString() + " %");
 
         }
 
@@ -91,27 +98,34 @@ namespace Phishbait
         {
             List<Resource> PhishingSites = Repository
                             .Find<Resource>(s => s.ItemType == PhishDataType.Negative)
-                            .Take(5000) //TO DO Remove Limit
+                            //.Take(5000) //TO DO Remove Limit
                             .ToList();
 
             int TPCount = 0;
             int FNCount = 0;
 
+            Dictionary<int, int> LayerChecker = new Dictionary<int, int>();
+
             foreach (var item in PhishingSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     FNCount += 1;
                 else
                     TPCount += 1;
+
+                if (LayerChecker.ContainsKey(Class.LayerDetected))
+                    LayerChecker[Class.LayerDetected] += 1;
+                else
+                    LayerChecker[Class.LayerDetected] = 1;
             }
-            double TruePositive = Math.Round((double)TPCount / PhishingSites.Count * 100, 4);
-            double FalseNegative = Math.Round((double)FNCount / PhishingSites.Count * 100, 4);
+            double TruePositive = Math.Round((double)TPCount / PhishingSites.Count * 100, 2);
+            double FalseNegative = Math.Round((double)FNCount / PhishingSites.Count * 100, 2);
 
             grdPhishing.Rows.Add("Total Records", PhishingSites.Count.ToString());
-            grdPhishing.Rows.Add("True Positives", TruePositive.ToString());
-            grdPhishing.Rows.Add("False Negatives", FalseNegative.ToString());
+            grdPhishing.Rows.Add("True Positives", TruePositive.ToString() + " %");
+            grdPhishing.Rows.Add("False Negatives", FalseNegative.ToString() + " %");
 
         }
 
@@ -138,7 +152,7 @@ namespace Phishbait
 
             foreach (var item in Resources)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
 
                 if (Class.LayerDetected == 0)
                     FNCount += 1;

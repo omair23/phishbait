@@ -31,7 +31,7 @@ namespace Phishbait
 
             TrustedSites = Repository
                             .Find<Resource>(r => r.ItemType == PhishDataType.Positive)
-                            .Take(200)
+                            //.Take(2000)
                             .OrderBy(x => x.UID)
                             .ToList();
 
@@ -40,7 +40,7 @@ namespace Phishbait
             PhishingSites = Repository
                             .Find<Resource>(r => r.ItemType == PhishDataType.Negative)
                             .OrderBy(x => x.UID)
-                            .Take(TrustedSites.Count)
+                            //.Take(TrustedSites.Count)
                             .ToList();
 
             lblPhishing.Text = "Phishing Sites: " + PhishingSites.Count.ToString();
