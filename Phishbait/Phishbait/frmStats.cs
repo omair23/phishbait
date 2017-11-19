@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phishbait.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace Phishbait
         PhishModel db;
         EFRepository Repository;
         Dictionary<string, string> ConfigItems;
+        TldList TList;
 
         public frmStats()
         {
@@ -23,6 +25,8 @@ namespace Phishbait
 
             db = new PhishModel();
             Repository = new EFRepository(db);
+
+            TList = new TldList();
 
             ConfigItems = Repository
                         .GetAll<Configuration>()
@@ -73,9 +77,9 @@ namespace Phishbait
 
             foreach (var item in TrustedSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0, TList);
 
-                if (Class.LayerDetected == 0)
+                if (Class.LayerDetected == 0 || Class.LayerDetected == 1)
                     TNCount += 1;
                 else
                     FPCount += 1;
@@ -108,9 +112,9 @@ namespace Phishbait
 
             foreach (var item in PhishingSites)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0, TList);
 
-                if (Class.LayerDetected == 0)
+                if (Class.LayerDetected == 0 || Class.LayerDetected == 1)
                     FNCount += 1;
                 else
                     TPCount += 1;
@@ -152,9 +156,9 @@ namespace Phishbait
 
             foreach (var item in Resources)
             {
-                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0);
+                cPhishbait Class = new cPhishbait(item, item.Url, ConfigItems, true, true, false, false, false, 0, TList);
 
-                if (Class.LayerDetected == 0)
+                if (Class.LayerDetected == 0 || Class.LayerDetected == 1)
                     FNCount += 1;
                 else
                     TPCount += 1;

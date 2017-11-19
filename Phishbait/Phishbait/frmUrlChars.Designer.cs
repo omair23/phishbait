@@ -34,7 +34,11 @@
             this.lblPhishing = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.TrustedKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrustedValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.PhishingKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhishingValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCompute = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,10 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.PhishingKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhishingValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrustedKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrustedValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -112,6 +112,19 @@
             this.dataGridView1.Size = new System.Drawing.Size(310, 231);
             this.dataGridView1.TabIndex = 4;
             // 
+            // TrustedKey
+            // 
+            this.TrustedKey.HeaderText = "Parameter";
+            this.TrustedKey.Name = "TrustedKey";
+            this.TrustedKey.ReadOnly = true;
+            this.TrustedKey.Width = 150;
+            // 
+            // TrustedValue
+            // 
+            this.TrustedValue.HeaderText = "Average";
+            this.TrustedValue.Name = "TrustedValue";
+            this.TrustedValue.ReadOnly = true;
+            // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
@@ -127,6 +140,19 @@
             this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView2.Size = new System.Drawing.Size(277, 231);
             this.dataGridView2.TabIndex = 5;
+            // 
+            // PhishingKey
+            // 
+            this.PhishingKey.HeaderText = "Parameter";
+            this.PhishingKey.Name = "PhishingKey";
+            this.PhishingKey.ReadOnly = true;
+            this.PhishingKey.Width = 150;
+            // 
+            // PhishingValue
+            // 
+            this.PhishingValue.HeaderText = "Average";
+            this.PhishingValue.Name = "PhishingValue";
+            this.PhishingValue.ReadOnly = true;
             // 
             // btnCompute
             // 
@@ -203,32 +229,6 @@
             this.pictureBox4.TabIndex = 11;
             this.pictureBox4.TabStop = false;
             // 
-            // PhishingKey
-            // 
-            this.PhishingKey.HeaderText = "Parameter";
-            this.PhishingKey.Name = "PhishingKey";
-            this.PhishingKey.ReadOnly = true;
-            this.PhishingKey.Width = 150;
-            // 
-            // PhishingValue
-            // 
-            this.PhishingValue.HeaderText = "Average";
-            this.PhishingValue.Name = "PhishingValue";
-            this.PhishingValue.ReadOnly = true;
-            // 
-            // TrustedKey
-            // 
-            this.TrustedKey.HeaderText = "Parameter";
-            this.TrustedKey.Name = "TrustedKey";
-            this.TrustedKey.ReadOnly = true;
-            this.TrustedKey.Width = 150;
-            // 
-            // TrustedValue
-            // 
-            this.TrustedValue.HeaderText = "Average";
-            this.TrustedValue.Name = "TrustedValue";
-            this.TrustedValue.ReadOnly = true;
-            // 
             // frmUrlChars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,7 +246,7 @@
             this.Controls.Add(this.lblTrusted);
             this.Controls.Add(this.pictureBox1);
             this.Name = "frmUrlChars";
-            this.Text = "URL Characteristics";
+            this.Text = "Model Significance";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

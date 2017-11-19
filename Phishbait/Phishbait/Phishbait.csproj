@@ -156,6 +156,10 @@
     <Compile Include="Migrations\201711072139138_Layer4_Changes.Designer.cs">
       <DependentUpon>201711072139138_Layer4_Changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711081936530_RemoveURLStat.cs" />
+    <Compile Include="Migrations\201711081936530_RemoveURLStat.Designer.cs">
+      <DependentUpon>201711081936530_RemoveURLStat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Classes\AuditableEntity.cs" />
     <Compile Include="Classes\EFRepository.cs" />
@@ -165,7 +169,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Models\UrlStatistic.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711072139138_Layer4_Changes.resx">
       <DependentUpon>201711072139138_Layer4_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081936530_RemoveURLStat.resx">
+      <DependentUpon>201711081936530_RemoveURLStat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

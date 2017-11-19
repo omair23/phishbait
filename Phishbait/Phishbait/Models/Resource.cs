@@ -73,13 +73,13 @@ namespace Phishbait
 
         public bool DetectionAnalysisConducted { get; set; }
 
-        public void SetDetectionVariables()
+        public void SetDetectionVariables(TldList TList)
         {
             //---------------Layer3--------------------------//
             DigitCount = Url.Count(char.IsDigit);
             URLLength = Url.Length;
 
-            /*string EditedUrl = Url;
+            string EditedUrl = Url;
 
             if (EditedUrl.StartsWith("http://"))
                 EditedUrl = EditedUrl.Substring("http://".Length);
@@ -98,7 +98,7 @@ namespace Phishbait
 
             List<string> SplitUrl = EditedUrl.Split('.').ToList();
 
-            TldList ls = new TldList();
+            TldList ls = TList;
 
             //Checking for TLD and removing it so that subdomains can be traced
             if (SplitUrl.Count > 1)
@@ -122,7 +122,7 @@ namespace Phishbait
             }
 
             NumberOfSubDomains = SplitUrl.Count - 1;
-            */
+            
             //---------------End Layer3--------------------------//
 
             HasIPAddress = Regex.Match(Url, @"\b(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b").Success;
@@ -135,23 +135,23 @@ namespace Phishbait
 
             if (HasHttps)
             {
-                ////Test to see if site has valid(non-expired) SSL Certificate 
-                //try
-                //{
-                //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
-                //    //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                //    //response.Close();
-                //    X509Certificate cert = request.ServicePoint.Certificate;
-                //    X509Certificate2 cert2 = new X509Certificate2(cert);
-                //    DateTime ExpiryDate = Convert.ToDateTime(cert2.GetExpirationDateString());
+                //Test to see if site has valid(non-expired) SSL Certificate 
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+                    //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    //response.Close();
+                    X509Certificate cert = request.ServicePoint.Certificate;
+                    X509Certificate2 cert2 = new X509Certificate2(cert);
+                    DateTime ExpiryDate = Convert.ToDateTime(cert2.GetExpirationDateString());
 
-                //    if (ExpiryDate > DateTime.Now)
-                //        HasValidSSL = true;
-                //}
-                //catch (Exception ex)
-                //{
-                //    HasValidSSL = false;
-                //}
+                    if (ExpiryDate > DateTime.Now)
+                        HasValidSSL = true;
+                }
+                catch (Exception ex)
+                {
+                    HasValidSSL = false;
+                }
             }
 
             if (HasHttps && !HasValidSSL)

@@ -1,10 +1,5 @@
 ﻿using Phishbait.Classes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace Phishbait
 {
@@ -18,6 +13,7 @@ namespace Phishbait
 
         public Dictionary<string, int> grdFreq;
         Dictionary<string, string> ConfigItems;
+        TldList TList;
 
         PhishModel db;
         EFRepository Repository;
@@ -27,12 +23,14 @@ namespace Phishbait
         public cPhishbait(Resource pResource, string paramUrl, Dictionary<string, string> Configuration, 
                             bool IgnoreLayer1, bool IgnoreLayer2, bool IgnoreLayer3,
                             bool IgnoreLayer4,
-                            bool pIsTestEnvironment, int pTestPassScore)
+                            bool pIsTestEnvironment, int pTestPassScore,
+                            TldList pTList)
         {
             db = new PhishModel();
             Repository = new EFRepository(db);
 
             Resource = pResource;
+            TList = pTList;
 
             ConfigItems = Configuration;
 
@@ -62,6 +60,8 @@ namespace Phishbait
         //Check if website is in whitelist
         public bool Layer1(Resource Resource)
         {
+            //TO DO cannot follow same rules as other detections because this is a good detection
+
             if (Resource.ItemType == PhishDataType.Positive)
             {
                 LayerDetected = 1;
@@ -100,7 +100,7 @@ namespace Phishbait
             double URLDelta = 20.23;
             double URLDeltaHalved = URLPhishing - (URLDelta / 2);
 
-            Resource.SetDetectionVariables();
+            Resource.SetDetectionVariables(TList);
 
             double OverallUrl = 0;
 
@@ -131,7 +131,7 @@ namespace Phishbait
             if (Resource.HasIPAddress)
                 OverallUrl += 1;
 
-            if (Resource.HasIPAddress)
+            if (Resource.HasPortNumber)
                 OverallUrl += 1;
 
             if (Resource.IsBadHttps)

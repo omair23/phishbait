@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phishbait.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,11 +8,11 @@ namespace Phishbait
 {
     public partial class Form1 : Form
     {
-        UrlStatistic CombinedStats;
         PhishModel db;
         EFRepository Repository;
         Algorithms AlgorithmClass;
         Dictionary<string, string> ConfigItems;
+        TldList TList;
 
         public Form1()
         {
@@ -20,10 +21,9 @@ namespace Phishbait
             db = new PhishModel();
             Repository = new EFRepository(db);
             AlgorithmClass = new Algorithms();
+            TList = new TldList();
 
             txtUrl.Text = "www.google.com";
-
-            CombinedStats = Repository.Find<UrlStatistic>(s => s.Type == StatisticType.Overall).FirstOrDefault();
 
             ConfigItems = Repository
                         .GetAll<Configuration>()
@@ -54,7 +54,7 @@ namespace Phishbait
             }
 
             //TO DO remove test environment
-            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, true, 0);
+            cPhishbait Class = new cPhishbait(Resource, Url, ConfigItems, true, true, false, false, true, 0, TList);
 
             grpMain.Visible = true;
 
